@@ -1,0 +1,423 @@
+/* Cyber Navbar Theme */
+.navbar.topnav {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2) !important;
+  box-shadow: 0 2px 20px rgba(0, 212, 255, 0.1) !important;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+}
+
+.navbar.topnav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: navbar-circuit-move 30s linear infinite;
+  z-index: 1;
+}
+
+.navbar.topnav::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.01) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: navbar-grid-pulse 5s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes navbar-circuit-move {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+@keyframes navbar-grid-pulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+/* Navbar Container */
+.navbar .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Toggle Side Nav */
+.toggle_sidenav {
+  position: relative;
+  z-index: 3;
+}
+
+.toggle_sidenav span {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.toggle_sidenav span:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.toggle_sidenav span i {
+  color: #00D4FF;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.toggle_sidenav span:hover i {
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+}
+
+/* Title */
+.toggle_sidenav b {
+  color: #ffffff;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Actions */
+.actions {
+  position: relative;
+  z-index: 3;
+}
+
+.actions li {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.actions li:hover {
+  color: #00D4FF;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+/* User Dropdown */
+.user-btn {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(0, 212, 255, 0.3) !important;
+  border-radius: 12px !important;
+  padding: 8px 16px !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(10px) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+
+
+.user-btn:hover::before {
+  left: 100%;
+}
+
+.user-btn:hover {
+  background: rgba(0, 212, 255, 0.1) !important;
+  border-color: rgba(0, 212, 255, 0.5) !important;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2) !important;
+  color: #00D4FF !important;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5) !important;
+}
+
+.user-btn:focus {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3) !important;
+}
+
+/* Dropdown Container */
+.dropdown {
+  position: relative !important;
+  z-index: 9999999 !important;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+  border: 1px solid rgba(0, 212, 255, 0.5) !important;
+  border-radius: 12px !important;
+  z-index: 9999999 !important;
+  padding: 12px 0 !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 
+    0 0 25px rgba(0, 212, 255, 0.4),
+    inset 0 0 25px rgba(0, 212, 255, 0.1),
+    0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  position: absolute !important;
+  top: 100% !important;
+  right: 0px !important;
+  left: auto !important;
+  min-width: 180px !important;
+  max-width: 200px !important;
+  margin-top: 8px !important;
+  transform: translateX(0) !important;
+  transition: all 0.3s ease !important;
+}
+
+
+/* Dropdown Show State */
+.dropdown.show .dropdown-menu {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 9999999 !important;
+  transform: translateY(0) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Ensure dropdown appears above all content */
+.navbar .dropdown,
+.navbar .dropdown-menu,
+.navbar .dropdown-item {
+  z-index: 9999999 !important;
+}
+
+/* Override any body or main content z-index */
+body .dropdown-menu {
+  z-index: 9999999 !important;
+}
+
+.navbar .dropdown.show .dropdown-menu {
+  z-index: 9999999 !important;
+  position: absolute !important;
+  overflow: visible !important;
+}
+
+/* Fix overflow issues */
+.navbar {
+  overflow: visible !important;
+}
+
+.navbar-container {
+  overflow: visible !important;
+}
+
+.navbar-nav {
+  overflow: visible !important;
+}
+
+.navbar-collapse {
+  overflow: visible !important;
+}
+
+/* Bootstrap specific fixes */
+.navbar-expand-lg {
+  overflow: visible !important;
+}
+
+.navbar-expand-md {
+  overflow: visible !important;
+}
+
+.navbar-expand-sm {
+  overflow: visible !important;
+}
+
+.navbar-expand-xl {
+  overflow: visible !important;
+}
+
+.navbar-expand-xxl {
+  overflow: visible !important;
+}
+
+/* Fix any container that might clip the dropdown */
+.container,
+.container-fluid,
+.row,
+.col,
+[class*="col-"] {
+  overflow: visible !important;
+}
+
+/* Global fixes for dropdown visibility */
+body,
+html,
+#root,
+.App,
+main,
+.content {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* Ensure navbar area doesn't clip dropdowns */
+.navbar,
+.navbar * {
+  overflow: visible !important;
+}
+
+/* Specific fix for Bootstrap dropdown positioning */
+.dropdown-menu.show {
+  display: block !important;
+  position: absolute !important;
+  top: 100% !important;
+  right: -80px !important;
+  z-index: 9999999 !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* Ensure dropdown stays within viewport */
+.dropdown-menu-end {
+  right: 0px !important;
+  left: auto !important;
+  transform: translateX(0) !important;
+}
+
+/* Responsive dropdown positioning */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    right: 5px !important;
+    left: auto !important;
+    min-width: 160px !important;
+    max-width: 180px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .dropdown-menu {
+    right: 0px !important;
+    left: auto !important;
+    min-width: 140px !important;
+    max-width: 160px !important;
+  }
+}
+
+/* Additional dropdown fixes */
+.dropdown-menu {
+  max-height: none !important;
+  min-height: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  clip: none !important;
+  clip-path: none !important;
+}
+
+/* Ensure dropdown is fully visible */
+.dropdown.show .dropdown-menu {
+  max-height: 500px !important;
+  height: auto !important;
+  overflow-y: auto !important;
+  overflow-x: visible !important;
+}
+
+/* Fix any potential clipping */
+.dropdown-menu,
+.dropdown-menu * {
+  overflow: visible !important;
+  clip: none !important;
+}
+
+
+/* Proper dropdown behavior */
+.dropdown-menu.show {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(0, 212, 255, 0.05) 0%, 
+    transparent 50%, 
+    rgba(0, 255, 255, 0.05) 100%);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.dropdown-item {
+  color: #ffffff !important;
+  padding: 10px 16px !important;
+  transition: all 0.3s ease !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+.dropdown-item:hover {
+  background: rgba(0, 212, 255, 0.15) !important;
+  color: #00D4FF !important;
+  text-shadow: none !important;
+  transform: translateX(5px) !important;
+}
+
+.dropdown-item:focus {
+  background: rgba(0, 212, 255, 0.2) !important;
+  color: #00D4FF !important;
+  text-shadow: none !important;
+}
+
+/* Glowing Effect for Active Elements */
+.navbar.topnav .container > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar.topnav {
+    padding: 10px 0;
+  }
+  
+  .toggle_sidenav span {
+    padding: 8px !important;
+  }
+  
+  .toggle_sidenav b {
+    font-size: 0.9rem;
+  }
+  
+  .actions li {
+    font-size: 0.8rem;
+  }
+  
+  .user-btn {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Fixed Position Styles */
+.navbar.topnav.fixed-top {
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 2px 30px rgba(0, 212, 255, 0.15);
+}
+
+/* With Side Nav Styles */
+.navbar.topnav.with-sidenav {
+  margin-left: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar.topnav.full-width {
+  margin-left: 0;
+  transition: all 0.3s ease;
+}

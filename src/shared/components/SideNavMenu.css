@@ -1,0 +1,262 @@
+/* Cyber Sidebar Theme */
+.main-ul {
+  position: relative;
+  z-index: 2;
+}
+
+/* Sidebar List Items */
+.main-ul li {
+  position: relative;
+  z-index: 2;
+  margin: 8px 12px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.main-ul li:hover {
+  background: rgba(12, 173, 93, 0.1);
+  box-shadow: 
+    0 0 15px rgba(12, 173, 93, 0.2),
+    inset 0 0 15px rgba(12, 173, 93, 0.1);
+  transform: translateX(5px);
+}
+
+.main-ul li.active {
+  background: rgba(12, 173, 93, 0.15);
+  border: 1px solid rgba(12, 173, 93, 0.3);
+  box-shadow: 
+    0 0 20px rgba(12, 173, 93, 0.3),
+    inset 0 0 20px rgba(12, 173, 93, 0.1);
+}
+
+.main-ul li a {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  border-radius: 12px;
+}
+
+.main-ul li a:hover {
+  color: #0CAD5D;
+  text-shadow: 0 0 10px rgba(12, 173, 93, 0.5);
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+  background-color: #202938 !important;
+  border: 1px solid #0CAD5D !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+}
+
+.dropdown-item {
+  color: #6b7280 !important;
+  padding: 8px 16px !important;
+  transition: all 0.3s ease !important;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(12, 173, 93, 0.1) !important;
+  color: #0CAD5D !important;
+}
+
+.dropdown-item.active {
+  background-color: #0CAD5D !important;
+  color: white !important;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1f2e;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0CAD5D;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0a9d4a;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0CAD5D #1a1f2e;
+}
+
+.main-ul li.active a {
+  color: #0CAD5D;
+  text-shadow: 0 0 10px rgba(12, 173, 93, 0.8);
+}
+
+/* Icons */
+.main-ul li .icon {
+  position: relative;
+  z-index: 3;
+  transition: all 0.3s ease;
+}
+
+.main-ul li:hover .icon {
+  filter: drop-shadow(0 0 8px rgba(12, 173, 93, 0.6));
+}
+
+.main-ul li.active .icon {
+  filter: drop-shadow(0 0 10px rgba(12, 173, 93, 0.8));
+}
+
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none !important;
+  border: none !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 12px !important;
+  padding: 12px 8px !important;
+  width: 100% !important;
+  text-align: right !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.dropdown-toggle:hover {
+  color: #0CAD5D !important;
+  text-shadow: 0 0 10px rgba(12, 173, 93, 0.5) !important;
+  background: rgba(12, 173, 93, 0.1) !important;
+}
+
+.dropdown-toggle:focus {
+  box-shadow: none !important;
+}
+
+/* Dropdown Menu */
+.dropdown ul {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(12, 173, 93, 0.5);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 0 25px rgba(12, 173, 93, 0.4),
+    inset 0 0 25px rgba(12, 173, 93, 0.1),
+    0 4px 15px rgba(0, 0, 0, 0.3);
+  margin-top: 8px;
+  padding: 12px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.dropdown ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(12, 173, 93, 0.05) 0%, 
+    transparent 50%, 
+    rgba(12, 173, 93, 0.05) 100%);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.dropdown ul li {
+  margin: 4px 8px;
+  background: none;
+  border-radius: 8px;
+}
+
+.dropdown ul li:hover {
+  background: rgba(12, 173, 93, 0.1);
+  transform: translateX(3px);
+}
+
+.dropdown ul li a {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  color: #ffffff !important;
+  font-weight: 600;
+  text-shadow: none;
+}
+
+.dropdown ul li a:hover {
+  color: #0CAD5D !important;
+  text-shadow: none;
+  background: rgba(12, 173, 93, 0.15);
+}
+
+.dropdown ul li.active a {
+  color: #0CAD5D !important;
+  background: rgba(12, 173, 93, 0.2);
+  text-shadow: none;
+}
+
+/* Glowing Particles Effect */
+.main-ul li::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  width: 4px;
+  height: 4px;
+  background: #0CAD5D;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #0CAD5D;
+}
+
+.main-ul li:hover::before,
+.main-ul li.active::before {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-ul li {
+    margin: 6px 8px;
+  }
+  
+  .main-ul li a {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .dropdown-toggle {
+    padding: 10px 6px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .dropdown ul {
+    margin-top: 6px;
+    padding: 8px 0;
+  }
+  
+  .dropdown ul li a {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+}
