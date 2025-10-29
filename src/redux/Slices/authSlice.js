@@ -1561,6 +1561,157 @@ export const getPayrollReports = createAsyncThunk(
   }
 );
 
+export const relaodFailure = createAsyncThunk(
+  "auth/reloadFailure",
+  async (_, { rejectWithValue }) => {
+    return rejectWithValue("Session expired. Please login again.");
+  }
+);
+
+// Get Accounts Tree
+export const getAccountsTree = createAsyncThunk(
+  "auth/getAccountsTree",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.get(`${BASE_URL}/accounts/tree`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get accounts tree!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Account Details
+export const getAccountDetails = createAsyncThunk(
+  "auth/getAccountDetails",
+  async (accountId, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.get(`${BASE_URL}/accounts/${accountId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get account details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Toggle Account Status
+export const toggleAccountStatus = createAsyncThunk(
+  "auth/toggleAccountStatus",
+  async (accountId, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.patch(`${BASE_URL}/accounts/${accountId}/toggle-status`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to toggle account status!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Add Account
+export const addAccount = createAsyncThunk(
+  "auth/addAccount",
+  async (accountData, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.post(`${BASE_URL}/accounts`, accountData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to add account!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Update Account
+export const updateAccount = createAsyncThunk(
+  "auth/updateAccount",
+  async ({ accountId, accountData }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.put(`${BASE_URL}/accounts/${accountId}`, accountData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to update account!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Delete Account
+export const deleteAccount = createAsyncThunk(
+  "auth/deleteAccount",
+  async (accountId, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.delete(`${BASE_URL}/accounts/${accountId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete account!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -1595,6 +1746,8 @@ const authSlice = createSlice({
     leaveReports: null,
     attendanceReports: null,
     payrollReports: null,
+    accountsTree: [],
+    accountDetails: null,
     rolesPagination: null,
     permissionsPagination: null,
     isLoading: false,
@@ -1616,6 +1769,9 @@ const authSlice = createSlice({
       state.leaveReports = null;
       state.attendanceReports = null;
       state.payrollReports = null;
+    },
+    clearAccountDetails: (state) => {
+      state.accountDetails = null;
     },
     logout: (state) => {
       state.user = null;
@@ -2439,9 +2595,93 @@ const authSlice = createSlice({
       .addCase(getPayrollReports.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      // Get accounts tree
+      .addCase(getAccountsTree.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getAccountsTree.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.accountsTree = action.payload.data || [];
+        state.error = null;
+      })
+      .addCase(getAccountsTree.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get account details
+      .addCase(getAccountDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getAccountDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.accountDetails = action.payload.data || action.payload;
+        state.error = null;
+      })
+      .addCase(getAccountDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Toggle account status
+      .addCase(toggleAccountStatus.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleAccountStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تغيير حالة الحساب بنجاح";
+        state.error = null;
+      })
+      .addCase(toggleAccountStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Add account
+      .addCase(addAccount.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addAccount.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة الحساب بنجاح";
+        state.error = null;
+      })
+      .addCase(addAccount.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Update account
+      .addCase(updateAccount.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateAccount.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تحديث الحساب بنجاح";
+        state.error = null;
+      })
+      .addCase(updateAccount.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Delete account
+      .addCase(deleteAccount.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteAccount.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف الحساب بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteAccount.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
 
-export const { clearState, clearError, clearSuccess, clearReports, logout } = authSlice.actions;
+export const { clearState, clearError, clearSuccess, clearReports, clearAccountDetails, logout } = authSlice.actions;
 export default authSlice.reducer;

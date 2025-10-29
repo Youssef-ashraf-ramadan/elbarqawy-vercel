@@ -44,6 +44,7 @@ import Departments from './features/pages/Hr/departments/Departments';
 import AddDepartment from './features/pages/Hr/departments/AddDepartment';
 import EditDepartment from './features/pages/Hr/departments/EditDepartment';
 import DepartmentDetails from './features/pages/Hr/departments/DepartmentDetails';
+import AccountsTree from './features/pages/Accounting/AccountsTree';
 // import Accounting from './features/dashboard/pages/Accounting-Departments/Accounting';
 // import POS from './features/dashboard/pages/POS-Departments/POS';
 // import Delivery from './features/dashboard/pages/Delivery-Departments/Delivery';
@@ -108,6 +109,7 @@ function App() {
               <Route path="reports/payroll" element={<PayrollReport />} />
               <Route path="reports/attendance" element={<AttendanceReport />} />
               <Route path="reports/leave" element={<LeaveReport />} />
+              <Route path="accounts/tree" element={<AccountsTree />} />
 
               <Route path="shifts" element={<Shifts />} />
               <Route path="shifts/add" element={<AddShift />} />

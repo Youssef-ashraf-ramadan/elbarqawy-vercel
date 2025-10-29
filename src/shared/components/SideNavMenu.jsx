@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { FaHome, FaShieldAlt, FaUsers, FaBook, FaGraduationCap, FaSchool, FaLanguage, FaBuilding, FaLayerGroup, FaDoorOpen, FaChartLine, FaUserGraduate, FaBox, FaChalkboardTeacher, FaLock, FaUserTie, FaClock, FaMoneyBillWave, FaCalendarAlt, FaCogs, FaChartBar, FaKey, FaCog, FaChevronDown, FaCalculator, FaCashRegister, FaWarehouse, FaTruck, FaPhone, FaCalendarCheck, FaHandHoldingUsd, FaGift, FaMinus, FaLightbulb, FaFileInvoice, FaClipboard } from "react-icons/fa";
+import { FaHome, FaShieldAlt, FaUsers, FaBook, FaGraduationCap, FaSchool, FaLanguage, FaBuilding, FaLayerGroup, FaDoorOpen, FaChartLine, FaUserGraduate, FaBox, FaChalkboardTeacher, FaLock, FaUserTie, FaClock, FaMoneyBillWave, FaCalendarAlt, FaCogs, FaChartBar, FaKey, FaCog, FaChevronDown, FaCalculator, FaCashRegister, FaWarehouse, FaTruck, FaPhone, FaCalendarCheck, FaHandHoldingUsd, FaGift, FaMinus, FaLightbulb, FaFileInvoice, FaClipboard, FaProjectDiagram } from "react-icons/fa";
 import './SideNavMenu.css';
 
 const SideNavMenu = ({ handleLinkClick }) => {
@@ -635,6 +635,16 @@ const SideNavMenu = ({ handleLinkClick }) => {
           </li>
         </ul>
         )}
+      </li>
+
+      {/* الشجرة المحاسبية */}
+      <li className={location.pathname === "/accounts/tree" ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: isReportsDropdownOpen ? 'none' : 'flex' }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaProjectDiagram style={{ fontSize: "20px", color: "#0CAD5D" }} />
+        </div>
+        <Link to="/accounts/tree" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>الشجرة المحاسبية</span>
+        </Link>
       </li>
     </ul>
   );

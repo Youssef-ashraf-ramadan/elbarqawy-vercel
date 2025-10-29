@@ -140,7 +140,7 @@ const LeaveReport = () => {
             onClick={handleGenerateReport}
             disabled={isLoading}
             style={{
-              backgroundColor: isLoading ? '#666' : '#ec4899',
+              backgroundColor: isLoading ? '#666' : '#0CAD5D',
               color: 'white',
               border: 'none',
               padding: '12px 24px',
