@@ -1,12 +1,18 @@
 :root {
-  --main-color: #0CAD5D;
-  --main-light: #0b934f;
-  --sub-light: #17864f;
+  --main-color: #AC2000;
+  --main-light: #8a1a00;
+  --sub-light: #a31f00;
   --red-color: #A70300;
   --gray-color: #5A607F;
   --basic-color: #fff;
-  --highlight-blue: #0CAD5D;
+  --highlight-blue: #AC2000;
   --box-shadow: 0px 2px 4px 0px #00000013;
+  --dashboard-bg: #11324d;
+  --table-bg: #11324d;
+  --chart-color-1: #F6630d;
+  --chart-color-2: #B3B3B3;
+  --chart-color-3: #F5F5DC;
+  --bs-body-font-family: "Axt damour", 'Montserrat-Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
 }
 body,html{
   overflow-x: hidden;
@@ -15,11 +21,21 @@ body,html{
 input[type="month" ] svg{
   color: white !important;
 }
-@font-face {
-  font-family: 'Montserrat';
-  src: url('../src/Montserrat-Arabic-Regular.ttf') format('truetype');
+/* Arabic Font - Axt damour */
+/* TODO: Add Axt-damour.ttf file to src folder */
+/* @font-face {
+  font-family: 'Axt damour';
+  src: url('./Axt-damour.ttf') format('truetype');
   font-display: swap;
-}
+} */
+
+/* English Font - Myriad Variable Concept */
+/* TODO: Add Myriad-Variable-Concept.ttf file to src folder */
+/* @font-face {
+  font-family: 'Myriad Variable Concept';
+  src: url('./Myriad-Variable-Concept.ttf') format('truetype');
+  font-display: swap;
+} */
 
 ::selection {
   background-color: var(--main-color);
@@ -31,28 +47,29 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background: var(--basic-color);
+  background: transparent;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #ccc;
+  background-color: #11324d;
   border-radius: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #11324d;
 }
 
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif !important;
+  font-family: "Axt damour", sans-serif !important;
+  font-weight: 600 !important;
   position: relative;
   text-align: right !important;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%) !important;
+  background: var(--dashboard-bg) !important;
   min-height: 100vh;
 }
 
 /* custom */
 .en-lang {
-  font-family: 'LeagueSpartan', sans-serif !important;
-  font-weight: bold !important;
+  font-family: 'Myriad Variable Concept', sans-serif !important;
+  font-weight: 600 !important;
 }
 
 button,
@@ -211,7 +228,7 @@ select {
 
 .file>label {
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 600;
   cursor: pointer;
   outline: 0;
   user-select: none;
@@ -501,7 +518,7 @@ button:has(.sq-btn) {
 
 /* topnav */
 .topnav {
-  background-color: var(--basic-color);
+  background-color: transparent;
   padding-right: 20% !important;
   transition: all .3s ease-in-out;
 }
@@ -586,7 +603,7 @@ button:has(.sq-btn) {
 
 /* sidenav */
 .sidenav {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  background: var(--dashboard-bg);
   width: 250px;
   height: 100%;
   position: fixed;
@@ -597,8 +614,8 @@ button:has(.sq-btn) {
   overflow-y: auto;
   transition: all .3s ease-in-out;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 212, 255, 0.3) rgba(0, 212, 255, 0.1);
-  border-left: 1px solid rgba(0, 212, 255, 0.2);
+  scrollbar-color: rgba(172, 32, 0, 0.3) rgba(172, 32, 0, 0.1);
+  border-left: 1px solid rgba(172, 32, 0, 0.2);
 }
 
 /* Cyber Background Effects for SideNav */
@@ -650,8 +667,8 @@ btn.dropdown-toggle{
 }
 
 .sidenav .dropdown-menu {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  border: 1px solid rgba(0, 212, 255, 0.5);
+  background: var(--dashboard-bg);
+  border: 1px solid rgba(172, 32, 0, 0.5);
   text-align: right;
   font-size: small;
   padding-block: 12px;
@@ -748,7 +765,8 @@ btn.dropdown-toggle{
 }
 .content_wrapper .table thead th{
   color : white !important;
-  
+  background-color: #AC2000 !important;
+  border-radius: 8px 8px 0 0;
 }
 .content_wrapper .table  td{
   text-align: right !important;
@@ -813,7 +831,7 @@ btn.dropdown-toggle{
   transform: translateY(-50%);
   width: 4px;
   height: 20px;
-  background-color: #5cceff;
+  background-color: #AC2000;
   border-radius: 2px;
 }
 
@@ -869,15 +887,15 @@ btn.dropdown-toggle{
 
 .sidenav li:hover .icon svg,
 .sidenav li:hover a span {
-  color: #0CAD5D !important;
+  color: var(--main-color) !important;
 }
 
 .sidenav li:hover .dropdown-toggle {
-  color: #0CAD5D !important;
+  color: var(--main-color) !important;
 }
 
 .sidenav li:hover .dropdown-toggle span {
-  color: #0CAD5D !important;
+  color: var(--main-color) !important;
 }
 
 .sidenav li:hover {
@@ -916,7 +934,7 @@ btn.dropdown-toggle{
 
 /* Cyber Background Effects for Content Wrapper - Only for non-home pages */
 .content_wrapper:not(.home-page) {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  background: var(--dashboard-bg);
   min-height: calc(100vh - 100px);
   overflow: hidden;
 }
@@ -967,9 +985,10 @@ btn.dropdown-toggle{
   }
 
   .sidenav.closedNav {
-    width: 60px;
-    right: 0;
-    overflow: visible;
+    width: 0;
+    padding: 0;
+    right: -250px;
+    overflow: hidden;
   }
 
   .topnav.with-sidenav {
@@ -1000,10 +1019,10 @@ btn.dropdown-toggle{
     right: -250px !important;
     width: 250px !important;
     height: 100vh !important;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%) !important;
+    background: var(--dashboard-bg) !important;
     transition: right 0.3s ease-in-out !important;
     overflow-y: auto !important;
-    border-left: 1px solid rgba(0, 212, 255, 0.3) !important;
+    border-left: 1px solid rgba(172, 32, 0, 0.3) !important;
   }
 
   .sidenav.openNav {
@@ -1016,6 +1035,8 @@ btn.dropdown-toggle{
 
   .content_wrapper {
     margin-right: 0 !important;
+    padding-inline: 15px !important;
+    margin-block: 15px !important;
     transition: all .3s ease-in-out;
   }
 
@@ -1218,23 +1239,33 @@ section.Toastify {
 }
 
 /* Ensure content appears above background effects */
-.content_wrapper .container {
+.content_wrapper .container,
+.content_wrapper .container-fluid {
   position: relative;
   z-index: 2;
 }
 
+.content_wrapper .container-fluid > div {
+  background-color: transparent !important;
+  border-radius: 20px;
+}
 .topnav {
-  background-color: var(--basic-color);
+  background-color: transparent;
   transition: all 0.3s ease-in-out;
   padding-top: 16px;
   padding-bottom: 16px;
   position: relative;
+  z-index: 200000 !important;
 }
 
 /* Ensure dropdowns work properly */
 .topnav .dropdown {
   position: relative;
-  z-index: 99999 !important;
+  z-index: 100000 !important;
+}
+
+.topnav .dropdown-menu {
+  z-index: 200001 !important;
 }
 
 .topnav .dropdown-menu {
@@ -1275,9 +1306,10 @@ section.Toastify {
 
 /* Odd rows */
 .content_wrapper .table thead th {
-  background-color: var(--basic-color);
-  color: #7E84A3 !important;
+  background-color: #AC2000 !important;
+  color: white !important;
   border-bottom: 1px solid #ddd !important;
+  border-radius: 8px 8px 0 0;
 }
 
 .content_wrapper .table tbody tr:nth-child(odd) td,
@@ -1526,6 +1558,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 [dir="ltr"] body {
   text-align: left;
   font-family: 'LeagueSpartan', sans-serif !important;
+  font-weight: 600 !important;
   direction: ltr !important;
 }
 
@@ -1588,7 +1621,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .ar-lang {
-  font-weight: normal !important;
+  font-weight: 600 !important;
 }
 
 [dir="ltr"] .ar-lang {
@@ -1758,13 +1791,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .hr-table thead th {
-  background-color: white;
-  color: #7E84A3;
+  background-color: #AC2000 !important;
+  color: white !important;
   border-bottom: 1px solid #ddd;
   padding: 20px 15px;
   font-weight: bold;
   text-align: right;
   font-size: 14px;
+  border-radius: 8px 8px 0 0;
 }
 
 .hr-table tbody td {
@@ -1848,9 +1882,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .view-btn {
-  background-color: #6c757d;
+  background-color: #F5F5DC;
   border: none;
-  color: white;
+  color: #333;
   padding: 8px 12px;
   border-radius: 5px;
   display: flex;
@@ -1859,14 +1893,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .view-btn:hover {
-  background-color: #5a6268;
-  color: white;
+  background-color: #e8e8d0;
+  color: #333;
 }
 
 .edit-btn {
-  background-color: #ffc107;
+  background-color: #B3B3B3;
   border: none;
-  color: #212529;
+  color: white;
   padding: 8px 12px;
   border-radius: 5px;
   display: flex;
@@ -1875,12 +1909,12 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .edit-btn:hover {
-  background-color: #e0a800;
-  color: #212529;
+  background-color: #999999;
+  color: white;
 }
 
 .delete-btn {
-  background-color: #dc3545;
+  background-color: #F6630d;
   border: none;
   color: white;
   padding: 8px 12px;
@@ -1891,7 +1925,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .delete-btn:hover {
-  background-color: #c82333;
+  background-color: #d9540b;
   color: white;
 }
 
@@ -1988,6 +2022,54 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 @media(max-width:1200px) {
   .content_wrapper {
     margin-right: 0;
+    padding-inline: 15px;
+    margin-block: 15px;
+  }
+  
+  .content_wrapper .container,
+  .content_wrapper .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 100%;
+  }
+}
+
+@media(max-width: 768px) {
+  .content_wrapper {
+    padding-inline: 10px !important;
+    margin-block: 10px !important;
+  }
+  
+  .content_wrapper .container,
+  .content_wrapper .container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media(max-width: 576px) {
+  .content_wrapper {
+    padding-inline: 8px !important;
+    margin-block: 8px !important;
+  }
+  
+  .content_wrapper .container,
+  .content_wrapper .container-fluid {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+@media(max-width: 400px) {
+  .content_wrapper {
+    padding-inline: 5px !important;
+    margin-block: 5px !important;
+  }
+  
+  .content_wrapper .container,
+  .content_wrapper .container-fluid {
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }
 
@@ -2267,4 +2349,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 .month-input-white::-moz-calendar-picker-indicator:hover {
   opacity: 1;
+}
+.content_wrapper{
+  z-index: 2222;
 }

@@ -54,7 +54,7 @@ const ProfilePage = () => {
       className="container-fluid d-flex justify-content-center align-items-center"
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+        background: 'var(--dashboard-bg)',
         position: 'relative',
         padding: '40px 0'
       }}
@@ -71,7 +71,7 @@ const ProfilePage = () => {
       }}></div>
 
       <div className="row justify-content-center w-100">
-        <div className="col-md-8 col-lg-6">
+        <div className="col-md-10 col-lg-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -85,11 +85,16 @@ const ProfilePage = () => {
             }}
           >
             <div 
-              className="card-header text-white text-center py-4" 
+              className="card-header text-white py-4" 
               style={{ 
                 borderRadius: '15px 15px 0 0',
-                background: 'linear-gradient(135deg, #0CAD5D 0%, #08a04a 100%)',
-                border: 'none'
+                background: 'linear-gradient(135deg, #AC2000 0%, #8a1a00 100%)',
+                border: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center'
               }}
             >
               <motion.div
@@ -108,12 +113,15 @@ const ProfilePage = () => {
                     fontSize: '2rem'
                   }}
                 >
-                  <FaUser />
+                  <FaUser style={{ color: 'white' }} />
                 </div>
               </motion.div>
               <h4 className="mb-0" style={{ 
                 fontFamily: 'Montserrat-Arabic, sans-serif',
-                fontWeight: '600'
+                fontWeight: '600',
+                textAlign: 'center',
+                display: 'block',
+                margin: '0 auto'
               }}>
                 الملف الشخصي
               </h4>
@@ -126,84 +134,291 @@ const ProfilePage = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="info-item mb-4">
-                        <div className="d-flex align-items-center mb-2">
-                          <FaUser className="mx-3" style={{ fontSize: '1.2rem', color: '#0CAD5D' }} />
-                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600' }}>
+                  <div className="row g-3">
+                    {/* الصف الأول: الاسم الكامل والبريد الإلكتروني */}
+                    <div className="col-12 col-md-6">
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5 }}
+                        className="info-item"
+                        style={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.1)',
+                          border: '1px solid rgba(172, 32, 0, 0.3)',
+                          borderRadius: '12px',
+                          padding: '20px',
+                          height: '100%',
+                          transition: 'all 0.3s ease',
+                          cursor: 'default'
+                        }}
+                        whileHover={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.15)',
+                          borderColor: 'rgba(172, 32, 0, 0.5)',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(172, 32, 0, 0.2)'
+                        }}
+                      >
+                        <div className="d-flex align-items-center mb-3">
+                          <div style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '10px',
+                            backgroundColor: 'rgba(172, 32, 0, 0.2)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginLeft: '12px'
+                          }}>
+                            <FaUser style={{ fontSize: '1.1rem', color: 'white' }} />
+                          </div>
+                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600', fontSize: '0.9rem' }}>
                             الاسم الكامل
                           </h6>
                         </div>
-                        <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1.1rem', opacity: 0.9 }}>
+                        <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1rem', opacity: 0.95, fontWeight: '500' }}>
                           {profileData.name || 'غير محدد'}
                         </p>
-                      </div>
+                      </motion.div>
+                    </div>
 
-                      <div className="info-item mb-4">
-                        <div className="d-flex align-items-center mb-2">
-                          <FaEnvelope className="mx-3" style={{ fontSize: '1.2rem', color: '#0CAD5D' }} />
-                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600' }}>
+                    <div className="col-12 col-md-6">
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.6 }}
+                        className="info-item"
+                        style={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.1)',
+                          border: '1px solid rgba(172, 32, 0, 0.3)',
+                          borderRadius: '12px',
+                          padding: '20px',
+                          height: '100%',
+                          transition: 'all 0.3s ease',
+                          cursor: 'default'
+                        }}
+                        whileHover={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.15)',
+                          borderColor: 'rgba(172, 32, 0, 0.5)',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(172, 32, 0, 0.2)'
+                        }}
+                      >
+                        <div className="d-flex align-items-center mb-3">
+                          <div style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '10px',
+                            backgroundColor: 'rgba(172, 32, 0, 0.2)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginLeft: '12px'
+                          }}>
+                            <FaEnvelope style={{ fontSize: '1.1rem', color: 'white' }} />
+                          </div>
+                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600', fontSize: '0.9rem' }}>
                             البريد الإلكتروني
                           </h6>
                         </div>
-                        <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1.1rem', opacity: 0.9 }}>
+                        <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1rem', opacity: 0.95, fontWeight: '500' }}>
                           {profileData.email || 'غير محدد'}
                         </p>
-                      </div>
+                      </motion.div>
+                    </div>
 
-                      <div className="info-item mb-4">
-                        <div className="d-flex align-items-center mb-2">
-                          <FaPhone className="mx-3" style={{ fontSize: '1.2rem', color: '#0CAD5D' }} />
-                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600' }}>
+                    {/* الصف الثاني: رقم الهاتف وحالة الحساب */}
+                    <div className="col-12 col-md-6">
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.7 }}
+                        className="info-item"
+                        style={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.1)',
+                          border: '1px solid rgba(172, 32, 0, 0.3)',
+                          borderRadius: '12px',
+                          padding: '20px',
+                          height: '100%',
+                          transition: 'all 0.3s ease',
+                          cursor: 'default'
+                        }}
+                        whileHover={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.15)',
+                          borderColor: 'rgba(172, 32, 0, 0.5)',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(172, 32, 0, 0.2)'
+                        }}
+                      >
+                        <div className="d-flex align-items-center mb-3">
+                          <div style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '10px',
+                            backgroundColor: 'rgba(172, 32, 0, 0.2)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginLeft: '12px'
+                          }}>
+                            <FaPhone style={{ fontSize: '1.1rem', color: 'white' }} />
+                          </div>
+                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600', fontSize: '0.9rem' }}>
                             رقم الهاتف
                           </h6>
                         </div>
-                        <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1.1rem', opacity: 0.9 }}>
+                        <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1rem', opacity: 0.95, fontWeight: '500' }}>
                           {profileData.phone || 'غير محدد'}
                         </p>
-                      </div>
+                      </motion.div>
+                    </div>
 
-                      <div className="info-item mb-4">
-                        <div className="d-flex align-items-center mb-2">
-                          <FaCheckCircle className="mx-3" style={{ fontSize: '1.2rem', color: '#0CAD5D' }} />
-                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600' }}>
+                    <div className="col-12 col-md-6">
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.8 }}
+                        className="info-item"
+                        style={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.1)',
+                          border: '1px solid rgba(172, 32, 0, 0.3)',
+                          borderRadius: '12px',
+                          padding: '20px',
+                          height: '100%',
+                          transition: 'all 0.3s ease',
+                          cursor: 'default'
+                        }}
+                        whileHover={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.15)',
+                          borderColor: 'rgba(172, 32, 0, 0.5)',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(172, 32, 0, 0.2)'
+                        }}
+                      >
+                        <div className="d-flex align-items-center mb-3">
+                          <div style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '10px',
+                            backgroundColor: 'rgba(172, 32, 0, 0.2)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginLeft: '12px'
+                          }}>
+                            <FaCheckCircle style={{ fontSize: '1.1rem', color: 'white' }} />
+                          </div>
+                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600', fontSize: '0.9rem' }}>
                             حالة الحساب
                           </h6>
                         </div>
-                        <p className="mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1.1rem' }}>
-                          <span className={`badge ${profileData.is_active ? 'bg-success' : 'bg-danger'}`} style={{ fontSize: '0.9rem' }}>
+                        <p className="mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1rem' }}>
+                          <span style={{ 
+                            fontSize: '0.85rem', 
+                            padding: '6px 12px', 
+                            borderRadius: '6px', 
+                            fontWeight: '500',
+                            backgroundColor: profileData.is_active ? '#AC2000' : '#dc3545',
+                            color: 'white',
+                            display: 'inline-block'
+                          }}>
                             {profileData.is_active ? 'نشط' : 'غير نشط'}
                           </span>
                         </p>
-                      </div>
+                      </motion.div>
+                    </div>
 
-                      <div className="info-item mb-4">
-                        <div className="d-flex align-items-center mb-2">
-                          <FaCalendarAlt className="mx-3" style={{ fontSize: '1.2rem', color: '#0CAD5D' }} />
-                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600' }}>
+                    {/* الصف الثالث: تاريخ الإنشاء وتاريخ تأكيد البريد */}
+                    <div className="col-12 col-md-6">
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.9 }}
+                        className="info-item"
+                        style={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.1)',
+                          border: '1px solid rgba(172, 32, 0, 0.3)',
+                          borderRadius: '12px',
+                          padding: '20px',
+                          height: '100%',
+                          transition: 'all 0.3s ease',
+                          cursor: 'default'
+                        }}
+                        whileHover={{
+                          backgroundColor: 'rgba(172, 32, 0, 0.15)',
+                          borderColor: 'rgba(172, 32, 0, 0.5)',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(172, 32, 0, 0.2)'
+                        }}
+                      >
+                        <div className="d-flex align-items-center mb-3">
+                          <div style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '10px',
+                            backgroundColor: 'rgba(172, 32, 0, 0.2)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginLeft: '12px'
+                          }}>
+                            <FaCalendarAlt style={{ fontSize: '1.1rem', color: 'white' }} />
+                          </div>
+                          <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600', fontSize: '0.9rem' }}>
                             تاريخ الإنشاء
                           </h6>
                         </div>
-                        <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1.1rem', opacity: 0.9 }}>
+                        <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1rem', opacity: 0.95, fontWeight: '500' }}>
                           {formatDate(profileData.created_at)}
                         </p>
-                      </div>
+                      </motion.div>
+                    </div>
 
-                      {profileData.email_verified_at && (
-                        <div className="info-item mb-4">
-                          <div className="d-flex align-items-center mb-2">
-                            <FaCheckCircle className="mx-3" style={{ fontSize: '1.2rem', color: '#0CAD5D' }} />
-                            <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600' }}>
+                    {profileData.email_verified_at && (
+                      <div className="col-12 col-md-6">
+                        <motion.div
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 1.0 }}
+                          className="info-item"
+                          style={{
+                            backgroundColor: 'rgba(172, 32, 0, 0.1)',
+                            border: '1px solid rgba(172, 32, 0, 0.3)',
+                            borderRadius: '12px',
+                            padding: '20px',
+                            height: '100%',
+                            transition: 'all 0.3s ease',
+                            cursor: 'default'
+                          }}
+                          whileHover={{
+                            backgroundColor: 'rgba(172, 32, 0, 0.15)',
+                            borderColor: 'rgba(172, 32, 0, 0.5)',
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 4px 12px rgba(172, 32, 0, 0.2)'
+                          }}
+                        >
+                          <div className="d-flex align-items-center mb-3">
+                            <div style={{
+                              width: '40px',
+                              height: '40px',
+                              borderRadius: '10px',
+                              backgroundColor: 'rgba(172, 32, 0, 0.2)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              marginLeft: '12px'
+                            }}>
+                              <FaCheckCircle style={{ fontSize: '1.1rem', color: 'white' }} />
+                            </div>
+                            <h6 className="mb-0 text-white" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '600', fontSize: '0.9rem' }}>
                               تاريخ تأكيد البريد الإلكتروني
                             </h6>
                           </div>
-                          <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1.1rem', opacity: 0.9 }}>
+                          <p className="text-white mb-0" style={{ fontFamily: 'Montserrat-Arabic, sans-serif', fontSize: '1rem', opacity: 0.95, fontWeight: '500' }}>
                             {formatDate(profileData.email_verified_at)}
                           </p>
-                        </div>
-                      )}
-                    </div>
+                        </motion.div>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               ) : (
@@ -222,3 +437,6 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+
+

@@ -26,20 +26,15 @@ const AddJobTitle = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('AddJobTitle handleSubmit called with formData:', formData);
     if (!formData.name_en || !formData.name_ar || !formData.description_en || !formData.description_ar) {
-      console.log('Validation failed - missing fields');
       toast.error('جميع الحقول مطلوبة', { rtl: true });
       return;
     }
-    console.log('Dispatching addPosition...');
     await dispatch(addPosition(formData));
   };
 
   React.useEffect(() => {
-    console.log('AddJobTitle useEffect - success:', success, 'error:', error);
     if (success) {
-      console.log('Showing success toast:', success);
       toast.success(success, { rtl: true });
       // Navigate after showing toast
       setTimeout(() => {
@@ -48,7 +43,6 @@ const AddJobTitle = () => {
       }, 1500);
     }
     if (error) {
-      console.log('Showing error toast:', error);
       toast.error(error, { rtl: true });
       // Clear error after showing toast
       setTimeout(() => {
@@ -75,7 +69,7 @@ const AddJobTitle = () => {
           style={{
             backgroundColor: 'transparent',
             border: 'none',
-            color: '#0CAD5D',
+            color: '#AC2000',
             fontSize: '16px',
             cursor: 'pointer',
             display: 'flex',
@@ -237,7 +231,7 @@ const AddJobTitle = () => {
               type="submit"
               disabled={isLoading}
               style={{
-                backgroundColor: isLoading ? '#666' : '#0CAD5D',
+                backgroundColor: isLoading ? '#666' : '#AC2000',
                 color: 'white',
                 border: 'none',
                 padding: '12px 30px',

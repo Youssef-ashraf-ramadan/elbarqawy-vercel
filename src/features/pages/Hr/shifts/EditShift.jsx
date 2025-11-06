@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getWorkShiftDetails, updateWorkShift, clearError, clearSuccess } from '../../../../redux/Slices/authSlice';
@@ -11,6 +11,8 @@ const EditShift = () => {
   const { id } = useParams();
   const { workShiftDetails, isLoading, error, success } = useSelector((state) => state.auth);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const lastErrorRef = useRef({ message: null, time: 0 });
+  const lastSuccessRef = useRef({ message: null, time: 0 });
 
   const [formData, setFormData] = useState({
     name_en: '',
@@ -44,7 +46,6 @@ const EditShift = () => {
 
   useEffect(() => {
     if (workShiftDetails) {
-      console.log('Work shift details received:', workShiftDetails);
       setFormData({
         name_en: workShiftDetails.name_en || workShiftDetails.name || '',
         name_ar: workShiftDetails.name_ar || workShiftDetails.name || '',
@@ -55,15 +56,37 @@ const EditShift = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success(success, { rtl: true });
-      dispatch(clearSuccess());
-      navigate('/shifts');
+      const now = Date.now();
+      const last = lastSuccessRef.current;
+      // Only show toast if it's a different message or enough time has passed
+      if (!last.message || last.message !== success || now - last.time > 2000) {
+        toast.success(success, { rtl: true });
+        lastSuccessRef.current = { message: success, time: now };
+        // Clear success and navigate after showing toast (give time for toast to appear)
+        setTimeout(() => {
+          dispatch(clearSuccess());
+          navigate('/shifts');
+        }, 1500);
+      }
     }
+  }, [success, dispatch, navigate]);
+
+  useEffect(() => {
     if (error) {
-      toast.error(error, { rtl: true });
-      dispatch(clearError());
+      const now = Date.now();
+      const last = lastErrorRef.current;
+      // Only show toast if it's a different message or enough time has passed
+      if (!last.message || last.message !== error || now - last.time > 2000) {
+        toast.error(error, { rtl: true });
+        lastErrorRef.current = { message: error, time: now };
+      }
+      // Clear error after showing toast
+      const timer = setTimeout(() => {
+        dispatch(clearError());
+      }, 3000);
+      return () => clearTimeout(timer);
     }
-  }, [success, error, dispatch, navigate]);
+  }, [error, dispatch]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -124,7 +147,7 @@ const EditShift = () => {
             width: '40px',
             height: '40px',
             border: '4px solid #333',
-            borderTop: '4px solid #0CAD5D',
+            borderTop: '4px solid #AC2000',
             borderRadius: '50%',
             animation: 'spin 1s linear infinite',
             margin: '0 auto 20px'
@@ -142,15 +165,35 @@ const EditShift = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      <div style={{ marginBottom: '30px' }}>
+      <div style={{ marginBottom: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 style={{ 
           fontSize: '24px', 
           fontWeight: 'bold', 
           marginBottom: '20px',
-          color: 'white'
+          color: 'white',
+          margin: 0
         }}>
           تعديل الوردية
         </h1>
+        <button
+          onClick={() => navigate('/shifts')}
+          style={{
+            backgroundColor: '#666',
+            color: 'white',
+            border: 'none',
+            padding: '10px 20px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          <FaArrowRight />
+          العودة للقائمة
+        </button>
       </div>
 
       <form onSubmit={handleSubmit} style={{
@@ -244,7 +287,7 @@ const EditShift = () => {
                   marginBottom: '15px'
                 }}>
                   <h4 style={{
-                    color: '#0CAD5D',
+                    color: 'white',
                     margin: 0,
                     fontSize: '16px',
                     fontWeight: 'bold'
@@ -266,7 +309,7 @@ const EditShift = () => {
                       style={{
                         width: '18px',
                         height: '18px',
-                        accentColor: '#0CAD5D'
+                        accentColor: '#AC2000'
                       }}
                     />
                     يوم إجازة
@@ -369,7 +412,7 @@ const EditShift = () => {
             type="submit"
             disabled={isSubmitting}
             style={{
-              backgroundColor: isSubmitting ? '#666' : '#0CAD5D',
+              backgroundColor: isSubmitting ? '#666' : '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 24px',

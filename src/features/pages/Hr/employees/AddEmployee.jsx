@@ -82,16 +82,11 @@ const AddEmployee = () => {
       images.forEach((image, index) => {
         if (image.file) {
           formDataToSend.append(`images[${index}]`, image.file);
-          console.log(`Added image ${index}:`, image.file.name, image.file.type);
         }
       });
     }
     
-    // Debug: Log FormData contents
-    console.log('FormData contents:');
-    for (let [key, value] of formDataToSend.entries()) {
-      console.log(key, value);
-    }
+  
     
     await dispatch(addEmployee(formDataToSend));
   };
@@ -134,15 +129,17 @@ const AddEmployee = () => {
         <button
           onClick={() => navigate('/employees')}
           style={{
-            backgroundColor: 'transparent',
+            backgroundColor: '#666',
+            color: 'white',
             border: 'none',
-            color: '#0CAD5D',
-            fontSize: '16px',
+            padding: '10px',
+            borderRadius: '8px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            marginBottom: '20px'
+            marginBottom: '20px',
+            fontSize: '14px'
           }}
         >
           <FaArrowLeft />
@@ -272,7 +269,7 @@ const AddEmployee = () => {
                     right: '15px',
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    color: '#0CAD5D',
+                    color: '#AC2000',
                     fontSize: '14px',
                     fontWeight: 'bold',
                     zIndex: 1
@@ -556,13 +553,13 @@ const AddEmployee = () => {
                   alignItems: 'center',
                   gap: '8px',
                   backgroundColor: 'transparent',
-                  color: '#0CAD5D',
+                  color: 'white',
                   padding: '12px 20px',
                   borderRadius: '8px',
                   cursor: isUploadingImages ? 'not-allowed' : 'pointer',
                   fontSize: '14px',
                   fontWeight: 'bold',
-                  border: '2px solid #0CAD5D',
+                  border: '2px solid #AC2000',
                   opacity: isUploadingImages ? 0.6 : 1,
                   transition: 'all 0.3s ease'
                 }}
@@ -572,7 +569,7 @@ const AddEmployee = () => {
                     <div style={{
                       width: '16px',
                       height: '16px',
-                      border: '2px solid #0CAD5D',
+                      border: '2px solid #AC2000',
                       borderTop: '2px solid transparent',
                       borderRadius: '50%',
                       animation: 'spin 1s linear infinite'
@@ -656,7 +653,7 @@ const AddEmployee = () => {
               type="submit"
               disabled={isLoading}
               style={{
-                backgroundColor: isLoading ? '#666' : '#0CAD5D',
+                backgroundColor: isLoading ? '#666' : '#AC2000',
                 color: 'white',
                 border: 'none',
                 padding: '12px 30px',

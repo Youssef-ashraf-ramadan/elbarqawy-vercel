@@ -29,29 +29,17 @@ const EditEmployee = () => {
 
   useEffect(() => {
     if (id) {
-      console.log('Loading employee details for ID:', id);
       dispatch(getEmployeeDetails(id));
     }
-    console.log('Loading departments, positions, and work shifts');
     dispatch(getDepartments());
     dispatch(getPositions());
     dispatch(getWorkShifts());
   }, [id, dispatch]);
 
   // Debug: Log when data changes
-  useEffect(() => {
-    console.log('Departments loaded:', departments);
-    console.log('Positions loaded:', positions);
-    console.log('Work shifts loaded:', workShifts);
-    console.log('Employee details:', employeeDetails);
-    console.log('Form data department_id:', formData.department_id);
-    console.log('Form data position_id:', formData.position_id);
-    console.log('Form data work_shift_id:', formData.work_shift_id);
-  }, [departments, positions, workShifts, employeeDetails, formData.department_id, formData.position_id, formData.work_shift_id]);
-
+  
   useEffect(() => {
     if (employeeDetails) {
-      console.log('Setting form data from employeeDetails:', employeeDetails);
       
       // Find department ID by name
       const departmentId = employeeDetails.department_id || 
@@ -65,7 +53,6 @@ const EditEmployee = () => {
       const workShiftId = employeeDetails.work_shift_id || 
         employeeDetails.work_shift?.id || '';
       
-      console.log('Found IDs:', { departmentId, positionId, workShiftId });
       
       setFormData({
         name_en: employeeDetails.name_en || employeeDetails.name || '',
@@ -210,15 +197,17 @@ const EditEmployee = () => {
         <button
           onClick={() => navigate('/employees')}
           style={{
-            backgroundColor: 'transparent',
+            backgroundColor: '#666',
+            color: 'white',
             border: 'none',
-            color: '#0CAD5D',
-            fontSize: '16px',
+            padding: '10px',
+            borderRadius: '8px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            marginBottom: '20px'
+            marginBottom: '20px',
+            fontSize: '14px'
           }}
         >
           <FaArrowLeft />
@@ -348,7 +337,7 @@ const EditEmployee = () => {
                     right: '15px',
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    color: '#0CAD5D',
+                    color: '#AC2000',
                     fontSize: '14px',
                     fontWeight: 'bold',
                     zIndex: 1
@@ -643,13 +632,13 @@ const EditEmployee = () => {
                   alignItems: 'center',
                   gap: '8px',
                   backgroundColor: 'transparent',
-                  color: '#0CAD5D',
+                  color: 'white',
                   padding: '12px 20px',
                   borderRadius: '8px',
                   cursor: isUploadingImages ? 'not-allowed' : 'pointer',
                   fontSize: '14px',
                   fontWeight: 'bold',
-                  border: '2px solid #0CAD5D',
+                  border: '2px solid #AC2000',
                   opacity: isUploadingImages ? 0.6 : 1,
                   transition: 'all 0.3s ease'
                 }}
@@ -659,7 +648,7 @@ const EditEmployee = () => {
                     <div style={{
                       width: '16px',
                       height: '16px',
-                      border: '2px solid #0CAD5D',
+                      border: '2px solid #AC2000',
                       borderTop: '2px solid transparent',
                       borderRadius: '50%',
                       animation: 'spin 1s linear infinite'
@@ -854,7 +843,7 @@ const EditEmployee = () => {
               type="submit"
               disabled={isLoading}
               style={{
-                backgroundColor: isLoading ? '#666' : '#0CAD5D',
+                backgroundColor: isLoading ? '#666' : '#AC2000',
                 color: 'white',
                 border: 'none',
                 padding: '12px 30px',

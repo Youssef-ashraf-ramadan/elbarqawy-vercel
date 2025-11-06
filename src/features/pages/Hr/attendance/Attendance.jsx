@@ -86,7 +86,7 @@ const Attendance = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'present':
-        return '#0CAD5D';
+        return '#AC2000';
       case 'absent':
         return '#dc3545';
       case 'late':
@@ -139,7 +139,7 @@ const Attendance = () => {
           <button
             onClick={() => setShowCheckInModal(true)}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 20px',
@@ -370,8 +370,8 @@ const Attendance = () => {
                                     position: 'relative',
                                     marginBottom: '8px',
                                     padding: '12px 16px',
-                                    backgroundColor: isCheckout ? 'rgba(220, 53, 69, 0.1)' : 'rgba(12, 173, 93, 0.1)',
-                                    border: `2px solid ${isCheckout ? '#dc3545' : '#0CAD5D'}`,
+                                    backgroundColor: isCheckout ? 'rgba(220, 53, 69, 0.1)' : 'rgba(172, 32, 0, 0.1)',
+                                    border: `2px solid ${isCheckout ? '#dc3545' : '#AC2000'}`,
                                     borderRadius: '12px',
                                     fontSize: '12px',
                                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
@@ -387,7 +387,7 @@ const Attendance = () => {
                                       right: '12px',
                                       width: '20px',
                                       height: '20px',
-                                      backgroundColor: isCheckout ? '#dc3545' : '#0CAD5D',
+                                      backgroundColor: isCheckout ? '#dc3545' : '#AC2000',
                                       borderRadius: '50%',
                                       display: 'flex',
                                       alignItems: 'center',
@@ -404,7 +404,7 @@ const Attendance = () => {
                                   
                                   {/* نوع الملاحظة */}
                                   <div style={{
-                                    color: isCheckout ? '#dc3545' : '#0CAD5D',
+                                    color: isCheckout ? '#dc3545' : '#AC2000',
                                     fontWeight: 'bold',
                                     marginBottom: '4px',
                                     fontSize: '11px',
@@ -433,7 +433,7 @@ const Attendance = () => {
                                       left: '0',
                                       right: '0',
                                       height: '2px',
-                                      background: `linear-gradient(90deg, ${isCheckout ? '#dc3545' : '#0CAD5D'}, transparent)`,
+                                      background: `linear-gradient(90deg, ${isCheckout ? '#dc3545' : '#AC2000'}, transparent)`,
                                       borderRadius: '0 0 12px 12px',
                                       transition: 'opacity 0.3s ease'
                                     }}
@@ -518,7 +518,7 @@ const Attendance = () => {
               style={{
                 padding: '8px 12px',
                 margin: '0 2px',
-                backgroundColor: currentPage === 1 ? '#666' : '#0CAD5D',
+                backgroundColor: currentPage === 1 ? '#666' : '#AC2000',
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
@@ -540,7 +540,7 @@ const Attendance = () => {
                     style={{
                       padding: '8px 12px',
                       margin: '0 2px',
-                      backgroundColor: page === currentPage ? '#0CAD5D' : '#333',
+                      backgroundColor: page === currentPage ? '#AC2000' : '#333',
                       color: 'white',
                       border: 'none',
                       borderRadius: '4px',
@@ -569,7 +569,7 @@ const Attendance = () => {
               style={{
                 padding: '8px 12px',
                 margin: '0 2px',
-                backgroundColor: currentPage === attendancePagination.last_page ? '#666' : '#0CAD5D',
+                backgroundColor: currentPage === attendancePagination.last_page ? '#666' : '#AC2000',
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
@@ -684,7 +684,7 @@ const Attendance = () => {
                 onClick={handleCheckIn}
                 disabled={isLoading}
                         style={{
-                  backgroundColor: isLoading ? '#666' : '#0CAD5D',
+                  backgroundColor: isLoading ? '#666' : '#AC2000',
                           color: 'white',
                           border: 'none',
                   padding: '10px 20px',

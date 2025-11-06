@@ -119,7 +119,7 @@ const HrDashboard = () => {
             <div style={{ 
               fontSize: '36px', 
               fontWeight: 'bold', 
-              color: '#0CAD5D',
+              color: '#AC2000',
               marginBottom: '5px',
               fontFamily: 'Montserrat-Arabic, sans-serif'
             }}>
@@ -154,7 +154,7 @@ const HrDashboard = () => {
           <div style={{
             width: '60px',
             height: '60px',
-            backgroundColor: '#0CAD5D',
+            backgroundColor: '#AC2000',
             borderRadius: '12px',
             display: 'flex',
             alignItems: 'center',
@@ -168,7 +168,7 @@ const HrDashboard = () => {
             <div style={{ 
               fontSize: '36px', 
               fontWeight: 'bold', 
-              color: '#0CAD5D',
+              color: '#AC2000',
               marginBottom: '5px',
               fontFamily: 'Montserrat-Arabic, sans-serif'
             }}>
@@ -217,7 +217,7 @@ const HrDashboard = () => {
             <div style={{ 
               fontSize: '36px', 
               fontWeight: 'bold', 
-              color: '#0CAD5D',
+              color: '#AC2000',
               marginBottom: '5px',
               fontFamily: 'Montserrat-Arabic, sans-serif'
             }}>
@@ -257,7 +257,7 @@ const HrDashboard = () => {
         }}>
           <div style={{
             padding: '20px',
-            borderBottom: '1px solid #0CAD5D',
+            borderBottom: '1px solid #AC2000',
             backgroundColor: '#202938'
           }}>
             <h3 style={{ 
@@ -372,14 +372,14 @@ const HrDashboard = () => {
         }}>
           <div style={{
             padding: '20px',
-            borderBottom: '1px solid #0CAD5D',
+            borderBottom: '1px solid #AC2000',
             backgroundColor: '#202938'
           }}>
             <h3 style={{ 
               margin: 0, 
               fontSize: '18px', 
               fontWeight: 'bold',
-              color: '#0CAD5D',
+              color: '#white',
               fontFamily: 'Montserrat-Arabic, sans-serif'
             }}>
               الغيابات
@@ -392,7 +392,7 @@ const HrDashboard = () => {
               width: '180px',
               height: '180px',
               borderRadius: '50%',
-              background: 'conic-gradient(#0CAD5D 0deg 270deg, #ff6b35 270deg 324deg, #dc3545 324deg 360deg)',
+              background: 'conic-gradient(#AC2000 0deg 270deg, #ff6b35 270deg 324deg, #dc3545 324deg 360deg)',
               margin: '0 auto 25px',
               position: 'relative',
               display: 'flex',
@@ -437,7 +437,7 @@ const HrDashboard = () => {
                 <div style={{ 
                   width: '16px', 
                   height: '16px', 
-                  backgroundColor: '#0CAD5D',
+                  backgroundColor: '#AC2000',
                   borderRadius: '3px',
                   marginLeft: '10px'
                 }}></div>
@@ -506,7 +506,7 @@ const HrDashboard = () => {
         }}>
         <div style={{
           padding: '20px',
-          borderBottom: '1px solid #0CAD5D',
+          borderBottom: '1px solid #AC2000',
           backgroundColor: '#202938'
         }}>
           <h3 style={{ 
@@ -655,7 +655,7 @@ const HrDashboard = () => {
                   </td>
                   <td style={{ padding: '12px' }}>
                     <span style={{
-                      backgroundColor: '#0CAD5D',
+                      backgroundColor: '#AC2000',
                       color: 'white',
                       padding: '4px 12px',
                       borderRadius: '20px',
@@ -684,7 +684,7 @@ const HrDashboard = () => {
                       </button>
                       <button
                         style={{
-                          backgroundColor: '#0CAD5D',
+                          backgroundColor: '#AC2000',
                           color: 'white',
                           border: 'none',
                           padding: '8px',
@@ -728,7 +728,7 @@ const HrDashboard = () => {
           borderTop: '1px solid #333'
         }}>
           <button style={{
-            backgroundColor: '#0CAD5D',
+            backgroundColor: '#AC2000',
             color: 'white',
             border: 'none',
             padding: '8px 12px',

@@ -400,7 +400,7 @@ const AddSalary = () => {
               type="submit"
               disabled={isLoading}
               style={{
-                backgroundColor: isLoading ? '#666' : '#0CAD5D',
+                backgroundColor: isLoading ? '#666' : '#AC2000',
                 color: 'white',
                 border: 'none',
                 padding: '12px 24px',

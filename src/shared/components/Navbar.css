@@ -1,11 +1,11 @@
 /* Cyber Navbar Theme */
 .navbar.topnav {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
   border-bottom: 1px solid rgba(0, 212, 255, 0.2) !important;
   box-shadow: 0 2px 20px rgba(0, 212, 255, 0.1) !important;
   position: relative;
-  overflow: hidden;
+  overflow: visible !important;
   backdrop-filter: blur(20px);
+  z-index: 10000 !important;
 }
 
 .navbar.topnav::before {
@@ -76,7 +76,7 @@
 }
 
 .toggle_sidenav span i {
-  color: #00D4FF;
+  color: white;
   font-size: 1.1rem;
   transition: all 0.3s ease;
 }
@@ -144,7 +144,7 @@
 /* Dropdown Container */
 .dropdown {
   position: relative !important;
-  z-index: 9999999 !important;
+  z-index: 100000 !important;
 }
 
 /* Dropdown Menu */
@@ -152,7 +152,7 @@
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
   border: 1px solid rgba(0, 212, 255, 0.5) !important;
   border-radius: 12px !important;
-  z-index: 9999999 !important;
+  z-index: 100000 !important;
   padding: 12px 0 !important;
   backdrop-filter: blur(10px) !important;
   box-shadow: 
@@ -176,7 +176,7 @@
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
-  z-index: 9999999 !important;
+  z-index: 100000 !important;
   transform: translateY(0) !important;
   transition: all 0.3s ease !important;
 }
@@ -185,16 +185,16 @@
 .navbar .dropdown,
 .navbar .dropdown-menu,
 .navbar .dropdown-item {
-  z-index: 9999999 !important;
+  z-index: 100000 !important;
 }
 
 /* Override any body or main content z-index */
 body .dropdown-menu {
-  z-index: 9999999 !important;
+  z-index: 100000 !important;
 }
 
 .navbar .dropdown.show .dropdown-menu {
-  z-index: 9999999 !important;
+  z-index: 100000 !important;
   position: absolute !important;
   overflow: visible !important;
 }
@@ -269,7 +269,7 @@ main,
   position: absolute !important;
   top: 100% !important;
   right: -80px !important;
-  z-index: 9999999 !important;
+  z-index: 100000 !important;
   transform: none !important;
   will-change: auto !important;
 }

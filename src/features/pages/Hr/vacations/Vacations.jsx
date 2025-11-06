@@ -100,7 +100,7 @@ const Vacations = () => {
           <button
           onClick={handleAdd}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 20px',
@@ -305,7 +305,7 @@ const Vacations = () => {
         )}
 
         {/* الترقيم */}
-        {leaveTypesPagination && (
+        {leaveTypesPagination && leaveTypes && leaveTypes.length > 0 && leaveTypesPagination.last_page > 1 && (
         <div style={{
           padding: '20px',
           display: 'flex',
@@ -338,7 +338,7 @@ const Vacations = () => {
               key={page}
               onClick={() => setCurrentPage(page)}
               style={{
-                backgroundColor: page === leaveTypesPagination.current_page ? '#0CAD5D' : '#202938',
+                backgroundColor: page === leaveTypesPagination.current_page ? '#AC2000' : '#202938',
             color: 'white',
                 border: page === leaveTypesPagination.current_page ? 'none' : '1px solid #333',
             padding: '8px 12px',

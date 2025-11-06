@@ -76,7 +76,7 @@ const EmployeeDetails = () => {
           <button
             onClick={handleBack}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 25px',
@@ -158,7 +158,7 @@ const EmployeeDetails = () => {
                 border: '1px solid #333'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                  <FaUser style={{ fontSize: '1.2rem', color: '#0CAD5D', marginLeft: '10px' }} />
+                  <FaUser style={{ fontSize: '1.2rem', color: '#AC2000', marginLeft: '10px' }} />
                   <h3 style={{ margin: 0, color: 'white', fontSize: '18px' }}>المعلومات الشخصية</h3>
                 </div>
                 
@@ -174,7 +174,7 @@ const EmployeeDetails = () => {
                           height: '120px',
                           borderRadius: '50%',
                           objectFit: 'cover',
-                          border: '3px solid #0CAD5D'
+                          border: '3px solid #AC2000'
                         }}
                       />
                     ) : (
@@ -186,7 +186,7 @@ const EmployeeDetails = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        border: '3px solid #0CAD5D'
+                        border: '3px solid #AC2000'
                       }}>
                         <FaImage style={{ fontSize: '2rem', color: '#666' }} />
                       </div>
@@ -206,7 +206,7 @@ const EmployeeDetails = () => {
                       </label>
                       <p style={{ 
                         margin: 0, 
-                        color: '#0CAD5D', 
+                        color: 'white', 
                         fontSize: '18px', 
                         fontWeight: 'bold' 
                       }}>
@@ -352,7 +352,7 @@ const EmployeeDetails = () => {
                     </label>
                     <p style={{ 
                       margin: 0, 
-                      color: '#0CAD5D', 
+                      color: 'white', 
                       fontSize: '16px', 
                       fontWeight: 'bold',
                       display: 'flex',
@@ -416,7 +416,7 @@ const EmployeeDetails = () => {
                     </label>
                     <p style={{ 
                       margin: 0, 
-                      color: employeeDetails.is_active ? '#0CAD5D' : '#dc3545', 
+                      color: 'white', 
                       fontSize: '14px',
                       fontWeight: 'bold'
                     }}>
@@ -478,14 +478,13 @@ const EmployeeDetails = () => {
                 border: '1px solid #333'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-                  <i className="fas fa-cogs" style={{ fontSize: '1.2rem', color: '#ffc107', marginLeft: '10px' }}></i>
                   <h3 style={{ margin: 0, color: 'white', fontSize: '18px' }}>الإجراءات</h3>
                 </div>
                 <div style={{ display: 'flex', gap: '15px' }}>
                   <button
                     onClick={handleEdit}
                     style={{
-                      backgroundColor: '#ffc107',
+                      backgroundColor: '#B3B3B3',
                       color: 'white',
                       border: 'none',
                       padding: '10px 20px',

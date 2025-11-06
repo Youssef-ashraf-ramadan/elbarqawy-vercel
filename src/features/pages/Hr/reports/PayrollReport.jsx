@@ -116,7 +116,7 @@ const PayrollReport = () => {
             onClick={handleGenerateReport}
             disabled={isLoading}
             style={{
-              backgroundColor: isLoading ? '#666' : '#0CAD5D',
+              backgroundColor: isLoading ? '#666' : '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 24px',
@@ -137,7 +137,7 @@ const PayrollReport = () => {
             <button
               onClick={handleExportToExcel}
               style={{
-                backgroundColor: '#0CAD5D',
+                backgroundColor: '#AC2000',
                 color: 'white',
                 border: 'none',
                 padding: '12px 24px',
@@ -168,7 +168,7 @@ const PayrollReport = () => {
           <div style={{ overflow: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ borderBottom: '2px solid #0CAD5D' }}>
+                <tr style={{ borderBottom: '2px solid #AC2000' }}>
                   <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '60px' }}>#</th>
                   <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '150px' }}>الموظف</th>
                   <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '200px' }}>القسم</th>
@@ -188,21 +188,21 @@ const PayrollReport = () => {
                     <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>
                       {parseFloat(item.base_salary).toLocaleString('ar-EG')} جنيه
                     </td>
-                    <td style={{ padding: '16px 20px', textAlign: 'center', color: '#0CAD5D' }}>
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: '#AC2000' }}>
                       {parseFloat(item.total_allowances).toLocaleString('ar-EG')} جنيه
                     </td>
                     <td style={{ padding: '16px 20px', textAlign: 'center', color: '#dc3545' }}>
                       {parseFloat(item.total_deductions).toLocaleString('ar-EG')} جنيه
                     </td>
-                    <td style={{ padding: '16px 20px', textAlign: 'center', color: '#0CAD5D', fontWeight: 'bold' }}>
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: '#AC2000', fontWeight: 'bold' }}>
                       {parseFloat(item.net_salary).toLocaleString('ar-EG')} جنيه
                     </td>
                     <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>
                       <span style={{
                         padding: '6px 18px',
                         borderRadius: '20px',
-                        backgroundColor: item.status === 'generated' ? 'rgba(12, 173, 93, 0.2)' : 'rgba(220, 53, 69, 0.2)',
-                        color: item.status === 'generated' ? '#0CAD5D' : '#dc3545',
+                        backgroundColor: item.status === 'generated' ? 'rgba(172, 32, 0, 0.2)' : 'rgba(220, 53, 69, 0.2)',
+                        color: item.status === 'generated' ? '#AC2000' : '#dc3545',
                         fontSize: '13px',
                         fontWeight: 'bold',
                         display: 'inline-block',
@@ -217,6 +217,38 @@ const PayrollReport = () => {
             </table>
           </div>
         </div>
+      )}
+
+      {/* عرض رسالة لا توجد بيانات */}
+      {payrollReports && (
+        (!payrollReports.data || 
+         payrollReports.data.length === 0 || 
+         (Array.isArray(payrollReports.data) && payrollReports.data.length > 0 && 
+          payrollReports.data.every(item => 
+            !item || 
+            Object.keys(item).length === 0 || 
+            (item.employee_name === null || item.employee_name === undefined || item.employee_name === '') &&
+            (item.department === null || item.department === undefined || item.department === '') &&
+            (item.base_salary === null || item.base_salary === undefined || item.base_salary === '')
+          )
+         )
+        ) && (
+          <div style={{
+            backgroundColor: '#202938',
+            borderRadius: '12px',
+            padding: '40px 20px',
+            border: '1px solid #333',
+            textAlign: 'center'
+          }}>
+            <div style={{
+              color: '#999',
+              fontSize: '18px',
+              fontWeight: '500'
+            }}>
+              لا توجد بيانات
+            </div>
+          </div>
+        )
       )}
     </div>
   );

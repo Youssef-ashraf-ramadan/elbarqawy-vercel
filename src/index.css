@@ -1,24 +1,37 @@
-@font-face {
-  font-family: 'Montserrat-Arabic';
-  src: url('./Montserrat-Arabic-Regular.ttf') format('truetype');
+/* Arabic Font - Axt damour */
+/* TODO: Add Axt-damour.ttf file to src folder */
+/* @font-face {
+  font-family: 'Axt damour';
+  src: url('./Axt-damour.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-}
+  font-display: swap;
+} */
 
-@font-face {
-  font-family: 'Montserrat-Arabic';
-  src: url('./Montserrat-Arabic-Regular.ttf') format('truetype');
-  font-weight: 500;
+/* English Font - Myriad Variable Concept */
+/* TODO: Add Myriad-Variable-Concept.ttf file to src folder */
+/* @font-face {
+  font-family: 'Myriad Variable Concept';
+  src: url('./Myriad-Variable-Concept.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
-}
+  font-display: swap;
+} */
 
 body {
   margin: 0;
-  font-family: 'Montserrat-Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Axt damour', 'Montserrat-Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  font-weight: 600 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* English text class */
+.en-lang {
+  font-family: 'Myriad Variable Concept', 'Arial', 'Helvetica', sans-serif !important;
+  font-weight: 600 !important;
 }
 
 

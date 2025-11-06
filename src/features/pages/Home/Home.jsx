@@ -20,7 +20,7 @@ const Home = () => {
       number: "150",
       title: "إجمالي الموظفين",
       change: "أكثر بـ 8 موظفين عن الشهر السابق",
-      color: "#10B981",
+      color: "#AC2000",
       bgColor: "#D1FAE5"
     },
     {
@@ -59,9 +59,9 @@ const Home = () => {
 
   // بيانات الـ chart للحضور
   const chartData = [
-    { name: 'حاضر', value: 142, color: '#10b981' },
-    { name: 'متأخر', value: 12, color: '#f59e0b' },
-    { name: 'غائب', value: 8, color: '#ef4444' }
+    { name: 'حاضر', value: 142, color: '#F6630d' },
+    { name: 'متأخر', value: 12, color: '#B3B3B3' },
+    { name: 'غائب', value: 8, color: '#F5F5DC' }
   ];
 
   // بيانات الموظفين

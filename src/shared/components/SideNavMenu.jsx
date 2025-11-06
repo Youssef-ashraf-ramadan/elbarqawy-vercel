@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { FaHome, FaShieldAlt, FaUsers, FaBook, FaGraduationCap, FaSchool, FaLanguage, FaBuilding, FaLayerGroup, FaDoorOpen, FaChartLine, FaUserGraduate, FaBox, FaChalkboardTeacher, FaLock, FaUserTie, FaClock, FaMoneyBillWave, FaCalendarAlt, FaCogs, FaChartBar, FaKey, FaCog, FaChevronDown, FaCalculator, FaCashRegister, FaWarehouse, FaTruck, FaPhone, FaCalendarCheck, FaHandHoldingUsd, FaGift, FaMinus, FaLightbulb, FaFileInvoice, FaClipboard, FaProjectDiagram } from "react-icons/fa";
+import { FaHome, FaShieldAlt, FaUsers, FaBook, FaGraduationCap, FaSchool, FaLanguage, FaBuilding, FaLayerGroup, FaDoorOpen, FaChartLine, FaUserGraduate, FaBox, FaChalkboardTeacher, FaLock, FaUserTie, FaClock, FaMoneyBillWave, FaCalendarAlt, FaCogs, FaChartBar, FaKey, FaCog, FaChevronDown, FaCalculator, FaCashRegister, FaWarehouse, FaTruck, FaPhone, FaCalendarCheck, FaHandHoldingUsd, FaGift, FaMinus, FaLightbulb, FaFileInvoice, FaClipboard, FaProjectDiagram, FaBookOpen, FaExchangeAlt, FaStore, FaLink, FaUniversity, FaBoxOpen } from "react-icons/fa";
 import './SideNavMenu.css';
 
 const SideNavMenu = ({ handleLinkClick }) => {
@@ -32,7 +32,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
   const menuItems = [
     {
       path: "/",
-      icon: <FaHome style={{ fontSize: "20px", color: "#6b7280" }} />,
+      icon: <FaHome style={{ fontSize: "20px", color: "#AC2000" }} />,
       text: "الرئيسية"
     },
   ];
@@ -41,15 +41,33 @@ const SideNavMenu = ({ handleLinkClick }) => {
 
   // دالة للتحكم في فتح وإغلاق dropdown HR
   const toggleHrDropdown = () => {
-    console.log('Toggle HR Dropdown clicked, current state:', isHrDropdownOpen);
-    setIsHrDropdownOpen(!isHrDropdownOpen);
+    const newValue = !isHrDropdownOpen;
+    setIsHrDropdownOpen(newValue);
+    // إغلاق dropdown التقارير عند فتح HR
+    if (newValue) {
+      setIsReportsDropdownOpen(false);
+    }
   };
 
   // إغلاق الـ dropdown عند النقر خارجه
   React.useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isHrDropdownOpen && !event.target.closest('.dropdown')) {
+      // التحقق من أن النقر ليس داخل dropdown menu أو على زر dropdown
+      const clickedElement = event.target;
+      const isInsideDropdownMenu = clickedElement.closest('.dropdown-menu');
+      const isDropdownButton = clickedElement.closest('.dropdown-toggle');
+      
+      // إذا كان النقر داخل dropdown menu أو على زر dropdown، لا تغلق
+      if (isInsideDropdownMenu || isDropdownButton) {
+        return;
+      }
+      
+      // إغلاق الـ dropdowns عند النقر خارجها
+      if (isHrDropdownOpen) {
         setIsHrDropdownOpen(false);
+      }
+      if (isReportsDropdownOpen) {
+        setIsReportsDropdownOpen(false);
       }
     };
 
@@ -57,7 +75,13 @@ const SideNavMenu = ({ handleLinkClick }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isHrDropdownOpen]);
+  }, [isHrDropdownOpen, isReportsDropdownOpen]);
+
+  // إغلاق الـ dropdowns عند تغيير الصفحة
+  React.useEffect(() => {
+    setIsHrDropdownOpen(false);
+    setIsReportsDropdownOpen(false);
+  }, [location.pathname]);
 
   // إذا لم يكن هناك مستخدم، اعرض القائمة الافتراضية
     if (!userData) {
@@ -76,9 +100,9 @@ const SideNavMenu = ({ handleLinkClick }) => {
         ))}
 
         {/* HR Dropdown */}
-        <li className="dropdown" style={{ marginBottom: "0.25rem", position: 'relative' }}>
+        <li className="dropdown hr-dropdown" style={{ marginBottom: "0.25rem", position: 'relative' }}>
           <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
-            <FaBuilding style={{ fontSize: "20px", color: location.pathname.startsWith('/') && (location.pathname === '/' || location.pathname.startsWith('/employees') || location.pathname.startsWith('/attendance') || location.pathname.startsWith('/salaries') || location.pathname.startsWith('/vacations') || location.pathname.startsWith('/shifts') || location.pathname.startsWith('/job-titles') || location.pathname.startsWith('/reports') || location.pathname.startsWith('/permissions') || location.pathname.startsWith('/settings')) ? "#0CAD5D" : "#6b7280" }} />
+            <FaBuilding style={{ fontSize: "20px", color: "#AC2000" }} />
           </div>
           <button 
             className="btn dropdown-toggle" 
@@ -92,7 +116,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
             style={{
               background: "none",
               border: "none",
-              color: location.pathname.startsWith('/') && (location.pathname === '/' || location.pathname.startsWith('/employees') || location.pathname.startsWith('/attendance') || location.pathname.startsWith('/salaries') || location.pathname.startsWith('/vacations') || location.pathname.startsWith('/shifts') || location.pathname.startsWith('/job-titles') || location.pathname.startsWith('/permissions') || location.pathname.startsWith('/settings')) ? "#0CAD5D" : "#6b7280",
+              color: location.pathname.startsWith('/') && (location.pathname === '/' || location.pathname.startsWith('/employees') || location.pathname.startsWith('/attendance') || location.pathname.startsWith('/salaries') || location.pathname.startsWith('/vacations') || location.pathname.startsWith('/shifts') || location.pathname.startsWith('/job-titles') || location.pathname.startsWith('/permissions') || location.pathname.startsWith('/settings')) ? "#AC2000" : "#6b7280",
               borderRadius: "25px",
               width: "74%",
               marginInline: "4px",
@@ -109,7 +133,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
           {isHrDropdownOpen && (
             <ul className="dropdown-menu" style={{ 
               backgroundColor: "#202938",
-              border: "1px solid #0CAD5D",
+              border: "1px solid #AC2000",
               borderRadius: "8px",
               boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
               minWidth: "200px",
@@ -124,12 +148,13 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 to="/employees" 
                 onClick={() => {
                   handleLinkClick();
+                  setIsHrDropdownOpen(false);
                 }}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/employees" ? "#0CAD5D" : "#6b7280",
+                  color: "white",
                   textDecoration: "none"
                 }}
               >
@@ -143,12 +168,13 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 to="/attendance" 
                 onClick={() => {
                   handleLinkClick();
+                  setIsHrDropdownOpen(false);
                 }}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/attendance" ? "#0CAD5D" : "#6b7280",
+                  color: "white",
                   textDecoration: "none"
                 }}
               >
@@ -162,12 +188,13 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 to="/salaries" 
                 onClick={() => {
                   handleLinkClick();
+                  setIsHrDropdownOpen(false);
                 }}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/salaries" ? "#0CAD5D" : "#6b7280",
+                  color: "white",
                   textDecoration: "none"
                 }}
               >
@@ -181,12 +208,13 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 to="/vacations" 
                 onClick={() => {
                   handleLinkClick();
+                  setIsHrDropdownOpen(false);
                 }}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/vacations" ? "#0CAD5D" : "#6b7280",
+                  color: "white",
                   textDecoration: "none"
                 }}
               >
@@ -200,12 +228,13 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 to="/leave-requests" 
                 onClick={() => {
                   handleLinkClick();
+                  setIsHrDropdownOpen(false);
                 }}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/leave-requests" ? "#0CAD5D" : "#6b7280",
+                  color: "white",
                   textDecoration: "none"
                 }}
               >
@@ -219,12 +248,13 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 to="/shifts" 
                 onClick={() => {
                   handleLinkClick();
+                  setIsHrDropdownOpen(false);
                 }}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/shifts" ? "#0CAD5D" : "#6b7280",
+                  color: "white",
                   textDecoration: "none"
                 }}
               >
@@ -238,12 +268,13 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 to="/job-titles" 
                 onClick={() => {
                   handleLinkClick();
+                  setIsHrDropdownOpen(false);
                 }}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/job-titles" ? "#0CAD5D" : "#6b7280",
+                  color: "white",
                   textDecoration: "none"
                 }}
               >
@@ -257,12 +288,13 @@ const SideNavMenu = ({ handleLinkClick }) => {
               to="/payslips" 
               onClick={() => {
                 handleLinkClick();
+                setIsHrDropdownOpen(false);
               }}
               style={{ 
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/payslips" ? "#0CAD5D" : "#6b7280",
+                color: "white",
                 textDecoration: "none"
               }}
             >
@@ -285,17 +317,17 @@ const SideNavMenu = ({ handleLinkClick }) => {
   return (
     <ul className="mb-0  list-unstyled main-ul" style={{ gap: "0.5rem", marginTop: "20px" }}>
       {/* الرئيسية */}
-      <li className={location.pathname === "/" ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative' }}>
+      <li className={location.pathname === "/" ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', zIndex: -1 }}>
         <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
-          <FaHome style={{ fontSize: "20px", color: location.pathname === "/" ? "#0CAD5D" : "#6b7280" }} />
+          <FaHome style={{ fontSize: "20px", color: "white" }} />
         </div>
         <Link to="/" onClick={handleLinkClick}>
-          <span style={{ marginRight: "0.25rem" }}>الرئيسية</span>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>الرئيسية</span>
         </Link>
       </li>
 
       {/* HR Dropdown */}
-      <li className="dropdown" style={{ marginBottom: "0.25rem", position: 'relative' }}>
+      <li className="dropdown hr-dropdown" style={{ marginBottom: "0.25rem", position: 'relative', zIndex: 232323 }}>
         <div 
           className="icon" 
           style={{ 
@@ -309,18 +341,18 @@ const SideNavMenu = ({ handleLinkClick }) => {
             <FaBuilding 
               style={{ 
                 fontSize: "20px", 
-                color: location.pathname.startsWith('/') && (location.pathname === '/' || location.pathname.startsWith('/employees') || location.pathname.startsWith('/attendance') || location.pathname.startsWith('/salaries') || location.pathname.startsWith('/vacations') || location.pathname.startsWith('/shifts') || location.pathname.startsWith('/job-titles') || location.pathname.startsWith('/permissions') || location.pathname.startsWith('/settings')) ? "#0CAD5D" : "#6b7280" 
+                color: "white"
               }} 
             />
         </div>
         <button 
           className="btn dropdown-toggle" 
           type="button" 
-          onClick={() => setIsHrDropdownOpen(!isHrDropdownOpen)}
+          onClick={toggleHrDropdown}
           style={{
             background: "none",
             border: "none",
-            color: isHrDropdownOpen || (location.pathname.startsWith('/') && (location.pathname === '/' || location.pathname.startsWith('/employees') || location.pathname.startsWith('/attendance') || location.pathname.startsWith('/salaries') || location.pathname.startsWith('/vacations') || location.pathname.startsWith('/shifts') || location.pathname.startsWith('/job-titles') || location.pathname.startsWith('/permissions') || location.pathname.startsWith('/settings'))) ? "#0CAD5D" : "#6b7280",
+            color: "white",
             borderRadius: "25px",
             width: "74%",
             marginInline: "4px",
@@ -331,12 +363,12 @@ const SideNavMenu = ({ handleLinkClick }) => {
             justifyContent: "space-between"
           }}
         >
-          <span style={{ marginRight: "0.25rem", fontSize: "14px" }}>قسم HR</span>
+          <span style={{ marginRight: "0.25rem", fontSize: "14px", color: "white" }}>قسم HR</span>
         </button>
         {isHrDropdownOpen && (
           <ul className="dropdown-menu" style={{ 
             backgroundColor: "#202938",
-            border: "1px solid #0CAD5D",
+            border: "1px solid #AC2000",
             borderRadius: "8px",
             boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
             minWidth: "200px",
@@ -357,7 +389,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/employees" ? "#0CAD5D" : "#6b7280",
+                color: "white",
                 textDecoration: "none"
               }}
             >
@@ -377,7 +409,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/attendance" ? "#0CAD5D" : "#6b7280",
+                color: location.pathname === "/attendance" ? "#AC2000" : "#6b7280",
                 textDecoration: "none"
               }}
             >
@@ -397,7 +429,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/salaries" ? "#0CAD5D" : "#6b7280",
+                color: location.pathname === "/salaries" ? "#AC2000" : "#6b7280",
                 textDecoration: "none"
               }}
             >
@@ -417,7 +449,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/vacations" ? "#0CAD5D" : "#6b7280",
+                color: location.pathname === "/vacations" ? "#AC2000" : "#6b7280",
                 textDecoration: "none"
               }}
             >
@@ -437,7 +469,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/leave-requests" ? "#0CAD5D" : "#6b7280",
+                color: location.pathname === "/leave-requests" ? "#AC2000" : "#6b7280",
                 textDecoration: "none"
               }}
             >
@@ -457,7 +489,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/shifts" ? "#0CAD5D" : "#6b7280",
+                color: location.pathname === "/shifts" ? "#AC2000" : "#6b7280",
                 textDecoration: "none"
               }}
             >
@@ -477,7 +509,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/job-titles" ? "#0CAD5D" : "#6b7280",
+                color: location.pathname === "/job-titles" ? "#AC2000" : "#6b7280",
                 textDecoration: "none"
               }}
             >
@@ -497,7 +529,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/payslips" ? "#0CAD5D" : "#6b7280",
+                color: "white",
                 textDecoration: "none"
               }}
             >
@@ -505,7 +537,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
               كشف الرواتب
             </Link>
           </li>
-          <li style={{ display: isHrDropdownOpen ? 'block' : 'none' }}>
+          <li>
             <Link 
               className={`dropdown-item ${location.pathname === "/departments" ? 'active' : ''}`} 
               to="/departments" 
@@ -517,7 +549,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
                 display: "flex", 
                 alignItems: "center", 
                 padding: "8px 16px",
-                color: location.pathname === "/departments" ? "#0CAD5D" : "#6b7280",
+                color: "white",
                 textDecoration: "none"
               }}
             >
@@ -530,22 +562,26 @@ const SideNavMenu = ({ handleLinkClick }) => {
       </li>
 
       {/* التقارير Dropdown */}
-      <li className={location.pathname.startsWith('/reports') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: isHrDropdownOpen ? 'none' : 'flex' }}>
+      <li className={`dropdown ${location.pathname.startsWith('/reports') ? 'active' : ''}`} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
         <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
-          <FaChartBar style={{ fontSize: "20px", color: "#0CAD5D" }} />
+          <FaChartBar style={{ fontSize: "20px", color: "white" }} />
         </div>
         <button
           className="btn dropdown-toggle"
           type="button"
           onClick={(e) => {
-            e.preventDefault();
             e.stopPropagation();
-            setIsReportsDropdownOpen(!isReportsDropdownOpen);
+            const newValue = !isReportsDropdownOpen;
+            setIsReportsDropdownOpen(newValue);
+            // إغلاق dropdown HR عند فتح التقارير
+            if (newValue) {
+              setIsHrDropdownOpen(false);
+            }
           }}
           style={{
             background: "none",
             border: "none",
-            color: "#0CAD5D",
+            color: "white",
             borderRadius: "25px",
             width: "74%",
             marginInline: "4px",
@@ -562,7 +598,7 @@ const SideNavMenu = ({ handleLinkClick }) => {
         {isReportsDropdownOpen && (
           <ul className="dropdown-menu" style={{ 
             backgroundColor: "#202938",
-            border: "1px solid #0CAD5D",
+            border: "1px solid #AC2000",
             borderRadius: "8px",
             boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
             minWidth: "200px",
@@ -577,15 +613,12 @@ const SideNavMenu = ({ handleLinkClick }) => {
               <Link 
                 className={`dropdown-item ${location.pathname === "/reports/leave" ? 'active' : ''}`} 
                 to="/reports/leave" 
-                onClick={() => {
-                  handleLinkClick();
-                  setIsReportsDropdownOpen(false);
-                }}
+                onClick={handleLinkClick}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/reports/leave" ? "#0CAD5D" : "#6b7280",
+                  color: location.pathname === "/reports/leave" ? "#AC2000" : "#6b7280",
                   textDecoration: "none"
                 }}
               >
@@ -597,15 +630,12 @@ const SideNavMenu = ({ handleLinkClick }) => {
               <Link 
                 className={`dropdown-item ${location.pathname === "/reports/attendance" ? 'active' : ''}`} 
                 to="/reports/attendance" 
-                onClick={() => {
-                  handleLinkClick();
-                  setIsReportsDropdownOpen(false);
-                }}
+                onClick={handleLinkClick}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/reports/attendance" ? "#0CAD5D" : "#6b7280",
+                  color: location.pathname === "/reports/attendance" ? "#AC2000" : "#6b7280",
                   textDecoration: "none"
                 }}
               >
@@ -617,15 +647,12 @@ const SideNavMenu = ({ handleLinkClick }) => {
               <Link 
                 className={`dropdown-item ${location.pathname === "/reports/payroll" ? 'active' : ''}`} 
                 to="/reports/payroll" 
-                onClick={() => {
-                  handleLinkClick();
-                  setIsReportsDropdownOpen(false);
-                }}
+                onClick={handleLinkClick}
                 style={{ 
                   display: "flex", 
                   alignItems: "center", 
                   padding: "8px 16px",
-                  color: location.pathname === "/reports/payroll" ? "#0CAD5D" : "#6b7280",
+                  color: location.pathname === "/reports/payroll" ? "#AC2000" : "#6b7280",
                   textDecoration: "none"
                 }}
               >
@@ -638,12 +665,100 @@ const SideNavMenu = ({ handleLinkClick }) => {
       </li>
 
       {/* الشجرة المحاسبية */}
-      <li className={location.pathname === "/accounts/tree" ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: isReportsDropdownOpen ? 'none' : 'flex' }}>
+      <li className={location.pathname === "/accounts/tree" ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
         <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
-          <FaProjectDiagram style={{ fontSize: "20px", color: "#0CAD5D" }} />
+          <FaProjectDiagram style={{ fontSize: "20px", color: "white" }} />
         </div>
         <Link to="/accounts/tree" onClick={handleLinkClick}>
           <span style={{ marginRight: "0.25rem", color: "white" }}>الشجرة المحاسبية</span>
+        </Link>
+      </li>
+      <li className={location.pathname.startsWith("/journal-entries") ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaBookOpen style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/journal-entries" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>القيود اليومية</span>
+        </Link>
+      </li>
+
+      {/* مراكز التكلفة */}
+      <li className={location.pathname.startsWith('/cost-centers') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaLayerGroup style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/cost-centers/tree" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>مراكز التكلفة</span>
+        </Link>
+      </li>
+
+      {/* العملات */}
+      <li className={location.pathname.startsWith('/currencies') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaMoneyBillWave style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/currencies" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>العملات</span>
+        </Link>
+      </li>
+
+      {/* أسعار الصرف */}
+      <li className={location.pathname.startsWith('/exchange-rates') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaExchangeAlt style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/exchange-rates" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>أسعار الصرف</span>
+        </Link>
+      </li>
+
+      {/* الموردون */}
+      <li className={location.pathname.startsWith('/vendors') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaStore style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/vendors" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>الموردون</span>
+        </Link>
+      </li>
+
+      {/* العملاء */}
+      <li className={location.pathname.startsWith('/customers') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaUsers style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/customers" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>العملاء</span>
+        </Link>
+      </li>
+
+      {/* البنوك */}
+      <li className={location.pathname.startsWith('/banks') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaUniversity style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/banks" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>البنوك</span>
+        </Link>
+      </li>
+
+      {/* الخزائن */}
+      <li className={location.pathname.startsWith('/safes') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaBoxOpen style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/safes" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>الخزائن</span>
+        </Link>
+      </li>
+
+      {/* ربط الحسابات */}
+      <li className={location.pathname.startsWith('/account-links') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaLink style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/account-links" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>ربط الحسابات</span>
         </Link>
       </li>
     </ul>

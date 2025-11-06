@@ -79,9 +79,10 @@ customStyles.innerHTML = `
     text-shadow: none !important;
     filter: none !important;
   }
-  .dropdown:hover .dropdown-menu {
+  /* Remove hover trigger - dropdown should only show on click */
+  /* .dropdown:hover .dropdown-menu {
     display: block !important;
-  }
+  } */
   .dropdown .dropdown-menu {
     transition: none !important;
     animation: none !important;
@@ -258,14 +259,14 @@ const Navbar = ({ toggleSideNav, isSideNavOpen }) => {
       <div className="container d-flex justify-content-between align-items-center">
         <div className="toggle_sidenav d-flex align-items-center gap-2">
           <span
-            className="p-2 main-color"
+            className="p-2"
             onClick={toggleSideNav}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", color: "#AC2000" }}
             aria-label="Toggle Side Navigation"
           >
             <i className="fa fa-bars"></i>
           </span>
-          <b className="text-md main-color">{title}</b>
+          <b className="text-md" style={{ color: 'white' }}>{title}</b>
         </div>
 
         <ul className="actions d-flex align-items-center top-actions-top list-unstyled m-0">
@@ -309,8 +310,8 @@ const Navbar = ({ toggleSideNav, isSideNavOpen }) => {
                     fontSize: '12px', 
                     fontFamily: 'Montserrat-Arabic, sans-serif',
                     padding: '8px 24px',
-                    color: i18n.language === 'ar' ? '#0CAD5D' : 'white',
-                    backgroundColor: i18n.language === 'ar' ? 'rgba(12, 173, 93, 0.1)' : 'transparent',
+                    color: i18n.language === 'ar' ? '#AC2000' : 'white',
+                    backgroundColor: i18n.language === 'ar' ? 'rgba(172, 32, 0, 0.1)' : 'transparent',
                     border: 'none',
                     width: '100%',
                     textAlign: 'right',
@@ -331,8 +332,8 @@ const Navbar = ({ toggleSideNav, isSideNavOpen }) => {
                     fontSize: '12px', 
                     fontFamily: 'Montserrat-Arabic, sans-serif',
                     padding: '8px 24px',
-                    color: i18n.language === 'en' ? '#0CAD5D' : 'white',
-                    backgroundColor: i18n.language === 'en' ? 'rgba(12, 173, 93, 0.1)' : 'transparent',
+                    color: i18n.language === 'en' ? '#AC2000' : 'white',
+                    backgroundColor: i18n.language === 'en' ? 'rgba(172, 32, 0, 0.1)' : 'transparent',
                     border: 'none',
                     width: '100%',
                     textAlign: 'right',

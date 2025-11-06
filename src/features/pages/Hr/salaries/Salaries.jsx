@@ -39,7 +39,7 @@ const Salaries = () => {
   };
 
   const getStatusColor = (status) => {
-    return status === 'مدفوع' ? '#0CAD5D' : '#dc3545';
+    return status === 'مدفوع' ? '#AC2000' : '#dc3545';
   };
 
   return (
@@ -97,7 +97,7 @@ const Salaries = () => {
           <button
             onClick={() => navigate('/salaries/add')}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 20px',
@@ -344,7 +344,7 @@ const Salaries = () => {
               style={{
                 padding: '8px 12px',
                 margin: '0 2px',
-                backgroundColor: currentPage === 1 ? '#666' : '#0CAD5D',
+                backgroundColor: currentPage === 1 ? '#666' : '#AC2000',
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
@@ -366,7 +366,7 @@ const Salaries = () => {
                     style={{
                       padding: '8px 12px',
                       margin: '0 2px',
-                      backgroundColor: page === currentPage ? '#0CAD5D' : '#333',
+                      backgroundColor: page === currentPage ? '#AC2000' : '#333',
                       color: 'white',
                       border: 'none',
                       borderRadius: '4px',
@@ -395,7 +395,7 @@ const Salaries = () => {
               style={{
                 padding: '8px 12px',
                 margin: '0 2px',
-                backgroundColor: currentPage === salariesPagination.last_page ? '#666' : '#0CAD5D',
+                backgroundColor: currentPage === salariesPagination.last_page ? '#666' : '#AC2000',
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',

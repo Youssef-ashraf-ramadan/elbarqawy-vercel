@@ -55,7 +55,7 @@ const Layout = () => {
         {isPOSPage ? (
           <Outlet />
         ) : (
-          <div className="container">
+          <div className="container-fluid">
             <Outlet />
           </div>
         )}

@@ -50,7 +50,7 @@
 }
 
 .tree-view::-webkit-scrollbar-thumb {
-  background: #0CAD5D;
+  background: #AC2000;
   border-radius: 4px;
 }
 
@@ -70,13 +70,13 @@
 
 /* jsTree Hover */
 .tree-view .jstree-hovered {
-  background: rgba(12, 173, 93, 0.1) !important;
+  background: rgba(172, 32, 0, 0.1) !important;
   border-radius: 4px !important;
 }
 
 /* jsTree Selected */
 .tree-view .jstree-clicked {
-  background: rgba(12, 173, 93, 0.2) !important;
+  background: rgba(172, 32, 0, 0.2) !important;
   border-radius: 4px !important;
   color: white !important;
 }
@@ -136,7 +136,7 @@
 }
 
 .tree-details::-webkit-scrollbar-thumb {
-  background: #0CAD5D;
+  background: #AC2000;
   border-radius: 4px;
 }
 
@@ -167,13 +167,13 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  z-index: 100000 !important;
-  position: fixed !important二维
+  z-index: 25000 !important;
+  position: fixed !important;
 }
 
 /* High priority context menu for accounts tree */
 .accounts-tree-context-menu {
-  z-index: 32000322300 !important;
+  z-index: 25000 !important;
 }
 
 .context-menu-item {

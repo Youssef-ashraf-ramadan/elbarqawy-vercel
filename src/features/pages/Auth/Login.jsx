@@ -203,7 +203,7 @@ const LoginPage = () => {
                             transition={{ delay: 0.2, type: 'spring' }}
                         className="text-center">
                             <img 
-                                src="/albaraqawyLogo.png" 
+                                src="/logoArabic.png" 
                             alt="ALBARQAWY Logo" 
                                 style={{
                                     height: '80px',
@@ -254,7 +254,7 @@ const LoginPage = () => {
                                         required
                                         style={{ 
                                     backgroundColor: 'rgba(255,255,255,0.1)',
-                                    border: '2px solid #0CAD5D',
+                                    border: '2px solid #AC2000',
                                     borderRadius: '8px',
                                     color: 'white',
                                     padding: '12px 16px',
@@ -288,7 +288,7 @@ const LoginPage = () => {
                                         required
                                     style={{ 
                                         backgroundColor: 'rgba(255,255,255,0.1)',
-                                        border: '2px solid #0CAD5D',
+                                        border: '2px solid #AC2000',
                                         borderRadius: '8px',
                                         color: 'white',
                                         padding: '12px 16px 12px 16px',
@@ -321,7 +321,7 @@ const LoginPage = () => {
                                 type="submit"
                                 className="btn w-100 text-white py-3 fw-medium"
                                 style={{
-                                backgroundColor: '#0CAD5D',
+                                backgroundColor: '#AC2000',
                                     border: 'none',
                                 borderRadius: '8px',
                                 fontSize: '1.2rem',
@@ -334,7 +334,7 @@ const LoginPage = () => {
                             </motion.button>
                         <div className="text-center mt-3">
                             <span style={{ color: 'white', fontFamily: 'Montserrat-Arabic, sans-serif' }}>لا تملك حسابًا؟ </span>
-                            <Link to="/register" style={{ color: '#0CAD5D', textDecoration: 'none', fontWeight: '600' }}>إنشاء حساب</Link>
+                            <Link to="/register" style={{ color: '#AC2000', textDecoration: 'none', fontWeight: '600' }}>إنشاء حساب</Link>
                         </div>
                         </form>
 

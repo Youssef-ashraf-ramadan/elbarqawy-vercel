@@ -58,7 +58,7 @@ const Payslips = () => {
 
         {/* شريط البحث وأزرار الإجراءات */}
         <div style={{ display: 'flex', gap: '15px', marginBottom: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
-          <div style={{ flex: '1', maxWidth: '400px', position: 'relative' }}>
+          <div style={{ flex: '1', maxWidth: '800px', position: 'relative' }}>
             <FaSearch style={{ 
               position: 'absolute', 
               right: '15px', 
@@ -86,7 +86,7 @@ const Payslips = () => {
           <button
             onClick={() => navigate('/payslips/generate')}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 24px',
@@ -116,7 +116,7 @@ const Payslips = () => {
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ backgroundColor: '#1a1f2e', borderBottom: '2px solid #0CAD5D' }}>
+                <tr style={{ backgroundColor: '#1a1f2e', borderBottom: '2px solid #AC2000' }}>
                   <th style={{ 
                     padding: '15px', 
                     textAlign: 'center', 
@@ -230,7 +230,7 @@ const Payslips = () => {
                     <td style={{ 
                       padding: '15px', 
                       textAlign: 'center',
-                      color: '#0CAD5D',
+                      color: '#AC2000',
                       fontWeight: 'bold'
                     }}>
                       {payslip.net_salary ? `${parseFloat(payslip.net_salary).toLocaleString('ar-EG')} جنيه` : 'غير متوفر'}
@@ -243,8 +243,8 @@ const Payslips = () => {
                       <span style={{
                         padding: '5px 15px',
                         borderRadius: '20px',
-                        backgroundColor: payslip.status === 'generated' ? 'rgba(12, 173, 93, 0.2)' : payslip.status === 'paid' ? 'rgba(0, 123, 255, 0.2)' : 'rgba(220, 53, 69, 0.2)',
-                        color: payslip.status === 'generated' ? '#0CAD5D' : payslip.status === 'paid' ? '#007bff' : '#dc3545',
+                        backgroundColor: payslip.status === 'generated' ? 'rgba(172, 32, 0, 0.2)' : payslip.status === 'paid' ? 'rgba(0, 123, 255, 0.2)' : 'rgba(220, 53, 69, 0.2)',
+                        color: payslip.status === 'generated' ? '#AC2000' : payslip.status === 'paid' ? '#007bff' : '#dc3545',
                         fontSize: '12px',
                         fontWeight: 'bold'
                       }}>
@@ -319,7 +319,7 @@ const Payslips = () => {
                 onClick={() => handlePageChange(page)}
                 style={{
                   padding: '8px 16px',
-                  backgroundColor: page === payslipsPagination.current_page ? '#0CAD5D' : '#666',
+                  backgroundColor: page === payslipsPagination.current_page ? '#AC2000' : '#666',
                   color: 'white',
                   border: 'none',
                   borderRadius: '6px',

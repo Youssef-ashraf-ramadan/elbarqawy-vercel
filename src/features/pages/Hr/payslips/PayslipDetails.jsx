@@ -117,7 +117,7 @@ const PayslipDetails = () => {
           {/* فترة الراتب */}
           <div>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: '#AC2000',
               marginBottom: '10px',
               fontSize: '16px',
               fontWeight: 'bold'
@@ -144,7 +144,7 @@ const PayslipDetails = () => {
           {/* تاريخ التوليد */}
           <div>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: '#AC2000',
               marginBottom: '10px',
               fontSize: '16px',
               fontWeight: 'bold'
@@ -171,7 +171,7 @@ const PayslipDetails = () => {
           {/* الموظف */}
           <div>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: '#AC2000',
               marginBottom: '10px',
               fontSize: '16px',
               fontWeight: 'bold'
@@ -205,7 +205,7 @@ const PayslipDetails = () => {
           {/* إجمالي الراتب */}
           <div>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: '#AC2000',
               marginBottom: '10px',
               fontSize: '16px',
               fontWeight: 'bold'
@@ -232,7 +232,7 @@ const PayslipDetails = () => {
           {/* صافي الراتب */}
           <div>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: '#AC2000',
               marginBottom: '10px',
               fontSize: '16px',
               fontWeight: 'bold'
@@ -249,7 +249,7 @@ const PayslipDetails = () => {
               <div style={{ 
                 fontSize: '20px', 
                 fontWeight: 'bold',
-                color: '#0CAD5D'
+                color: '#AC2000'
               }}>
                 {payslipDetails.net_salary ? formatCurrency(payslipDetails.net_salary) : 'غير متوفر'}
               </div>
@@ -267,7 +267,7 @@ const PayslipDetails = () => {
             border: '1px solid #333'
           }}>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: '#AC2000',
               marginBottom: '12px',
               fontSize: '16px',
               fontWeight: 'bold',
@@ -287,7 +287,7 @@ const PayslipDetails = () => {
               {payslipDetails.breakdown.allowances && (
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>إجمالي البدلات</div>
-                  <div style={{ color: '#0CAD5D', fontSize: '16px', fontWeight: 'bold' }}>
+                  <div style={{ color: '#AC2000', fontSize: '16px', fontWeight: 'bold' }}>
                     {formatCurrency(
                       (payslipDetails.breakdown.allowances?.housing || 0) + 
                       (payslipDetails.breakdown.allowances?.transportation || 0)
@@ -313,7 +313,7 @@ const PayslipDetails = () => {
                   </div>
                   <div style={{ textAlign: 'center' }}>
                     <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>أيام الحضور</div>
-                    <div style={{ color: '#0CAD5D', fontSize: '16px', fontWeight: 'bold' }}>
+                    <div style={{ color: '#AC2000', fontSize: '16px', fontWeight: 'bold' }}>
                       {payslipDetails.breakdown.calculation_details.attended_days || 0}
                     </div>
                   </div>

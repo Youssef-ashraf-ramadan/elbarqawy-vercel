@@ -126,11 +126,12 @@ const LeaveRequests = () => {
   };
 
   const renderPagination = () => {
-    if (!leaveRequestsPagination) {
+    if (!leaveRequestsPagination || !leaveRequests || leaveRequests.length === 0) {
       return null;
     }
 
     const { current_page, last_page } = leaveRequestsPagination;
+    if (!last_page || last_page <= 1) return null;
 
     // Always show pagination even if there's only one page
     const pages = [];
@@ -144,7 +145,7 @@ const LeaveRequests = () => {
         style={{
           padding: '8px 12px',
           margin: '0 2px',
-          backgroundColor: current_page === 1 ? '#666' : '#0CAD5D',
+          backgroundColor: current_page === 1 ? '#666' : '#AC2000',
           color: 'white',
           border: 'none',
           borderRadius: '4px',
@@ -166,7 +167,7 @@ const LeaveRequests = () => {
             style={{
               padding: '8px 12px',
               margin: '0 2px',
-              backgroundColor: i === current_page ? '#0CAD5D' : '#333',
+              backgroundColor: i === current_page ? '#AC2000' : '#333',
               color: 'white',
               border: 'none',
               borderRadius: '4px',
@@ -196,7 +197,7 @@ const LeaveRequests = () => {
         style={{
           padding: '8px 12px',
           margin: '0 2px',
-          backgroundColor: current_page === last_page ? '#666' : '#0CAD5D',
+          backgroundColor: current_page === last_page ? '#666' : '#AC2000',
           color: 'white',
           border: 'none',
           borderRadius: '4px',
@@ -262,7 +263,7 @@ const LeaveRequests = () => {
         <button
           onClick={handleAdd}
           style={{
-            backgroundColor: '#0CAD5D',
+            backgroundColor: '#AC2000',
             color: 'white',
             border: 'none',
             padding: '12px 20px',
@@ -467,8 +468,8 @@ const LeaveRequests = () => {
                         <button
                           onClick={() => handleEdit(request.id)}
                           style={{
-                            backgroundColor: '#ffc107',
-                            color: 'black',
+                            backgroundColor: '#B3B3B3',
+                            color: 'white',
                             border: 'none',
                             padding: '8px 12px',
                             borderRadius: '6px',

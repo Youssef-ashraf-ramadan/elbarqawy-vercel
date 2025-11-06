@@ -76,7 +76,7 @@ const JobTitleDetails = () => {
           <button
             onClick={handleBack}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 25px',
@@ -157,7 +157,7 @@ const JobTitleDetails = () => {
                 border: '1px solid #333'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-                  <FaBriefcase style={{ fontSize: '1.2rem', color: '#0CAD5D', marginLeft: '10px' }} />
+                  <FaBriefcase style={{ fontSize: '1.2rem', color: '#AC2000', marginLeft: '10px' }} />
                   <h3 style={{ margin: 0, color: 'white', fontSize: '18px' }}>معلومات المسمى الوظيفي</h3>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
@@ -172,7 +172,7 @@ const JobTitleDetails = () => {
                     </label>
                     <p style={{ 
                       margin: 0, 
-                      color: '#0CAD5D', 
+                      color: 'white', 
                       fontSize: '16px', 
                       fontWeight: 'bold' 
                     }}>
@@ -190,7 +190,7 @@ const JobTitleDetails = () => {
                     </label>
                     <p style={{ 
                       margin: 0, 
-                      color: '#0CAD5D', 
+                      color: 'white', 
                       fontSize: '16px', 
                       fontWeight: 'bold' 
                     }}>
@@ -286,14 +286,13 @@ const JobTitleDetails = () => {
                 border: '1px solid #333'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-                  <i className="fas fa-cogs" style={{ fontSize: '1.2rem', color: '#ffc107', marginLeft: '10px' }}></i>
                   <h3 style={{ margin: 0, color: 'white', fontSize: '18px' }}>الإجراءات</h3>
                 </div>
                 <div style={{ display: 'flex', gap: '15px' }}>
                   <button
                     onClick={handleEdit}
                     style={{
-                      backgroundColor: '#ffc107',
+                      backgroundColor: '#B3B3B3',
                       color: 'white',
                       border: 'none',
                       padding: '10px 20px',

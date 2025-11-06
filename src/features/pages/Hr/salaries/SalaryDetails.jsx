@@ -117,7 +117,7 @@ const SalaryDetails = () => {
           {/* الراتب الأساسي */}
           <div>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: 'white',
               marginBottom: '10px',
               fontSize: '16px',
               fontWeight: 'bold'
@@ -134,7 +134,7 @@ const SalaryDetails = () => {
               <div style={{ 
                 fontSize: '20px', 
                 fontWeight: 'bold',
-                color: '#0CAD5D'
+                color: 'white'
               }}>
                 {formatCurrency(salaryDetails.base_salary)}
               </div>
@@ -144,7 +144,7 @@ const SalaryDetails = () => {
           {/* تاريخ السريان */}
           <div>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: 'white',
               marginBottom: '10px',
               fontSize: '16px',
               fontWeight: 'bold'
@@ -171,7 +171,7 @@ const SalaryDetails = () => {
           {/* البدلات */}
           <div>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: 'white',
               marginBottom: '10px',
               fontSize: '16px',
               fontWeight: 'bold'
@@ -190,12 +190,12 @@ const SalaryDetails = () => {
                   justifyContent: 'space-between',
                   marginBottom: '8px',
                   padding: '8px',
-                  backgroundColor: 'rgba(12, 173, 93, 0.1)',
+                  backgroundColor: '#AC2000',
                   borderRadius: '6px',
                   fontSize: '14px'
                 }}>
-                  <span style={{ color: '#0CAD5D', fontWeight: 'bold' }}>بدل السكن:</span>
-                  <span>{formatCurrency(salaryDetails.allowances.housing)}</span>
+                  <span style={{ color: 'white', fontWeight: 'bold' }}>بدل السكن:</span>
+                  <span style={{ color: 'white' }}>{formatCurrency(salaryDetails.allowances.housing)}</span>
                 </div>
               )}
               {salaryDetails.allowances?.transportation && (
@@ -204,12 +204,12 @@ const SalaryDetails = () => {
                   justifyContent: 'space-between',
                   marginBottom: '8px',
                   padding: '8px',
-                  backgroundColor: 'rgba(12, 173, 93, 0.1)',
+                  backgroundColor: '#AC2000',
                   borderRadius: '6px',
                   fontSize: '14px'
                 }}>
-                  <span style={{ color: '#0CAD5D', fontWeight: 'bold' }}>بدل المواصلات:</span>
-                  <span>{formatCurrency(salaryDetails.allowances.transportation)}</span>
+                  <span style={{ color: 'white', fontWeight: 'bold' }}>بدل المواصلات:</span>
+                  <span style={{ color: 'white' }}>{formatCurrency(salaryDetails.allowances.transportation)}</span>
                 </div>
               )}
               {(!salaryDetails.allowances?.housing && !salaryDetails.allowances?.transportation) && (
@@ -228,7 +228,7 @@ const SalaryDetails = () => {
           {/* الخصومات */}
           <div>
             <h3 style={{ 
-              color: '#0CAD5D',
+              color: 'white',
               marginBottom: '10px',
               fontSize: '16px',
               fontWeight: 'bold'
@@ -278,7 +278,7 @@ const SalaryDetails = () => {
           border: '1px solid #333'
         }}>
           <h3 style={{ 
-            color: '#0CAD5D',
+            color: 'white',
             marginBottom: '12px',
             fontSize: '16px',
             fontWeight: 'bold',
@@ -295,7 +295,7 @@ const SalaryDetails = () => {
             </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>إجمالي البدلات</div>
-              <div style={{ color: '#0CAD5D', fontSize: '16px', fontWeight: 'bold' }}>
+              <div style={{ color: 'white', fontSize: '16px', fontWeight: 'bold' }}>
                 {formatCurrency((salaryDetails.allowances?.housing || 0) + (salaryDetails.allowances?.transportation || 0))}
               </div>
             </div>
@@ -308,13 +308,13 @@ const SalaryDetails = () => {
             <div style={{ textAlign: 'center' }}>
               <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>صافي الراتب</div>
               <div style={{ 
-                color: '#0CAD5D', 
+                color: 'white', 
                 fontSize: '18px', 
                 fontWeight: 'bold',
                 padding: '8px 16px',
-                backgroundColor: 'rgba(12, 173, 93, 0.1)',
+                backgroundColor: '#AC2000',
                 borderRadius: '8px',
-                border: '2px solid #0CAD5D'
+                border: '2px solid #AC2000'
               }}>
                 {formatCurrency(
                   parseFloat(salaryDetails.base_salary) + 

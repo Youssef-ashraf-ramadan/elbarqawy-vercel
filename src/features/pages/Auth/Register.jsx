@@ -137,7 +137,7 @@ const RegisterPage = () => {
           style={{ width: '100%', maxWidth: '400px', zIndex: 1 }}>
 
           <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: 'spring' }} className="text-center">
-            <img src="/albaraqawyLogo.png" alt="ALBARQAWY Logo" style={{ height: '80px', width: 'auto', marginBottom: '1rem' }} />
+            <img src="/logoArabic.png" alt="ALBARQAWY Logo" style={{ height: '80px', width: 'auto', marginBottom: '1rem' }} />
           </motion.div>
 
           <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="text-center mb-4 fw-bold"
@@ -149,21 +149,21 @@ const RegisterPage = () => {
             <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.6 }} className="mb-3">
               <label htmlFor="name" className="form-label fw-medium d-block text-end" style={{ color: 'white', marginBottom: '0.5rem', fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '500' }}>الاسم</label>
               <input type="text" className="form-control login-input" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="الاسم الكامل" required
-                style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #0CAD5D', borderRadius: '8px', color: 'white', padding: '12px 16px', fontSize: '1.05rem' }} />
+                style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #AC2000', borderRadius: '8px', color: 'white', padding: '12px 16px', fontSize: '1.05rem' }} />
             </motion.div>
 
             <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.65 }} className="mb-3">
               <label htmlFor="email" className="form-label fw-medium d-block text-end" style={{ color: 'white', marginBottom: '0.5rem', fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '500' }}>البريد الإلكتروني</label>
               <input type="email" className="form-control login-input" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@example.com" required
-                style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #0CAD5D', borderRadius: '8px', color: 'white', padding: '12px 16px', fontSize: '1.05rem' }} />
+                style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #AC2000', borderRadius: '8px', color: 'white', padding: '12px 16px', fontSize: '1.05rem' }} />
             </motion.div>
 
             <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.68 }} className="mb-3">
               <label htmlFor="phone" className="form-label fw-medium d-block text-end" style={{ color: 'white', marginBottom: '0.5rem', fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '500' }}>رقم الهاتف</label>
               <div className="input-group" style={{ direction: 'ltr' }}>
-                <span className="input-group-text" style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #0CAD5D', borderRight: '0', color: 'white', borderRadius: '8px 0 0 8px' }}>+2</span>
+                <span className="input-group-text" style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #AC2000', borderRight: '0', color: 'white', borderRadius: '8px 0 0 8px' }}>+2</span>
                 <input type="tel" className="form-control login-input" id="phone" value={phone} onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ''))} placeholder="01xxxxx" required inputMode="numeric" maxLength={11}
-                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #0CAD5D', borderLeft: '0', borderRadius: '0 8px 8px 0', color: 'white', padding: '12px 16px', fontSize: '1.05rem' }} />
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #AC2000', borderLeft: '0', borderRadius: '0 8px 8px 0', color: 'white', padding: '12px 16px', fontSize: '1.05rem' }} />
               </div>
             </motion.div>
 
@@ -171,7 +171,7 @@ const RegisterPage = () => {
               <label htmlFor="password" className="form-label fw-medium d-block text-end" style={{ color: 'white', marginBottom: '0.5rem', fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '500' }}>كلمة المرور</label>
               <div className="position-relative">
                 <input type={showPassword ? 'text' : 'password'} className="form-control login-input" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="************" required
-                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #0CAD5D', borderRadius: '8px', color: 'white', padding: '12px 16px 12px 16px', fontSize: '1.05rem' }} />
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #AC2000', borderRadius: '8px', color: 'white', padding: '12px 16px 12px 16px', fontSize: '1.05rem' }} />
                 <button type="button" className="position-absolute" onClick={() => setShowPassword(!showPassword)}
                   style={{ top: '50%', left: '12px', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: '1.1rem' }}>
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -183,7 +183,7 @@ const RegisterPage = () => {
               <label htmlFor="password_confirmation" className="form-label fw-medium d-block text.end" style={{ color: 'white', marginBottom: '0.5rem', fontFamily: 'Montserrat-Arabic, sans-serif', fontWeight: '500' }}>تأكيد كلمة المرور</label>
               <div className="position-relative">
                 <input type={showPasswordConfirm ? 'text' : 'password'} className="form-control login-input" id="password_confirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} placeholder="************" required
-                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #0CAD5D', borderRadius: '8px', color: 'white', padding: '12px 16px 12px 16px', fontSize: '1.05rem' }} />
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '2px solid #AC2000', borderRadius: '8px', color: 'white', padding: '12px 16px 12px 16px', fontSize: '1.05rem' }} />
                 <button type="button" className="position-absolute" onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
                   style={{ top: '50%', left: '12px', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: '1.1rem' }}>
                   {showPasswordConfirm ? <FaEyeSlash /> : <FaEye />}
@@ -192,14 +192,14 @@ const RegisterPage = () => {
             </motion.div>
 
             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" className="btn w-100 text-white py-3 fw-medium"
-              style={{ backgroundColor: '#0CAD5D', border: 'none', borderRadius: '8px', fontSize: '1.15rem', marginTop: '0.5rem', fontWeight: 'bold', fontFamily: 'Montserrat-Arabic, sans-serif' }} disabled={isLoading}>
+              style={{ backgroundColor: '#AC2000', border: 'none', borderRadius: '8px', fontSize: '1.15rem', marginTop: '0.5rem', fontWeight: 'bold', fontFamily: 'Montserrat-Arabic, sans-serif' }} disabled={isLoading}>
               {isLoading ? <LoadingSpinner /> : 'إنشاء الحساب'}
             </motion.button>
           </form>
 
           <div className="text-center mt-4">
             <span style={{ color: 'white', fontFamily: 'Montserrat-Arabic, sans-serif' }}>لديك حساب؟ </span>
-            <Link to="/login" style={{ color: '#0CAD5D', textDecoration: 'none', fontWeight: '600' }}>سجل الدخول</Link>
+            <Link to="/login" style={{ color: '#AC2000', textDecoration: 'none', fontWeight: '600' }}>سجل الدخول</Link>
           </div>
 
         </motion.div>

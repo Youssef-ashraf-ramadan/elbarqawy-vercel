@@ -26,20 +26,15 @@ const AddDepartment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('AddDepartment handleSubmit called with formData:', formData);
     if (!formData.name_en || !formData.name_ar || !formData.description_en || !formData.description_ar) {
-      console.log('Validation failed - missing fields');
       toast.error('جميع الحقول مطلوبة', { rtl: true });
       return;
     }
-    console.log('Dispatching addDepartment...');
     await dispatch(addDepartment(formData));
   };
 
   React.useEffect(() => {
-    console.log('AddDepartment useEffect - success:', success, 'error:', error);
     if (success) {
-      console.log('Showing success toast:', success);
       toast.success(success, { 
         rtl: true,
         position: "top-right",
@@ -56,7 +51,6 @@ const AddDepartment = () => {
       }, 2000);
     }
     if (error) {
-      console.log('Showing error toast:', error);
       toast.error(error, { 
         rtl: true,
         position: "top-right",
@@ -278,7 +272,7 @@ const AddDepartment = () => {
                   type="submit"
                   disabled={isLoading}
                   style={{
-                    backgroundColor: '#0CAD5D',
+                    backgroundColor: '#AC2000',
                     color: 'white',
                     border: 'none',
                     padding: '12px 25px',

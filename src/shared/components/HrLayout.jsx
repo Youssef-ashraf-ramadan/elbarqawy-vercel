@@ -217,7 +217,7 @@ const HrLayout = () => {
                           padding: '8px 16px',
                           borderRadius: '6px',
                           cursor: 'pointer',
-                          backgroundColor: location.pathname === subItem.path ? 'rgba(12, 173, 93, 0.2)' : 'transparent',
+                          backgroundColor: location.pathname === subItem.path ? 'rgba(172, 32, 0, 0.2)' : 'transparent',
                           color: 'white',
                           transition: 'background-color 0.2s ease',
                           marginBottom: '2px',

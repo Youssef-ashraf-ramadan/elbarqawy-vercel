@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TitleProvider } from './shared/hooks/TitleContext';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Layout from './shared/components/Layout';
 import Login from './features/pages/Auth/Login';
 import Register from './features/pages/Auth/Register';
@@ -45,13 +46,36 @@ import AddDepartment from './features/pages/Hr/departments/AddDepartment';
 import EditDepartment from './features/pages/Hr/departments/EditDepartment';
 import DepartmentDetails from './features/pages/Hr/departments/DepartmentDetails';
 import AccountsTree from './features/pages/Accounting/AccountsTree';
-// import Accounting from './features/dashboard/pages/Accounting-Departments/Accounting';
-// import POS from './features/dashboard/pages/POS-Departments/POS';
-// import Delivery from './features/dashboard/pages/Delivery-Departments/Delivery';
-// import Warehouse from './features/dashboard/pages/Warehouse-Departments/Warehouse';
-// import CallCenter from './features/dashboard/pages/CallCenter-Departments/CallCenter';
-// import Reservations from './features/dashboard/pages/Reservations-Departments/Reservations';
-// import Company from './features/dashboard/pages/Company/Company';
+import CostCentersTree from './features/pages/Accounting/CostCentersTree';
+import JournalEntries from './features/pages/Accounting/JournalEntries/JournalEntries';
+import AddJournalEntry from './features/pages/Accounting/JournalEntries/AddJournalEntry';
+import EditJournalEntry from './features/pages/Accounting/JournalEntries/EditJournalEntry';
+import JournalEntryDetails from './features/pages/Accounting/JournalEntries/JournalEntryDetails';
+import Currencies from './features/pages/Accounting/Currencies/Currencies';
+import AddCurrency from './features/pages/Accounting/Currencies/AddCurrency';
+import EditCurrency from './features/pages/Accounting/Currencies/EditCurrency';
+import CurrencyDetails from './features/pages/Accounting/Currencies/CurrencyDetails';
+import ExchangeRates from './features/pages/Accounting/ExchangeRates/ExchangeRates';
+import AddExchangeRate from './features/pages/Accounting/ExchangeRates/AddExchangeRate';
+import ExchangeRateDetails from './features/pages/Accounting/ExchangeRates/ExchangeRateDetails';
+import Vendors from './features/pages/Accounting/Vendors/Vendors';
+import AddVendor from './features/pages/Accounting/Vendors/AddVendor';
+import EditVendor from './features/pages/Accounting/Vendors/EditVendor';
+import VendorDetails from './features/pages/Accounting/Vendors/VendorDetails';
+import Customers from './features/pages/Accounting/Customers/Customers';
+import AddCustomer from './features/pages/Accounting/Customers/AddCustomer';
+import EditCustomer from './features/pages/Accounting/Customers/EditCustomer';
+import CustomerDetails from './features/pages/Accounting/Customers/CustomerDetails';
+import Banks from './features/pages/Accounting/Banks/Banks';
+import AddBank from './features/pages/Accounting/Banks/AddBank';
+import EditBank from './features/pages/Accounting/Banks/EditBank';
+import BankDetails from './features/pages/Accounting/Banks/BankDetails';
+import Safes from './features/pages/Accounting/Safes/Safes';
+import AddSafe from './features/pages/Accounting/Safes/AddSafe';
+import EditSafe from './features/pages/Accounting/Safes/EditSafe';
+import SafeDetails from './features/pages/Accounting/Safes/SafeDetails';
+import AccountLinks from './features/pages/Accounting/AccountLinks/AccountLinks';
+
 import './App.css';
 
 function App() {
@@ -64,7 +88,6 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            {/* <Route path="/company" element={<Company />} /> */}
           
             <Route path="/" element={
               <PrivateRoute>
@@ -110,6 +133,35 @@ function App() {
               <Route path="reports/attendance" element={<AttendanceReport />} />
               <Route path="reports/leave" element={<LeaveReport />} />
               <Route path="accounts/tree" element={<AccountsTree />} />
+              <Route path="cost-centers/tree" element={<CostCentersTree />} />
+              <Route path="journal-entries" element={<JournalEntries />} />
+              <Route path="journal-entries/add" element={<AddJournalEntry />} />
+              <Route path="journal-entries/edit/:id" element={<EditJournalEntry />} />
+              <Route path="journal-entries/view/:id" element={<JournalEntryDetails />} />
+              <Route path="currencies" element={<Currencies />} />
+              <Route path="currencies/add" element={<AddCurrency />} />
+              <Route path="currencies/edit/:id" element={<EditCurrency />} />
+              <Route path="currencies/view/:id" element={<CurrencyDetails />} />
+              <Route path="exchange-rates" element={<ExchangeRates />} />
+              <Route path="exchange-rates/add" element={<AddExchangeRate />} />
+              <Route path="exchange-rates/view/:id" element={<ExchangeRateDetails />} />
+              <Route path="vendors" element={<Vendors />} />
+              <Route path="vendors/add" element={<AddVendor />} />
+              <Route path="vendors/edit/:id" element={<EditVendor />} />
+              <Route path="vendors/view/:id" element={<VendorDetails />} />
+              <Route path="customers" element={<Customers />} />
+              <Route path="customers/add" element={<AddCustomer />} />
+              <Route path="customers/edit/:id" element={<EditCustomer />} />
+              <Route path="customers/view/:id" element={<CustomerDetails />} />
+              <Route path="banks" element={<Banks />} />
+              <Route path="banks/add" element={<AddBank />} />
+              <Route path="banks/edit/:id" element={<EditBank />} />
+              <Route path="banks/view/:id" element={<BankDetails />} />
+              <Route path="safes" element={<Safes />} />
+              <Route path="safes/add" element={<AddSafe />} />
+              <Route path="safes/edit/:id" element={<EditSafe />} />
+              <Route path="safes/view/:id" element={<SafeDetails />} />
+              <Route path="account-links" element={<AccountLinks />} />
 
               <Route path="shifts" element={<Shifts />} />
               <Route path="shifts/add" element={<AddShift />} />

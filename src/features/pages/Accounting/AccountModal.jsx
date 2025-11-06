@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addAccount, updateAccount } from '../../../redux/Slices/authSlice';
+import { addAccount, updateAccount, clearError, clearSuccess } from '../../../redux/Slices/authSlice';
 import { toast } from 'react-toastify';
 
 const AccountModal = ({ isOpen, onClose, mode, parentAccount = null, accountData = null, onSuccess }) => {
   const dispatch = useDispatch();
   const { isLoading, success, error } = useSelector((state) => state.auth);
+  const lastErrorRef = useRef({ message: null, time: 0 });
+  const lastSuccessRef = useRef({ message: null, time: 0 });
 
   const [formData, setFormData] = useState({
     name_en: '',
@@ -42,18 +44,45 @@ const AccountModal = ({ isOpen, onClose, mode, parentAccount = null, accountData
     // Show success toast only when modal is open (add/edit flows)
     if (!isOpen) return;
     if (success) {
-      toast.success(success, { rtl: true });
-      onSuccess();
-      onClose();
+      const now = Date.now();
+      const last = lastSuccessRef.current;
+      // Only show toast if it's a different message or enough time has passed
+      if (!last.message || last.message !== success || now - last.time > 2000) {
+        toast.success(success, { rtl: true });
+        lastSuccessRef.current = { message: success, time: now };
+        // Clear success and close modal after showing toast
+        setTimeout(() => {
+          dispatch(clearSuccess());
+          onSuccess();
+          onClose();
+        }, 1500);
+      }
     }
-  }, [success, isOpen, onSuccess, onClose]);
+  }, [success, isOpen, onSuccess, onClose, dispatch]);
 
   useEffect(() => {
     // Only show error toast when modal is open and user is trying to add/edit
-    if (error && isOpen) {
-      toast.error(error, { rtl: true });
+    if (!error || !isOpen) return;
+    
+    const now = Date.now();
+    const last = lastErrorRef.current;
+    // Handle error if it's an object with message property
+    const errorMessage = typeof error === 'object' && error !== null 
+      ? (error.message || JSON.stringify(error))
+      : error;
+    
+    // Only show toast if it's a different message or enough time has passed
+    if (!last.message || last.message !== errorMessage || now - last.time > 2000) {
+      toast.error(errorMessage, { rtl: true });
+      lastErrorRef.current = { message: errorMessage, time: now };
     }
-  }, [error, isOpen]);
+    
+    // Clear error after showing toast
+    const timer = setTimeout(() => {
+      dispatch(clearError());
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [error, isOpen, dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,7 +116,7 @@ const AccountModal = ({ isOpen, onClose, mode, parentAccount = null, accountData
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      zIndex: 99999
+      zIndex: 999999
     }} onClick={onClose}>
       <div style={{
         background: '#1f2937',
@@ -278,7 +307,7 @@ const AccountModal = ({ isOpen, onClose, mode, parentAccount = null, accountData
               style={{
                 flex: 1,
                 padding: '0.75rem',
-                background: '#0CAD5D',
+                background: '#AC2000',
                 border: 'none',
                 borderRadius: '8px',
                 color: '#fff',

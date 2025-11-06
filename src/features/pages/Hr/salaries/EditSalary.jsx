@@ -25,8 +25,6 @@ const EditSalary = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // منطق تعديل الراتب
-    console.log('Updated salary data:', formData);
     navigate('/salaries');
   };
 
@@ -48,7 +46,7 @@ const EditSalary = () => {
           style={{
             backgroundColor: 'transparent',
             border: 'none',
-            color: '#0CAD5D',
+            color: '#AC2000',
             fontSize: '16px',
             cursor: 'pointer',
             display: 'flex',
@@ -141,7 +139,7 @@ const EditSalary = () => {
                     backgroundColor: '#1a1f2e',
                     border: '1px solid #333',
                     borderRadius: '8px',
-                    color: '#0CAD5D',
+                    color: '#AC2000',
                     fontSize: '14px'
                   }}
                 />
@@ -366,7 +364,7 @@ const EditSalary = () => {
             <button
               type="submit"
               style={{
-                backgroundColor: '#0CAD5D',
+                backgroundColor: '#AC2000',
                 color: 'white',
                 border: 'none',
                 padding: '12px 30px',

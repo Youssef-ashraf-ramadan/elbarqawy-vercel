@@ -43,7 +43,7 @@ const JobTitles = () => {
   };
 
   const getStatusColor = (status) => {
-    return status === 'نشط' ? '#0CAD5D' : '#dc3545';
+    return status === 'نشط' ? '#AC2000' : '#dc3545';
   };
 
   const handleEdit = (id) => {
@@ -142,7 +142,7 @@ const JobTitles = () => {
           <button
             onClick={() => navigate('/add-job-title')}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 20px',
@@ -177,14 +177,15 @@ const JobTitles = () => {
             minWidth: '800px'
           }}>
             <thead>
-              <tr style={{ backgroundColor: '#1a1f2e' }}>
+              <tr style={{ backgroundColor: '#AC2000' }}>
                 <th style={{ 
                   padding: '15px', 
                   textAlign: 'center', 
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   #
                 </th>
@@ -194,7 +195,8 @@ const JobTitles = () => {
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   <FaBriefcase className="mx-2" />
                   المسمى الوظيفي
@@ -205,7 +207,8 @@ const JobTitles = () => {
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   <FaFileAlt className="mx-2" />
                   الوصف
@@ -216,7 +219,8 @@ const JobTitles = () => {
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   <FaCalendarAlt className="mx-2" />
                   تاريخ الإنشاء
@@ -227,7 +231,8 @@ const JobTitles = () => {
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   الإجراءات
                 </th>
@@ -249,7 +254,7 @@ const JobTitles = () => {
                     </td>
                     <td style={{ 
                       padding: '15px', 
-                      color: '#0CAD5D',
+                      color: 'white',
                       fontWeight: '500',
                       textAlign: 'center'
                     }}>
@@ -299,7 +304,7 @@ const JobTitles = () => {
                         <button
                           onClick={() => handleEdit(job.id)}
                           style={{
-                            backgroundColor: '#ffc107',
+                            backgroundColor: '#B3B3B3',
                             color: 'white',
                             border: 'none',
                             padding: '8px 12px',
@@ -357,7 +362,7 @@ const JobTitles = () => {
           borderTop: '1px solid #333'
         }}>
           <button style={{
-            backgroundColor: '#0CAD5D',
+            backgroundColor: '#AC2000',
             color: 'white',
             border: 'none',
             padding: '8px 12px',

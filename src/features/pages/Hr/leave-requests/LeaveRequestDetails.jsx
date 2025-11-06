@@ -124,15 +124,17 @@ const LeaveRequestDetails = () => {
         <button
           onClick={() => navigate('/leave-requests')}
           style={{
-            backgroundColor: 'transparent',
+            backgroundColor: '#666',
+            color: 'white',
             border: 'none',
-            color: '#0CAD5D',
-            fontSize: '16px',
+            padding: '10px',
+            borderRadius: '8px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            marginBottom: '20px'
+            marginBottom: '20px',
+            fontSize: '14px'
           }}
         >
           <FaArrowLeft />
@@ -163,7 +165,7 @@ const LeaveRequestDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -191,7 +193,7 @@ const LeaveRequestDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -215,7 +217,7 @@ const LeaveRequestDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -241,7 +243,7 @@ const LeaveRequestDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -256,10 +258,10 @@ const LeaveRequestDetails = () => {
                 fontSize: '16px'
               }}>
                 <div style={{ marginBottom: '8px' }}>
-                  <span style={{ color: '#0CAD5D', fontWeight: 'bold' }}>تاريخ البداية:</span> {formatDate(leaveRequestDetails.start_date)}
+                  <span style={{ color: 'white', fontWeight: 'bold' }}>تاريخ البداية:</span> {formatDate(leaveRequestDetails.start_date)}
                 </div>
                 <div>
-                  <span style={{ color: '#0CAD5D', fontWeight: 'bold' }}>تاريخ النهاية:</span> {formatDate(leaveRequestDetails.end_date)}
+                  <span style={{ color: 'white', fontWeight: 'bold' }}>تاريخ النهاية:</span> {formatDate(leaveRequestDetails.end_date)}
                 </div>
               </div>
             </div>
@@ -268,7 +270,7 @@ const LeaveRequestDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -300,7 +302,7 @@ const LeaveRequestDetails = () => {
                 <label style={{ 
                   display: 'block', 
                   marginBottom: '8px', 
-                  color: '#0CAD5D',
+                  color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px'
                 }}>
@@ -325,7 +327,7 @@ const LeaveRequestDetails = () => {
                 <label style={{ 
                   display: 'block', 
                   marginBottom: '8px', 
-                  color: '#0CAD5D',
+                  color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px'
                 }}>
@@ -348,7 +350,7 @@ const LeaveRequestDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -363,10 +365,10 @@ const LeaveRequestDetails = () => {
                 fontSize: '16px'
               }}>
                 <div style={{ marginBottom: '5px' }}>
-                  <span style={{ color: '#0CAD5D', fontWeight: 'bold' }}>رقم الطلب:</span> {leaveRequestDetails.id}
+                  <span style={{ color: 'white', fontWeight: 'bold' }}>رقم الطلب:</span> {leaveRequestDetails.id}
                 </div>
                 <div style={{ fontSize: '14px', color: '#ccc' }}>
-                  <span style={{ color: '#0CAD5D', fontWeight: 'bold' }}>تاريخ الإنشاء:</span> {formatDate(leaveRequestDetails.created_at)}
+                  <span style={{ color: 'white', fontWeight: 'bold' }}>تاريخ الإنشاء:</span> {formatDate(leaveRequestDetails.created_at)}
                 </div>
               </div>
             </div>
@@ -384,8 +386,8 @@ const LeaveRequestDetails = () => {
           <button
             onClick={handleEdit}
             style={{
-              backgroundColor: '#ffc107',
-              color: 'black',
+              backgroundColor: '#B3B3B3',
+              color: 'white',
               border: 'none',
               padding: '12px 20px',
               borderRadius: '8px',

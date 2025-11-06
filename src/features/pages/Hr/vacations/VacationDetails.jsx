@@ -87,15 +87,17 @@ const VacationDetails = () => {
         <button
           onClick={() => navigate('/vacations')}
           style={{
-            backgroundColor: 'transparent',
+            backgroundColor: '#666',
+            color: 'white',
             border: 'none',
-            color: '#0CAD5D',
-            fontSize: '16px',
+            padding: '10px',
+            borderRadius: '8px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            marginBottom: '20px'
+            marginBottom: '20px',
+            fontSize: '14px'
           }}
         >
           <FaArrowLeft />
@@ -126,7 +128,7 @@ const VacationDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -148,7 +150,7 @@ const VacationDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -173,7 +175,7 @@ const VacationDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -195,7 +197,7 @@ const VacationDetails = () => {
               <label style={{ 
                 display: 'block', 
                 marginBottom: '8px', 
-                color: '#0CAD5D',
+                color: 'white',
                 fontWeight: 'bold',
                 fontSize: '14px'
               }}>
@@ -234,8 +236,8 @@ const VacationDetails = () => {
           <button
             onClick={handleEdit}
             style={{
-              backgroundColor: '#ffc107',
-              color: 'black',
+              backgroundColor: '#B3B3B3',
+              color: 'white',
               border: 'none',
               padding: '12px 20px',
               borderRadius: '8px',

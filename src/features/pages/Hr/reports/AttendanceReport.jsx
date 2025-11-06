@@ -177,27 +177,29 @@ const AttendanceReport = () => {
                   <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '130px' }}>أيام الغياب</th>
                   <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '130px' }}>أيام الإجازة</th>
                   <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '140px' }}>إجمالي الأيام</th>
+                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '200px' }}>ملاحظات</th>
                 </tr>
               </thead>
               <tbody>
-                {attendanceReports.data
-                  .filter(item => !item.error) // Filter out items with errors
-                  .map((item, index) => (
+                {attendanceReports.data.map((item, index) => (
                     <tr key={item.employee_id} style={{ borderBottom: '1px solid #333' }}>
                       <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>{index + 1}</td>
                       <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>{item.employee_name || 'غير متوفر'}</td>
                       <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white', whiteSpace: 'normal', lineHeight: '1.5' }}>{item.department || 'غير متوفر'}</td>
-                      <td style={{ padding: '16px 20px', textAlign: 'center', color: '#0CAD5D', fontWeight: 'bold' }}>
-                        {item.present_days || 0}
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: item.error ? '#999' : '#AC2000', fontWeight: 'bold' }}>
+                      {item.error ? '-' : (item.present_days || 0)}
+                    </td>
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: item.error ? '#999' : '#dc3545', fontWeight: 'bold' }}>
+                      {item.error ? '-' : (item.absent_days || 0)}
                       </td>
-                      <td style={{ padding: '16px 20px', textAlign: 'center', color: '#dc3545', fontWeight: 'bold' }}>
-                        {item.absent_days || 0}
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: item.error ? '#999' : '#ffa500', fontWeight: 'bold' }}>
+                      {item.error ? '-' : (item.leave_days || 0)}
                       </td>
-                      <td style={{ padding: '16px 20px', textAlign: 'center', color: '#ffa500', fontWeight: 'bold' }}>
-                        {item.leave_days || 0}
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: item.error ? '#999' : 'white', fontWeight: 'bold' }}>
+                      {item.error ? '-' : (item.total_work_days || 0)}
                       </td>
-                      <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
-                        {item.total_work_days || 0}
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: item.error ? '#dc3545' : '#999', fontSize: '14px' }}>
+                      {item.error || '-'}
                       </td>
                     </tr>
                   ))}
@@ -206,6 +208,27 @@ const AttendanceReport = () => {
           </div>
         </div>
       )}
+
+      {/* عرض رسالة لا توجد بيانات عندما لا توجد بيانات على الإطلاق */}
+      {attendanceReports && 
+       (!attendanceReports.data || attendanceReports.data.length === 0) && (
+          <div style={{
+            backgroundColor: '#202938',
+            borderRadius: '12px',
+            padding: '40px 20px',
+            border: '1px solid #333',
+            textAlign: 'center'
+          }}>
+            <div style={{
+              color: '#999',
+              fontSize: '18px',
+              fontWeight: '500'
+            }}>
+              لا توجد بيانات
+            </div>
+          </div>
+        )
+      }
     </div>
   );
 };

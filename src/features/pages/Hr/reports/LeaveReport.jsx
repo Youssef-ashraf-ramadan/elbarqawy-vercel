@@ -140,7 +140,7 @@ const LeaveReport = () => {
             onClick={handleGenerateReport}
             disabled={isLoading}
             style={{
-              backgroundColor: isLoading ? '#666' : '#0CAD5D',
+              backgroundColor: isLoading ? '#666' : '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 24px',
@@ -182,7 +182,7 @@ const LeaveReport = () => {
       </div>
 
       {/* عرض النتائج */}
-      {leaveReports && leaveReports.data && leaveReports.data.length > 0 && (
+      {leaveReports && leaveReports.data && leaveReports.data.length > 0 ? (
         <div style={{
           backgroundColor: '#202938',
           borderRadius: '12px',
@@ -219,8 +219,8 @@ const LeaveReport = () => {
                       <span style={{
                         padding: '6px 18px',
                         borderRadius: '20px',
-                        backgroundColor: item.status === 'approved' ? 'rgba(12, 173, 93, 0.2)' : item.status === 'rejected' ? 'rgba(220, 53, 69, 0.2)' : 'rgba(255, 193, 7, 0.2)',
-                        color: item.status === 'approved' ? '#0CAD5D' : item.status === 'rejected' ? '#dc3545' : '#ffc107',
+                        backgroundColor: item.status === 'approved' ? 'rgba(172, 32, 0, 0.2)' : item.status === 'rejected' ? 'rgba(220, 53, 69, 0.2)' : 'rgba(255, 193, 7, 0.2)',
+                        color: item.status === 'approved' ? '#AC2000' : item.status === 'rejected' ? '#dc3545' : '#ffc107',
                         fontSize: '13px',
                         fontWeight: 'bold',
                         display: 'inline-block',
@@ -235,7 +235,23 @@ const LeaveReport = () => {
             </table>
           </div>
         </div>
-      )}
+      ) : leaveReports && (!leaveReports.data || leaveReports.data.length === 0) && !isLoading ? (
+        <div style={{
+          backgroundColor: '#202938',
+          borderRadius: '12px',
+          padding: '40px',
+          border: '1px solid #333',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            fontSize: '18px',
+            color: '#888',
+            fontWeight: '500'
+          }}>
+            لا توجد بيانات
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

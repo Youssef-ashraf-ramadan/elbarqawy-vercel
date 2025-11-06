@@ -35,9 +35,7 @@ const EditDepartment = () => {
   }, [departmentDetails]);
 
   useEffect(() => {
-    console.log('EditDepartment useEffect - success:', success, 'error:', error);
     if (success) {
-      console.log('Showing success toast:', success);
       toast.success(success, { 
         rtl: true,
         position: "top-right",
@@ -53,7 +51,6 @@ const EditDepartment = () => {
       }, 2000);
     }
     if (error) {
-      console.log('Showing error toast:', error);
       toast.error(error, { 
         rtl: true,
         position: "top-right",
@@ -309,7 +306,7 @@ const EditDepartment = () => {
                   type="submit"
                   disabled={isLoading}
                   style={{
-                    backgroundColor: '#0CAD5D',
+                    backgroundColor: '#AC2000',
                     color: 'white',
                     border: 'none',
                     padding: '12px 25px',

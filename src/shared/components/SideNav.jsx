@@ -38,7 +38,7 @@ const SideNav = ({ isOpen, toggleSideNav }) => {
     <div
       ref={sideNavRef}
       className={`sidenav ${isOpen ? "openNav" : "closedNav"}`}
-      style={{ zIndex: 1 }}
+      style={{ zIndex: 20000 }}
       onClick={!isOpen ? (e) => {
         // إذا كان النقر على رابط، لا تفتح السايد بار
         if (e.target.closest('a')) {
@@ -66,7 +66,7 @@ const SideNav = ({ isOpen, toggleSideNav }) => {
             }}
           >
             <img 
-              src="/albaraqawyLogo.png" 
+              src={i18n.language === "ar" ? "/logoArabic.png" : "/logoEn.png"} 
               alt="albaraqawy Logo" 
               style={{
                 height: "70px",

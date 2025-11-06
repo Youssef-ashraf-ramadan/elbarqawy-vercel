@@ -35,7 +35,7 @@ const Shifts = () => {
   ) || [];
 
   const getStatusColor = (status) => {
-    return status === 'نشط' ? '#0CAD5D' : '#dc3545';
+    return status === 'نشط' ? '#AC2000' : '#dc3545';
   };
 
   const handleAdd = () => {
@@ -119,7 +119,7 @@ const Shifts = () => {
           <button
             onClick={handleAdd}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 20px',
@@ -154,14 +154,15 @@ const Shifts = () => {
             minWidth: '800px'
           }}>
             <thead>
-              <tr style={{ backgroundColor: '#1a1f2e' }}>
+              <tr style={{ backgroundColor: '#AC2000' }}>
                 <th style={{ 
                   padding: '15px', 
                   textAlign: 'center', 
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   اسم الوردية
                 </th>
@@ -171,7 +172,8 @@ const Shifts = () => {
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   عدد أيام العمل
                 </th>
@@ -181,7 +183,8 @@ const Shifts = () => {
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   أيام الإجازة
                 </th>
@@ -191,7 +194,8 @@ const Shifts = () => {
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   أنشى من
                 </th>
@@ -201,7 +205,8 @@ const Shifts = () => {
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   الحالة
                 </th>
@@ -211,7 +216,8 @@ const Shifts = () => {
                   color: 'white',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  borderBottom: '1px solid #333'
+                  borderBottom: '1px solid #333',
+                  backgroundColor: '#AC2000'
                 }}>
                   الإجراءات
                 </th>
@@ -237,7 +243,7 @@ const Shifts = () => {
                 }}>
                     <td style={{ 
                       padding: '15px', 
-                      color: '#0CAD5D',
+                      color: 'white',
                       fontWeight: '500',
                       textAlign: 'center'
                     }}>
@@ -268,7 +274,7 @@ const Shifts = () => {
                     </td>
                     <td style={{ padding: '15px', textAlign: 'center' }}>
                       <span style={{
-                        backgroundColor: shift.is_active ? '#0CAD5D' : '#dc3545',
+                        backgroundColor: shift.is_active ? '#AC2000' : '#dc3545',
                         color: 'white',
                         padding: '4px 12px',
                         borderRadius: '20px',
@@ -298,7 +304,7 @@ const Shifts = () => {
                         <button
                           onClick={() => handleEdit(shift.id)}
                         style={{
-                          backgroundColor: '#0CAD5D',
+                          backgroundColor: '#AC2000',
                           color: 'white',
                           border: 'none',
                           padding: '8px',
@@ -344,7 +350,7 @@ const Shifts = () => {
           borderTop: '1px solid #333'
         }}>
           <button style={{
-            backgroundColor: '#0CAD5D',
+            backgroundColor: '#AC2000',
             color: 'white',
             border: 'none',
             padding: '8px 12px',

@@ -284,7 +284,7 @@ const EditJobTitle = () => {
                   type="submit"
                   disabled={isLoading}
                   style={{
-                    backgroundColor: '#0CAD5D',
+                    backgroundColor: '#AC2000',
                     color: 'white',
                     border: 'none',
                     padding: '12px 25px',

@@ -68,7 +68,7 @@ const ShiftDetails = () => {
             width: '40px',
             height: '40px',
             border: '4px solid #333',
-            borderTop: '4px solid #0CAD5D',
+            borderTop: '4px solid #AC2000',
             borderRadius: '50%',
             animation: 'spin 1s linear infinite',
             margin: '0 auto 20px'
@@ -95,7 +95,7 @@ const ShiftDetails = () => {
           <button
             onClick={() => navigate('/shifts')}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px 24px',
@@ -120,15 +120,35 @@ const ShiftDetails = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      <div style={{ marginBottom: '30px' }}>
+      <div style={{ marginBottom: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 style={{ 
           fontSize: '24px', 
           fontWeight: 'bold', 
           marginBottom: '20px',
-          color: 'white'
+          color: 'white',
+          margin: 0
         }}>
           تفاصيل الوردية
         </h1>
+        <button
+          onClick={() => navigate('/shifts')}
+          style={{
+            backgroundColor: '#666',
+            color: 'white',
+            border: 'none',
+            padding: '10px 20px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          <FaArrowRight />
+          العودة للقائمة
+        </button>
       </div>
 
       <div style={{
@@ -141,7 +161,7 @@ const ShiftDetails = () => {
         {/* معلومات الوردية */}
         <div style={{ marginBottom: '30px' }}>
           <h3 style={{
-            color: '#0CAD5D',
+            color: 'white',
             marginBottom: '20px',
             fontSize: '18px',
             fontWeight: 'bold'
@@ -217,7 +237,7 @@ const ShiftDetails = () => {
                 الحالة
               </label>
               <span style={{
-                backgroundColor: workShiftDetails.is_active ? '#0CAD5D' : '#dc3545',
+                backgroundColor: workShiftDetails.is_active ? '#AC2000' : '#dc3545',
                 color: 'white',
                 padding: '4px 12px',
                 borderRadius: '20px',
@@ -233,7 +253,7 @@ const ShiftDetails = () => {
         {/* تفاصيل الأيام */}
         <div style={{ marginBottom: '30px' }}>
           <h3 style={{
-            color: '#0CAD5D',
+            color: 'white',
             marginBottom: '20px',
             fontSize: '18px',
             fontWeight: 'bold'
@@ -256,7 +276,7 @@ const ShiftDetails = () => {
                   marginBottom: '15px'
                 }}>
                   <h4 style={{
-                    color: '#0CAD5D',
+                    color: 'white',
                     margin: 0,
                     fontSize: '16px',
                     fontWeight: 'bold'
@@ -265,7 +285,7 @@ const ShiftDetails = () => {
                   </h4>
                   
                   <span style={{
-                    backgroundColor: day.is_off_day ? '#dc3545' : '#0CAD5D',
+                    backgroundColor: day.is_off_day ? '#dc3545' : '#AC2000',
                     color: 'white',
                     padding: '4px 12px',
                     borderRadius: '20px',
@@ -334,29 +354,9 @@ const ShiftDetails = () => {
           marginTop: '30px'
         }}>
           <button
-            onClick={() => navigate('/shifts')}
-            style={{
-              backgroundColor: '#666',
-              color: 'white',
-              border: 'none',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: 'bold',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}
-          >
-            <FaArrowRight />
-            العودة للقائمة
-          </button>
-          
-          <button
             onClick={handleEdit}
             style={{
-              backgroundColor: '#0CAD5D',
+              backgroundColor: '#B3B3B3',
               color: 'white',
               border: 'none',
               padding: '12px 24px',

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { getAccountsTree, getAccountDetails, deleteAccount, toggleAccountStatus, clearError, clearSuccess, clearAccountDetails } from '../../../redux/Slices/authSlice';
 import AccountModal from './AccountModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
@@ -11,13 +12,57 @@ const JQUERY_JS = 'https://code.jquery.com/jquery-3.7.1.min.js';
 const JSTREE_JS = 'https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.17/jstree.min.js';
 
 function loadOnce(tagName, id, attributes = {}) {
-  if (document.getElementById(id)) return Promise.resolve();
+  if (document.getElementById(id)) {
+    // If already exists, check if it's loaded
+    if (tagName === 'script') {
+      // For scripts, check if the library is available
+      if (id === 'jquery-js' && (window.jQuery || window.$)) {
+        return Promise.resolve();
+      }
+      if (id === 'jstree-js' && window.jQuery && window.jQuery.fn && window.jQuery.fn.jstree) {
+        return Promise.resolve();
+      }
+      // If script exists but not loaded yet, wait a bit and check again
+      return new Promise((resolve) => {
+        const checkInterval = setInterval(() => {
+          if (id === 'jquery-js' && (window.jQuery || window.$)) {
+            clearInterval(checkInterval);
+            resolve();
+          } else if (id === 'jstree-js' && window.jQuery && window.jQuery.fn && window.jQuery.fn.jstree) {
+            clearInterval(checkInterval);
+            resolve();
+          }
+        }, 50);
+        setTimeout(() => {
+          clearInterval(checkInterval);
+          resolve(); // Resolve anyway after timeout to avoid infinite waiting
+        }, 5000);
+      });
+    }
+    return Promise.resolve();
+  }
   return new Promise((resolve, reject) => {
     const el = document.createElement(tagName);
     el.id = id;
     Object.entries(attributes).forEach(([k, v]) => el.setAttribute(k, v));
-    el.onload = () => resolve();
-    el.onerror = reject;
+    if (tagName === 'script') {
+      el.onload = () => {
+        // Extra check for scripts
+        if (id === 'jquery-js') {
+          if (window.jQuery || window.$) resolve();
+          else setTimeout(() => resolve(), 100);
+        } else if (id === 'jstree-js') {
+          if (window.jQuery && window.jQuery.fn && window.jQuery.fn.jstree) resolve();
+          else setTimeout(() => resolve(), 100);
+        } else {
+          resolve();
+        }
+      };
+      el.onerror = reject;
+    } else {
+      el.onload = () => resolve();
+      el.onerror = reject;
+    }
     if (tagName === 'link') document.head.appendChild(el);
     else document.body.appendChild(el);
   });
@@ -25,6 +70,7 @@ function loadOnce(tagName, id, attributes = {}) {
 
 const AccountsTree = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { accountsTree, accountDetails, isLoading, error, success } = useSelector((state) => state.auth);
   const [selectedNode, setSelectedNode] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -32,6 +78,7 @@ const AccountsTree = () => {
   const [pendingAction, setPendingAction] = useState(null); // 'toggle' | 'add' | 'edit' | 'delete' | null
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, node: null });
+  const [libsLoaded, setLibsLoaded] = useState(false);
   const lastErrorRef = useRef({ message: null, time: 0 });
   const openNodeIdsRef = useRef([]);
   const selectedNodeIdRef = useRef(null);
@@ -39,6 +86,7 @@ const AccountsTree = () => {
   const getJsTreeInstance = () => {
     const $global = window.jQuery || window.$;
     if (!$global || !treeContainerRef.current) return null;
+    if (!$global.fn || !$global.fn.jstree) return null;
     try {
       const inst = $global(treeContainerRef.current).jstree(true);
       return inst && typeof inst.get_selected === 'function' ? inst : null;
@@ -55,8 +103,26 @@ const AccountsTree = () => {
       try {
         await loadOnce('link', 'jstree-css', { rel: 'stylesheet', href: JSTREE_CSS });
         await loadOnce('script', 'jquery-js', { src: JQUERY_JS });
+        
+        // Wait for jQuery to be available
+        let attempts = 0;
+        while (!(window.jQuery || window.$) && attempts < 50) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+          attempts++;
+        }
+        
         await loadOnce('script', 'jstree-js', { src: JSTREE_JS });
-        // libs loaded; we will access window.jQuery/window.$ when initializing
+        
+        // Wait for jsTree to be available
+        attempts = 0;
+        while (!(window.jQuery && window.jQuery.fn && window.jQuery.fn.jstree) && attempts < 50) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+          attempts++;
+        }
+        
+        if (isMounted) {
+          setLibsLoaded(true);
+        }
       } catch (e) {
         console.error('Failed to load jsTree dependencies', e);
       }
@@ -65,30 +131,32 @@ const AccountsTree = () => {
     return () => { isMounted = false; };
   }, []);
 
-  // Fetch data
+  // Fetch data and clear details when component mounts or route changes
   useEffect(() => {
     dispatch(getAccountsTree());
+    dispatch(clearAccountDetails());
+    setSelectedNode(null);
+  }, [dispatch, location.pathname]);
+
+  // Clear details when component unmounts
+  useEffect(() => {
+    return () => {
+      dispatch(clearAccountDetails());
+    };
   }, [dispatch]);
 
   // Handle errors with deduplication (avoid duplicate toasts)
   useEffect(() => {
     if (!error || !pendingAction) return;
-    console.log('Error useEffect triggered:', { error, pendingAction });
-    // Only show errors for non-modal actions here (toggle/delete)
     if (pendingAction === 'toggle' || pendingAction === 'delete') {
       const now = Date.now();
       const last = lastErrorRef.current;
-      console.log('Checking deduplication:', { lastMessage: last.message, currentError: error, timeDiff: now - last.time });
-      // Only show toast if it's a different error or enough time has passed
       if (last.message !== error || now - last.time > 2000) {
-        console.log('Showing error toast');
         toast.error(error, { rtl: true });
         lastErrorRef.current = { message: error, time: now };
       } else {
-        console.log('Skipping duplicate error toast');
       }
     }
-    // Clear error after a short delay, but only after showing toast
     const timer = setTimeout(() => {
       dispatch(clearError());
       setPendingAction(null);
@@ -172,9 +240,17 @@ const AccountsTree = () => {
 
   // Initialize jsTree whenever data is available
   useEffect(() => {
+    if (!libsLoaded) return;
+    
     const $global = window.jQuery || window.$;
     if (!$global || !treeContainerRef.current) return;
     if (!accountsTree || accountsTree.length === 0) return;
+    
+    // Check if jsTree plugin is available
+    if (!$global.fn || !$global.fn.jstree) {
+      console.warn('jsTree plugin not loaded yet');
+      return;
+    }
 
     const $el = $global(treeContainerRef.current);
     // Destroy previous instance if exists
@@ -252,7 +328,6 @@ const AccountsTree = () => {
                       dispatch(getAccountDetails(selectedData.data.id));
                     }
                   } catch (e) {
-                    console.log('Error selecting node:', e);
                   }
                 }, 100);
               }
@@ -269,8 +344,6 @@ const AccountsTree = () => {
                 openNodesSequentially(nodeIds, index + 1);
               });
             } catch (e) {
-              console.log('Error opening node:', e);
-              // Continue to next node even if this one fails
               openNodesSequentially(nodeIds, index + 1);
             }
           };
@@ -293,7 +366,6 @@ const AccountsTree = () => {
 
     // Handle node selection for displaying details
     $el.on('select_node.jstree', function (e, data) {
-      console.log('Node selected:', data.node);
       
       // Try to get data from various possible locations
       let nodeData = null;
@@ -308,14 +380,11 @@ const AccountsTree = () => {
         nodeData = data.node.data;
       }
       
-      console.log('Node data:', nodeData);
       
       if (nodeData && nodeData.id) {
-        console.log('Dispatching getAccountDetails for id:', nodeData.id);
         setSelectedNode(nodeData);
         dispatch(getAccountDetails(nodeData.id));
       } else {
-        console.log('No node data or id found');
       }
     });
 
@@ -362,7 +431,7 @@ const AccountsTree = () => {
     return () => {
       try { $el.jstree('destroy'); } catch {}
     };
-  }, [accountsTree, dispatch]);
+  }, [accountsTree, dispatch, libsLoaded]);
 
   // Hide context menu on outside click
   useEffect(() => {
@@ -391,7 +460,7 @@ const AccountsTree = () => {
               background: 'rgba(0,0,0,0.15)'
             }}>
               <span style={{
-                width: 28, height: 28, borderRadius: '50%', border: '3px solid #0CAD5D',
+                width: 28, height: 28, borderRadius: '50%', border: '3px solid #AC2000',
                 borderTopColor: 'transparent', display: 'inline-block',
                 animation: 'spin 1s linear infinite'
               }} />
@@ -421,7 +490,7 @@ const AccountsTree = () => {
                       }}
                       style={{
                         padding: '0.5rem 0.75rem',
-                        background: '#0CAD5D',
+                        background: '#AC2000',
                         border: 'none',
                         borderRadius: '6px',
                         color: '#fff',
@@ -429,10 +498,10 @@ const AccountsTree = () => {
                         fontSize: '13px',
                         fontWeight: 500,
                         transition: 'all 0.2s',
-                        boxShadow: '0 2px 4px rgba(12, 173, 93, 0.2)'
+                        boxShadow: '0 2px 4px rgba(172, 32, 0, 0.2)'
                       }}
                       onMouseEnter={(e) => e.target.style.background = '#0db56a'}
-                      onMouseLeave={(e) => e.target.style.background = '#0CAD5D'}
+                      onMouseLeave={(e) => e.target.style.background = '#AC2000'}
                     >
                       إضافة
                     </button>
@@ -444,7 +513,7 @@ const AccountsTree = () => {
                       }}
                       style={{
                         padding: '0.5rem 0.75rem',
-                        background: '#3b82f6',
+                        background: '#B3B3B3',
                         border: 'none',
                         borderRadius: '6px',
                         color: '#fff',
@@ -452,10 +521,10 @@ const AccountsTree = () => {
                         fontSize: '13px',
                         fontWeight: 500,
                         transition: 'all 0.2s',
-                        boxShadow: '0 2px 4px rgba(59, 130, 246, 0.2)'
+                        boxShadow: '0 2px 4px rgba(179, 179, 179, 0.2)'
                       }}
-                      onMouseEnter={(e) => e.target.style.background = '#2563eb'}
-                      onMouseLeave={(e) => e.target.style.background = '#3b82f6'}
+                      onMouseEnter={(e) => e.target.style.background = '#999999'}
+                      onMouseLeave={(e) => e.target.style.background = '#B3B3B3'}
                     >
                       تعديل
                     </button>
@@ -465,7 +534,7 @@ const AccountsTree = () => {
                       }}
                       style={{
                         padding: '0.5rem 0.75rem',
-                        background: '#ef4444',
+                        background: '#F6630d',
                         border: 'none',
                         borderRadius: '6px',
                         color: '#fff',
@@ -473,10 +542,10 @@ const AccountsTree = () => {
                         fontSize: '13px',
                         fontWeight: 500,
                         transition: 'all 0.2s',
-                        boxShadow: '0 2px 4px rgba(239, 68, 68, 0.2)'
+                        boxShadow: '0 2px 4px rgba(246, 99, 13, 0.2)'
                       }}
-                      onMouseEnter={(e) => e.target.style.background = '#dc2626'}
-                      onMouseLeave={(e) => e.target.style.background = '#ef4444'}
+                      onMouseEnter={(e) => e.target.style.background = '#d9540b'}
+                      onMouseLeave={(e) => e.target.style.background = '#F6630d'}
                     >
                       حذف
                     </button>
@@ -487,7 +556,7 @@ const AccountsTree = () => {
                       }}
                       style={{
                         padding: '0.5rem 0.75rem',
-                        background: accountDetails.is_active ? '#f59e0b' : '#10b981',
+                        background: accountDetails.is_active ? '#F6630d' : '#AC2000',
                         border: 'none',
                         borderRadius: '6px',
                         color: '#fff',
@@ -495,10 +564,10 @@ const AccountsTree = () => {
                         fontSize: '13px',
                         fontWeight: 500,
                         transition: 'all 0.2s',
-                        boxShadow: `0 2px 4px ${accountDetails.is_active ? 'rgba(245, 158, 11, 0.2)' : 'rgba(16, 185, 129, 0.2)'}`
+                        boxShadow: `0 2px 4px ${accountDetails.is_active ? 'rgba(246, 99, 13, 0.2)' : 'rgba(172, 32, 0, 0.2)'}`
                       }}
-                      onMouseEnter={(e) => e.target.style.background = accountDetails.is_active ? '#d97706' : '#059669'}
-                      onMouseLeave={(e) => e.target.style.background = accountDetails.is_active ? '#f59e0b' : '#10b981'}
+                      onMouseEnter={(e) => e.target.style.background = accountDetails.is_active ? '#d9540b' : '#8a1a00'}
+                      onMouseLeave={(e) => e.target.style.background = accountDetails.is_active ? '#F6630d' : '#AC2000'}
                     >
                       {accountDetails.is_active ? 'إلغاء التفعيل' : 'تفعيل'}
                     </button>
@@ -565,7 +634,7 @@ const AccountsTree = () => {
             position: 'fixed',
             left: contextMenu.x,
             top: contextMenu.y,
-            zIndex: 32000322300,
+            zIndex: 25000,
             backgroundColor: '#2d3748',
             border: '1px solid #4a5568',
             borderRadius: '8px',

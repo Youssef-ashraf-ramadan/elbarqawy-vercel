@@ -107,15 +107,17 @@ const EditLeaveRequest = () => {
         <button
           onClick={() => navigate('/leave-requests')}
           style={{
-            backgroundColor: 'transparent',
+            backgroundColor: '#666',
+            color: 'white',
             border: 'none',
-            color: '#0CAD5D',
-            fontSize: '16px',
+            padding: '10px',
+            borderRadius: '8px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            marginBottom: '20px'
+            marginBottom: '20px',
+            fontSize: '14px'
           }}
         >
           <FaArrowLeft />
@@ -314,7 +316,7 @@ const EditLeaveRequest = () => {
               type="submit"
               disabled={isLoading}
               style={{
-                backgroundColor: isLoading ? '#666' : '#0CAD5D',
+                backgroundColor: isLoading ? '#666' : '#AC2000',
                 color: 'white',
                 border: 'none',
                 padding: '12px 30px',

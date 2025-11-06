@@ -286,13 +286,13 @@ const Reports = () => {
               <div style={{
                 width: '50px',
                 height: '50px',
-                backgroundColor: 'rgba(12, 173, 93, 0.2)',
+                backgroundColor: 'rgba(172, 32, 0, 0.2)',
                 borderRadius: '10px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '24px',
-                color: '#0CAD5D'
+                color: '#AC2000'
               }}>
                 <FaFileInvoice />
               </div>
@@ -342,7 +342,7 @@ const Reports = () => {
             disabled={isLoading}
             style={{
               width: '100%',
-              backgroundColor: isLoading ? '#666' : '#0CAD5D',
+              backgroundColor: isLoading ? '#666' : '#AC2000',
               color: 'white',
               border: 'none',
               padding: '12px',
@@ -427,7 +427,7 @@ const Reports = () => {
               <div style={{ overflow: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
-                    <tr style={{ borderBottom: '2px solid #0CAD5D' }}>
+                    <tr style={{ borderBottom: '2px solid #AC2000' }}>
                       <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>#</th>
                       <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>الموظف</th>
                       <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>القسم</th>
@@ -447,21 +447,21 @@ const Reports = () => {
                         <td style={{ padding: '12px', textAlign: 'center', color: 'white' }}>
                           {parseFloat(item.base_salary).toLocaleString('ar-EG')} جنيه
                         </td>
-                        <td style={{ padding: '12px', textAlign: 'center', color: '#0CAD5D' }}>
+                        <td style={{ padding: '12px', textAlign: 'center', color: '#AC2000' }}>
                           {parseFloat(item.total_allowances).toLocaleString('ar-EG')} جنيه
                         </td>
                         <td style={{ padding: '12px', textAlign: 'center', color: '#dc3545' }}>
                           {parseFloat(item.total_deductions).toLocaleString('ar-EG')} جنيه
                         </td>
-                        <td style={{ padding: '12px', textAlign: 'center', color: '#0CAD5D', fontWeight: 'bold' }}>
+                        <td style={{ padding: '12px', textAlign: 'center', color: '#AC2000', fontWeight: 'bold' }}>
                           {parseFloat(item.net_salary).toLocaleString('ar-EG')} جنيه
                         </td>
                         <td style={{ padding: '12px', textAlign: 'center', color: 'white' }}>
                           <span style={{
                             padding: '5px 15px',
                             borderRadius: '20px',
-                            backgroundColor: item.status === 'generated' ? 'rgba(12, 173, 93, 0.2)' : 'rgba(220, 53, 69, 0.2)',
-                            color: item.status === 'generated' ? '#0CAD5D' : '#dc3545',
+                            backgroundColor: item.status === 'generated' ? 'rgba(172, 32, 0, 0.2)' : 'rgba(220, 53, 69, 0.2)',
+                            color: item.status === 'generated' ? '#AC2000' : '#dc3545',
                             fontSize: '12px',
                             fontWeight: 'bold'
                           }}>

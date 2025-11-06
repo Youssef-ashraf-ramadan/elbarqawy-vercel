@@ -1592,6 +1592,107 @@ export const getAccountsTree = createAsyncThunk(
   }
 );
 
+// Get Posting Accounts
+export const getPostingAccounts = createAsyncThunk(
+  "auth/getPostingAccounts",
+  async (search = '', { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const queryParams = new URLSearchParams();
+      if (search) {
+        queryParams.append('search', search);
+      }
+      const url = `${BASE_URL}/accounts/posting${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get posting accounts!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Account Links
+export const getAccountLinks = createAsyncThunk(
+  "auth/getAccountLinks",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.get(`${BASE_URL}/account-links`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get account links!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Unlinked Accounts
+export const getUnlinkedAccounts = createAsyncThunk(
+  "auth/getUnlinkedAccounts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.get(`${BASE_URL}/accounts/unlinked`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get unlinked accounts!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Update Account Link
+export const updateAccountLink = createAsyncThunk(
+  "auth/updateAccountLink",
+  async (linkData, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.post(`${BASE_URL}/account-links`, linkData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to update account link!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
 // Get Account Details
 export const getAccountDetails = createAsyncThunk(
   "auth/getAccountDetails",
@@ -1658,7 +1759,18 @@ export const addAccount = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      const message = error.response?.data?.message || "Failed to add account!";
+      // Handle different error response formats
+      let message = "Failed to add account!";
+      if (error.response?.data) {
+        const errorData = error.response.data;
+        if (typeof errorData === 'string') {
+          message = errorData;
+        } else if (errorData.message) {
+          message = errorData.message;
+        } else if (typeof errorData === 'object') {
+          message = JSON.stringify(errorData);
+        }
+      }
       return rejectWithValue(message);
     }
   }
@@ -1682,7 +1794,18 @@ export const updateAccount = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      const message = error.response?.data?.message || "Failed to update account!";
+      // Handle different error response formats
+      let message = "Failed to update account!";
+      if (error.response?.data) {
+        const errorData = error.response.data;
+        if (typeof errorData === 'string') {
+          message = errorData;
+        } else if (errorData.message) {
+          message = errorData.message;
+        } else if (typeof errorData === 'object') {
+          message = JSON.stringify(errorData);
+        }
+      }
       return rejectWithValue(message);
     }
   }
@@ -1707,6 +1830,1046 @@ export const deleteAccount = createAsyncThunk(
       return response.data;
     } catch (error) {
       const message = error.response?.data?.message || "Failed to delete account!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Cost Centers
+export const getCostCentersTree = createAsyncThunk(
+  "auth/getCostCentersTree",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.get(`${BASE_URL}/cost-centers/tree`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get cost centers tree!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const getCostCenterDetails = createAsyncThunk(
+  "auth/getCostCenterDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.get(`${BASE_URL}/cost-centers/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get cost center details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const addCostCenter = createAsyncThunk(
+  "auth/addCostCenter",
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.post(`${BASE_URL}/cost-centers`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to add cost center!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const updateCostCenter = createAsyncThunk(
+  "auth/updateCostCenter",
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.put(`${BASE_URL}/cost-centers/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to update cost center!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const toggleCostCenterStatus = createAsyncThunk(
+  "auth/toggleCostCenterStatus",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.patch(`${BASE_URL}/cost-centers/${id}/toggle-status`, {}, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to toggle cost center status!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const deleteCostCenter = createAsyncThunk(
+  "auth/deleteCostCenter",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.delete(`${BASE_URL}/cost-centers/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete cost center!";
+      return rejectWithValue(message);
+    }
+  }
+);
+// Get Journal Entries
+export const getJournalEntries = createAsyncThunk(
+  "auth/getJournalEntries",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append('page', params.page);
+      if (params.per_page) queryParams.append('per_page', params.per_page);
+      
+      const response = await axios.get(`${BASE_URL}/journal-entries?${queryParams.toString()}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get journal entries!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Journal Entry Details
+export const getJournalEntryDetails = createAsyncThunk(
+  "auth/getJournalEntryDetails",
+  async (entryId, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.get(`${BASE_URL}/journal-entries/${entryId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get journal entry details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Add Journal Entry
+export const addJournalEntry = createAsyncThunk(
+  "auth/addJournalEntry",
+  async (entryData, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      
+      // Check if entryData is FormData (for file uploads) or regular object
+      const isFormData = entryData instanceof FormData;
+      
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Accept-Language": currentLang,
+      };
+      
+      // Don't set Content-Type for FormData, let browser set it with boundary
+      if (!isFormData) {
+        headers["Content-Type"] = "application/json";
+      }
+      
+      const response = await axios.post(`${BASE_URL}/journal-entries`, entryData, {
+        headers: headers,
+      });
+      return response.data;
+    } catch (error) {
+      let message = "Failed to add journal entry!";
+      if (error.response?.data) {
+        const errorData = error.response.data;
+        if (typeof errorData === 'string') {
+          message = errorData;
+        } else if (errorData.message) {
+          message = errorData.message;
+        } else if (typeof errorData === 'object') {
+          message = JSON.stringify(errorData);
+        }
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Update Journal Entry
+export const updateJournalEntry = createAsyncThunk(
+  "auth/updateJournalEntry",
+  async ({ entryId, entryData }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const isFormData = entryData instanceof FormData;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Accept-Language": currentLang,
+      };
+
+      if (!isFormData) {
+        headers["Content-Type"] = "application/json";
+      }
+
+      const response = await axios.put(`${BASE_URL}/journal-entries/${entryId}`, entryData, {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      let message = "Failed to update journal entry!";
+      if (error.response?.data) {
+        const errorData = error.response.data;
+        if (typeof errorData === 'string') {
+          message = errorData;
+        } else if (errorData.message) {
+          message = errorData.message;
+        } else if (typeof errorData === 'object') {
+          message = JSON.stringify(errorData);
+        }
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Accept Journal Entry (Draft Only)
+export const acceptJournalEntry = createAsyncThunk(
+  "auth/acceptJournalEntry",
+  async (entryId, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.post(`${BASE_URL}/journal-entries/${entryId}/accept`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to accept journal entry!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Post Journal Entry (Accepted Only)
+export const postJournalEntry = createAsyncThunk(
+  "auth/postJournalEntry",
+  async (entryId, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.post(`${BASE_URL}/journal-entries/${entryId}/post`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to post journal entry!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Delete Journal Entry (Draft Only)
+export const deleteJournalEntry = createAsyncThunk(
+  "auth/deleteJournalEntry",
+  async (entryId, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.delete(`${BASE_URL}/journal-entries/${entryId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete journal entry!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Currencies
+export const getCurrencies = createAsyncThunk(
+  "auth/getCurrencies",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append('page', params.page);
+      if (params.per_page) queryParams.append('per_page', params.per_page);
+      const url = `${BASE_URL}/currencies${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get currencies!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Currency Details
+export const getCurrencyDetails = createAsyncThunk(
+  "auth/getCurrencyDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.get(`${BASE_URL}/currencies/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get currency details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Add Currency
+export const addCurrency = createAsyncThunk(
+  "auth/addCurrency",
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.post(`${BASE_URL}/currencies`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to add currency!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Update Currency
+export const updateCurrency = createAsyncThunk(
+  "auth/updateCurrency",
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.put(`${BASE_URL}/currencies/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to update currency!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Toggle Currency Status
+export const toggleCurrencyStatus = createAsyncThunk(
+  "auth/toggleCurrencyStatus",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.patch(`${BASE_URL}/currencies/${id}/toggle-status`, {}, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to toggle currency status!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Delete Currency
+export const deleteCurrency = createAsyncThunk(
+  "auth/deleteCurrency",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.delete(`${BASE_URL}/currencies/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete currency!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Exchange Rates
+export const getExchangeRates = createAsyncThunk(
+  "auth/getExchangeRates",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append('page', params.page);
+      if (params.per_page) queryParams.append('per_page', params.per_page);
+      const url = `${BASE_URL}/exchange-rates${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get exchange rates!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Exchange Rate Details
+export const getExchangeRateDetails = createAsyncThunk(
+  "auth/getExchangeRateDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.get(`${BASE_URL}/exchange-rates/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get exchange rate details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Effective Exchange Rate
+export const getEffectiveExchangeRate = createAsyncThunk(
+  "auth/getEffectiveExchangeRate",
+  async ({ currency_id, date }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const queryParams = new URLSearchParams();
+      queryParams.append('currency_id', currency_id);
+      queryParams.append('date', date);
+      const response = await axios.get(`${BASE_URL}/exchange-rates/effective?${queryParams.toString()}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get effective exchange rate!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Add Exchange Rate
+export const addExchangeRate = createAsyncThunk(
+  "auth/addExchangeRate",
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.post(`${BASE_URL}/exchange-rates`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to add exchange rate!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Delete Exchange Rate
+export const deleteExchangeRate = createAsyncThunk(
+  "auth/deleteExchangeRate",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.delete(`${BASE_URL}/exchange-rates/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete exchange rate!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Vendors
+export const getVendors = createAsyncThunk(
+  "auth/getVendors",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append('page', params.page);
+      if (params.per_page) queryParams.append('per_page', params.per_page);
+      const url = `${BASE_URL}/vendors${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get vendors!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Vendor Details
+export const getVendorDetails = createAsyncThunk(
+  "auth/getVendorDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.get(`${BASE_URL}/vendors/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get vendor details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Add Vendor
+export const addVendor = createAsyncThunk(
+  "auth/addVendor",
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.post(`${BASE_URL}/vendors`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to add vendor!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Update Vendor
+export const updateVendor = createAsyncThunk(
+  "auth/updateVendor",
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.put(`${BASE_URL}/vendors/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to update vendor!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Toggle Vendor Status
+export const toggleVendorStatus = createAsyncThunk(
+  "auth/toggleVendorStatus",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.patch(`${BASE_URL}/vendors/${id}/toggle-status`, {}, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to toggle vendor status!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Delete Vendor
+export const deleteVendor = createAsyncThunk(
+  "auth/deleteVendor",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.delete(`${BASE_URL}/vendors/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete vendor!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Customers
+export const getCustomers = createAsyncThunk(
+  "auth/getCustomers",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append('page', params.page);
+      if (params.per_page) queryParams.append('per_page', params.per_page);
+      if (params.search) queryParams.append('search', params.search);
+      if (params.is_active !== undefined && params.is_active !== null && params.is_active !== '') {
+        queryParams.append('is_active', params.is_active);
+      }
+      const url = `${BASE_URL}/customers${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get customers!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Customer Details
+export const getCustomerDetails = createAsyncThunk(
+  "auth/getCustomerDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.get(`${BASE_URL}/customers/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get customer details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Add Customer
+export const addCustomer = createAsyncThunk(
+  "auth/addCustomer",
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.post(`${BASE_URL}/customers`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to add customer!";
+      if (error.response?.data?.errors) {
+        message = JSON.stringify(error.response.data.errors);
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Update Customer
+export const updateCustomer = createAsyncThunk(
+  "auth/updateCustomer",
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.put(`${BASE_URL}/customers/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to update customer!";
+      if (error.response?.data?.errors) {
+        message = JSON.stringify(error.response.data.errors);
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Toggle Customer Status
+export const toggleCustomerStatus = createAsyncThunk(
+  "auth/toggleCustomerStatus",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.patch(`${BASE_URL}/customers/${id}/toggle-status`, {}, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to toggle customer status!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Delete Customer
+export const deleteCustomer = createAsyncThunk(
+  "auth/deleteCustomer",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.delete(`${BASE_URL}/customers/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete customer!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Banks
+export const getBanks = createAsyncThunk(
+  "auth/getBanks",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append('page', params.page);
+      if (params.per_page) queryParams.append('per_page', params.per_page);
+      if (params.search) queryParams.append('search', params.search);
+      if (params.is_active !== undefined && params.is_active !== null && params.is_active !== '') {
+        queryParams.append('is_active', params.is_active);
+      }
+      const url = `${BASE_URL}/banks${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get banks!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Bank Details
+export const getBankDetails = createAsyncThunk(
+  "auth/getBankDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.get(`${BASE_URL}/banks/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get bank details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Add Bank
+export const addBank = createAsyncThunk(
+  "auth/addBank",
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.post(`${BASE_URL}/banks`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to add bank!";
+      if (error.response?.data?.errors) {
+        message = JSON.stringify(error.response.data.errors);
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Update Bank
+export const updateBank = createAsyncThunk(
+  "auth/updateBank",
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.put(`${BASE_URL}/banks/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to update bank!";
+      if (error.response?.data?.errors) {
+        message = JSON.stringify(error.response.data.errors);
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Toggle Bank Status
+export const toggleBankStatus = createAsyncThunk(
+  "auth/toggleBankStatus",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.patch(`${BASE_URL}/banks/${id}/toggle-status`, {}, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to toggle bank status!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Delete Bank
+export const deleteBank = createAsyncThunk(
+  "auth/deleteBank",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.delete(`${BASE_URL}/banks/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete bank!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Safes
+export const getSafes = createAsyncThunk(
+  "auth/getSafes",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append('page', params.page);
+      if (params.per_page) queryParams.append('per_page', params.per_page);
+      if (params.search) queryParams.append('search', params.search);
+      if (params.is_active !== undefined && params.is_active !== null && params.is_active !== '') {
+        queryParams.append('is_active', params.is_active);
+      }
+      const url = `${BASE_URL}/safes${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get safes!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Get Safe Details
+export const getSafeDetails = createAsyncThunk(
+  "auth/getSafeDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.get(`${BASE_URL}/safes/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get safe details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Add Safe
+export const addSafe = createAsyncThunk(
+  "auth/addSafe",
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.post(`${BASE_URL}/safes`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to add safe!";
+      if (error.response?.data?.errors) {
+        message = JSON.stringify(error.response.data.errors);
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Update Safe
+export const updateSafe = createAsyncThunk(
+  "auth/updateSafe",
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.put(`${BASE_URL}/safes/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      let message = error.response?.data?.message || "Failed to update safe!";
+      if (error.response?.data?.errors) {
+        message = JSON.stringify(error.response.data.errors);
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Toggle Safe Status
+export const toggleSafeStatus = createAsyncThunk(
+  "auth/toggleSafeStatus",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.patch(`${BASE_URL}/safes/${id}/toggle-status`, {}, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to toggle safe status!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Delete Safe
+export const deleteSafe = createAsyncThunk(
+  "auth/deleteSafe",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.delete(`${BASE_URL}/safes/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete safe!";
       return rejectWithValue(message);
     }
   }
@@ -1748,6 +2911,33 @@ const authSlice = createSlice({
     payrollReports: null,
     accountsTree: [],
     accountDetails: null,
+    postingAccounts: [],
+    costCentersTree: [],
+    costCenterDetails: null,
+    journalEntries: [],
+    journalEntriesPagination: null,
+    journalEntryDetails: null,
+    currencies: [],
+    currenciesPagination: null,
+    currencyDetails: null,
+    exchangeRates: [],
+    exchangeRatesPagination: null,
+    exchangeRateDetails: null,
+    effectiveExchangeRate: null,
+    vendors: [],
+    vendorsPagination: null,
+    vendorDetails: null,
+    customers: [],
+    customersPagination: null,
+    customerDetails: null,
+    banks: [],
+    banksPagination: null,
+    bankDetails: null,
+    safes: [],
+    safesPagination: null,
+    safeDetails: null,
+    accountLinks: null,
+    unlinkedAccounts: null,
     rolesPagination: null,
     permissionsPagination: null,
     isLoading: false,
@@ -1772,6 +2962,28 @@ const authSlice = createSlice({
     },
     clearAccountDetails: (state) => {
       state.accountDetails = null;
+    },
+    clearJournalEntryDetails: (state) => {
+      state.journalEntryDetails = null;
+    },
+    clearExchangeRateDetails: (state) => {
+      state.exchangeRateDetails = null;
+      state.effectiveExchangeRate = null;
+    },
+    clearCostCenterDetails: (state) => {
+      state.costCenterDetails = null;
+    },
+    clearVendorDetails: (state) => {
+      state.vendorDetails = null;
+    },
+    clearCustomerDetails: (state) => {
+      state.customerDetails = null;
+    },
+    clearBankDetails: (state) => {
+      state.bankDetails = null;
+    },
+    clearSafeDetails: (state) => {
+      state.safeDetails = null;
     },
     logout: (state) => {
       state.user = null;
@@ -2610,6 +3822,61 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
+      // Get Posting Accounts
+      .addCase(getPostingAccounts.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getPostingAccounts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.postingAccounts = action.payload.data || [];
+        state.error = null;
+      })
+      .addCase(getPostingAccounts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Account Links
+      .addCase(getAccountLinks.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getAccountLinks.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.accountLinks = action.payload;
+        state.error = null;
+      })
+      .addCase(getAccountLinks.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Unlinked Accounts
+      .addCase(getUnlinkedAccounts.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUnlinkedAccounts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.unlinkedAccounts = action.payload;
+        state.error = null;
+      })
+      .addCase(getUnlinkedAccounts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Update Account Link
+      .addCase(updateAccountLink.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateAccountLink.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(updateAccountLink.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       // Get account details
       .addCase(getAccountDetails.pending, (state) => {
         state.isLoading = true;
@@ -2679,9 +3946,656 @@ const authSlice = createSlice({
       .addCase(deleteAccount.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      // Cost Centers
+      .addCase(getCostCentersTree.pending, (state) => {
+        state.isLoading = true; state.error = null;
+      })
+      .addCase(getCostCentersTree.fulfilled, (state, action) => {
+        state.isLoading = false; state.costCentersTree = action.payload.data || []; state.error = null;
+      })
+      .addCase(getCostCentersTree.rejected, (state, action) => {
+        state.isLoading = false; state.error = action.payload;
+      })
+      .addCase(getCostCenterDetails.pending, (state) => { state.isLoading = true; state.error = null; })
+      .addCase(getCostCenterDetails.fulfilled, (state, action) => { state.isLoading = false; state.costCenterDetails = action.payload.data || action.payload; state.error = null; })
+      .addCase(getCostCenterDetails.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
+      .addCase(addCostCenter.pending, (state) => { state.isLoading = true; state.error = null; })
+      .addCase(addCostCenter.fulfilled, (state, action) => { state.isLoading = false; state.success = action.payload.message || "تم إضافة مركز التكلفة"; state.error = null; })
+      .addCase(addCostCenter.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
+      .addCase(updateCostCenter.pending, (state) => { state.isLoading = true; state.error = null; })
+      .addCase(updateCostCenter.fulfilled, (state, action) => { state.isLoading = false; state.success = action.payload.message || "تم تحديث مركز التكلفة"; state.error = null; })
+      .addCase(updateCostCenter.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
+      .addCase(toggleCostCenterStatus.pending, (state) => { state.isLoading = true; state.error = null; })
+      .addCase(toggleCostCenterStatus.fulfilled, (state, action) => { state.isLoading = false; state.success = action.payload.message || "تم تغيير حالة مركز التكلفة"; state.error = null; })
+      .addCase(toggleCostCenterStatus.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
+      .addCase(deleteCostCenter.pending, (state) => { state.isLoading = true; state.error = null; })
+      .addCase(deleteCostCenter.fulfilled, (state, action) => { state.isLoading = false; state.success = action.payload.message || "تم حذف مركز التكلفة"; state.error = null; })
+      .addCase(deleteCostCenter.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
+      // Get Journal Entries
+      .addCase(getJournalEntries.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getJournalEntries.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.journalEntries = action.payload.data || [];
+        state.journalEntriesPagination = action.payload.meta || null;
+        state.error = null;
+      })
+      .addCase(getJournalEntries.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Journal Entry Details
+      .addCase(getJournalEntryDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getJournalEntryDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.journalEntryDetails = action.payload.data || null;
+        state.error = null;
+      })
+      .addCase(getJournalEntryDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Add Journal Entry
+      .addCase(addJournalEntry.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addJournalEntry.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة القيد بنجاح";
+        state.error = null;
+      })
+      .addCase(addJournalEntry.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Update Journal Entry
+      .addCase(updateJournalEntry.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateJournalEntry.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تحديث القيد بنجاح";
+        state.error = null;
+      })
+      .addCase(updateJournalEntry.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Accept Journal Entry
+      .addCase(acceptJournalEntry.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(acceptJournalEntry.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم قبول القيد بنجاح";
+        state.error = null;
+      })
+      .addCase(acceptJournalEntry.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Post Journal Entry
+      .addCase(postJournalEntry.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(postJournalEntry.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم ترحيل القيد بنجاح";
+        state.error = null;
+      })
+      .addCase(postJournalEntry.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Delete Journal Entry
+      .addCase(deleteJournalEntry.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteJournalEntry.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف القيد بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteJournalEntry.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Currencies
+      .addCase(getCurrencies.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getCurrencies.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.currencies = action.payload.data || [];
+        state.currenciesPagination = action.payload.meta || null;
+        state.error = null;
+      })
+      .addCase(getCurrencies.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Currency Details
+      .addCase(getCurrencyDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getCurrencyDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.currencyDetails = action.payload.data || action.payload;
+        state.error = null;
+      })
+      .addCase(getCurrencyDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Add Currency
+      .addCase(addCurrency.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addCurrency.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة العملة بنجاح";
+        state.error = null;
+      })
+      .addCase(addCurrency.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Update Currency
+      .addCase(updateCurrency.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateCurrency.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تحديث العملة بنجاح";
+        state.error = null;
+      })
+      .addCase(updateCurrency.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Toggle Currency Status
+      .addCase(toggleCurrencyStatus.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleCurrencyStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تغيير حالة العملة بنجاح";
+        state.error = null;
+      })
+      .addCase(toggleCurrencyStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Delete Currency
+      .addCase(deleteCurrency.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteCurrency.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف العملة بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteCurrency.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Exchange Rates
+      .addCase(getExchangeRates.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getExchangeRates.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.exchangeRates = action.payload.data || [];
+        state.exchangeRatesPagination = {
+          current_page: action.payload.meta?.current_page || 1,
+          last_page: action.payload.meta?.last_page || 1,
+          per_page: action.payload.meta?.per_page || 10,
+          total: action.payload.meta?.total || 0,
+          links: action.payload.links || {},
+        };
+        state.error = null;
+      })
+      .addCase(getExchangeRates.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Exchange Rate Details
+      .addCase(getExchangeRateDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getExchangeRateDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.exchangeRateDetails = action.payload.data || null;
+        state.error = null;
+      })
+      .addCase(getExchangeRateDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Effective Exchange Rate
+      .addCase(getEffectiveExchangeRate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getEffectiveExchangeRate.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.effectiveExchangeRate = action.payload.data || null;
+        state.error = null;
+      })
+      .addCase(getEffectiveExchangeRate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Add Exchange Rate
+      .addCase(addExchangeRate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addExchangeRate.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة سعر الصرف بنجاح";
+        state.error = null;
+      })
+      .addCase(addExchangeRate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Delete Exchange Rate
+      .addCase(deleteExchangeRate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteExchangeRate.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف سعر الصرف بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteExchangeRate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Vendors
+      .addCase(getVendors.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getVendors.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.vendors = action.payload.data || [];
+        state.vendorsPagination = {
+          current_page: action.payload.meta?.current_page || 1,
+          last_page: action.payload.meta?.last_page || 1,
+          per_page: action.payload.meta?.per_page || 10,
+          total: action.payload.meta?.total || 0,
+          links: action.payload.links || {},
+        };
+        state.error = null;
+      })
+      .addCase(getVendors.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Vendor Details
+      .addCase(getVendorDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getVendorDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.vendorDetails = action.payload.data || action.payload || null;
+        state.error = null;
+      })
+      .addCase(getVendorDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Add Vendor
+      .addCase(addVendor.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addVendor.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة المورد بنجاح";
+        state.error = null;
+      })
+      .addCase(addVendor.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Update Vendor
+      .addCase(updateVendor.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateVendor.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تحديث المورد بنجاح";
+        state.error = null;
+      })
+      .addCase(updateVendor.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Toggle Vendor Status
+      .addCase(toggleVendorStatus.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleVendorStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تغيير حالة المورد بنجاح";
+        state.error = null;
+      })
+      .addCase(toggleVendorStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Delete Vendor
+      .addCase(deleteVendor.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteVendor.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف المورد بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteVendor.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Customers
+      .addCase(getCustomers.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getCustomers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.customers = action.payload.data?.data || [];
+        state.customersPagination = {
+          current_page: action.payload.data?.meta?.current_page || 1,
+          last_page: action.payload.data?.meta?.last_page || 1,
+          per_page: action.payload.data?.meta?.per_page || 10,
+          total: action.payload.data?.meta?.total || 0,
+        };
+        state.error = null;
+      })
+      .addCase(getCustomers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Customer Details
+      .addCase(getCustomerDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getCustomerDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.customerDetails = action.payload.data || action.payload || null;
+        state.error = null;
+      })
+      .addCase(getCustomerDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Add Customer
+      .addCase(addCustomer.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addCustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة العميل بنجاح";
+        state.error = null;
+      })
+      .addCase(addCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Update Customer
+      .addCase(updateCustomer.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateCustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تحديث العميل بنجاح";
+        state.error = null;
+      })
+      .addCase(updateCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Toggle Customer Status
+      .addCase(toggleCustomerStatus.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleCustomerStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تغيير حالة العميل بنجاح";
+        state.error = null;
+      })
+      .addCase(toggleCustomerStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Delete Customer
+      .addCase(deleteCustomer.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteCustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف العميل بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Banks
+      .addCase(getBanks.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getBanks.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.banks = action.payload.data?.data || [];
+        state.banksPagination = {
+          current_page: action.payload.data?.meta?.current_page || 1,
+          last_page: action.payload.data?.meta?.last_page || 1,
+          per_page: action.payload.data?.meta?.per_page || 10,
+          total: action.payload.data?.meta?.total || 0,
+        };
+        state.error = null;
+      })
+      .addCase(getBanks.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Bank Details
+      .addCase(getBankDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getBankDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.bankDetails = action.payload.data || action.payload || null;
+        state.error = null;
+      })
+      .addCase(getBankDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Add Bank
+      .addCase(addBank.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addBank.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة البنك بنجاح";
+        state.error = null;
+      })
+      .addCase(addBank.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Update Bank
+      .addCase(updateBank.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateBank.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تحديث البنك بنجاح";
+        state.error = null;
+      })
+      .addCase(updateBank.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Toggle Bank Status
+      .addCase(toggleBankStatus.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleBankStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تغيير حالة البنك بنجاح";
+        state.error = null;
+      })
+      .addCase(toggleBankStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Delete Bank
+      .addCase(deleteBank.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteBank.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف البنك بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteBank.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Safes
+      .addCase(getSafes.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getSafes.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.safes = action.payload.data?.data || [];
+        state.safesPagination = {
+          current_page: action.payload.data?.meta?.current_page || 1,
+          last_page: action.payload.data?.meta?.last_page || 1,
+          per_page: action.payload.data?.meta?.per_page || 10,
+          total: action.payload.data?.meta?.total || 0,
+        };
+        state.error = null;
+      })
+      .addCase(getSafes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Get Safe Details
+      .addCase(getSafeDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getSafeDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.safeDetails = action.payload.data || action.payload || null;
+        state.error = null;
+      })
+      .addCase(getSafeDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Add Safe
+      .addCase(addSafe.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addSafe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة الخزنة بنجاح";
+        state.error = null;
+      })
+      .addCase(addSafe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Update Safe
+      .addCase(updateSafe.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateSafe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تحديث الخزنة بنجاح";
+        state.error = null;
+      })
+      .addCase(updateSafe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Toggle Safe Status
+      .addCase(toggleSafeStatus.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleSafeStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم تغيير حالة الخزنة بنجاح";
+        state.error = null;
+      })
+      .addCase(toggleSafeStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Delete Safe
+      .addCase(deleteSafe.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteSafe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف الخزنة بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteSafe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
 
-export const { clearState, clearError, clearSuccess, clearReports, clearAccountDetails, logout } = authSlice.actions;
+export const { clearState, clearError, clearSuccess, clearReports, clearAccountDetails, clearJournalEntryDetails, clearExchangeRateDetails, clearCostCenterDetails, clearVendorDetails, clearCustomerDetails, clearBankDetails, clearSafeDetails, logout } = authSlice.actions;
 export default authSlice.reducer;

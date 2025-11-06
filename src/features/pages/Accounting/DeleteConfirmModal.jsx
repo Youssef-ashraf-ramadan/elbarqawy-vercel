@@ -11,7 +11,7 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, accountName }) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      zIndex: 100000
+      zIndex: 999999
     }} onClick={onClose}>
       <div style={{
         background: '#1f2937',
