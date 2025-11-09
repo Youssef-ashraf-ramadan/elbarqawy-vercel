@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addSalary, getEmployees, clearError, clearSuccess } from '../../../../redux/Slices/authSlice';
@@ -71,41 +71,41 @@ const AddSalary = () => {
     e.preventDefault();
     
     if (!formData.employee_id) {
-      toast.error('يرجى اختيار الموظف', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ù…ÙˆØ¸Ù', { rtl: true });
       return;
     }
     
     if (!formData.base_salary) {
-      toast.error('يرجى إدخال الراتب الأساسي', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ', { rtl: true });
       return;
     }
 
     if (parseFloat(formData.base_salary) < 0) {
-      toast.error('الراتب الأساسي لا يمكن أن يكون سالباً', { rtl: true });
+      toast.error('Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ Ù„Ø§ ÙŠÙ…ÙƒÙ† Ø£Ù† ÙŠÙƒÙˆÙ† Ø³Ø§Ù„Ø¨Ø§Ù‹', { rtl: true });
       return;
     }
 
     if (formData.allowances.housing && parseFloat(formData.allowances.housing) < 0) {
-      toast.error('بدل السكن لا يمكن أن يكون سالباً', { rtl: true });
+      toast.error('Ø¨Ø¯Ù„ Ø§Ù„Ø³ÙƒÙ† Ù„Ø§ ÙŠÙ…ÙƒÙ† Ø£Ù† ÙŠÙƒÙˆÙ† Ø³Ø§Ù„Ø¨Ø§Ù‹', { rtl: true });
       return;
     }
 
     if (formData.allowances.transportation && parseFloat(formData.allowances.transportation) < 0) {
-      toast.error('بدل المواصلات لا يمكن أن يكون سالباً', { rtl: true });
+      toast.error('Ø¨Ø¯Ù„ Ø§Ù„Ù…ÙˆØ§ØµÙ„Ø§Øª Ù„Ø§ ÙŠÙ…ÙƒÙ† Ø£Ù† ÙŠÙƒÙˆÙ† Ø³Ø§Ù„Ø¨Ø§Ù‹', { rtl: true });
       return;
     }
 
     if (formData.deductions.social_insurance && parseFloat(formData.deductions.social_insurance) < 0) {
-      toast.error('التأمين الاجتماعي لا يمكن أن يكون سالباً', { rtl: true });
+      toast.error('Ø§Ù„ØªØ£Ù…ÙŠÙ† Ø§Ù„Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠ Ù„Ø§ ÙŠÙ…ÙƒÙ† Ø£Ù† ÙŠÙƒÙˆÙ† Ø³Ø§Ù„Ø¨Ø§Ù‹', { rtl: true });
       return;
     }
 
     if (!formData.effective_date) {
-      toast.error('يرجى إدخال تاريخ السريان', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ ØªØ§Ø±ÙŠØ® Ø§Ù„Ø³Ø±ÙŠØ§Ù†', { rtl: true });
       return;
     }
 
-    // تحويل البيانات إلى الأرقام المطلوبة
+    // ØªØ­ÙˆÙŠÙ„ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø¥Ù„Ù‰ Ø§Ù„Ø£Ø±Ù‚Ø§Ù… Ø§Ù„Ù…Ø·Ù„ÙˆØ¨Ø©
     const salaryData = {
       employee_id: parseInt(formData.employee_id),
       base_salary: parseFloat(formData.base_salary),
@@ -129,7 +129,7 @@ const AddSalary = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      {/* العنوان */}
+      {/* Ø§Ù„Ø¹Ù†ÙˆØ§Ù† */}
       <div style={{ marginBottom: '30px' }}>
         <div style={{ 
           display: 'flex', 
@@ -152,7 +152,7 @@ const AddSalary = () => {
             }}
           >
             <FaArrowLeft />
-            العودة
+            Ø§Ù„Ø¹ÙˆØ¯Ø©
           </button>
           <h1 style={{ 
             fontSize: '24px', 
@@ -160,12 +160,12 @@ const AddSalary = () => {
             color: 'white',
             margin: 0
           }}>
-            إضافة راتب جديد
+            Ø¥Ø¶Ø§ÙØ© Ø±Ø§ØªØ¨ Ø¬Ø¯ÙŠØ¯
           </h1>
         </div>
       </div>
 
-      {/* النموذج */}
+      {/* Ø§Ù„Ù†Ù…ÙˆØ°Ø¬ */}
       <div style={{
         backgroundColor: '#202938',
         borderRadius: '12px',
@@ -174,9 +174,9 @@ const AddSalary = () => {
       }}>
         <form onSubmit={handleSubmit}>
           <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
-            {/* العمود الأيسر */}
+            {/* Ø§Ù„Ø¹Ù…ÙˆØ¯ Ø§Ù„Ø£ÙŠØ³Ø± */}
             <div style={{ flex: '1', minWidth: '300px' }}>
-              {/* الموظف */}
+              {/* Ø§Ù„Ù…ÙˆØ¸Ù */}
               <div style={{ marginBottom: '20px' }}>
                 <label style={{ 
                   display: 'block', 
@@ -184,7 +184,7 @@ const AddSalary = () => {
                   color: 'white',
                   fontWeight: '500'
                 }}>
-                  الموظف *
+                  Ø§Ù„Ù…ÙˆØ¸Ù *
                 </label>
                 <select
                   name="employee_id"
@@ -200,7 +200,7 @@ const AddSalary = () => {
                     fontSize: '14px'
                   }}
                 >
-                  <option value="" style={{ backgroundColor: '#1a1f2e' }}>اختر الموظف</option>
+                  <option value="" style={{ backgroundColor: '#1a1f2e' }}>Ø§Ø®ØªØ± Ø§Ù„Ù…ÙˆØ¸Ù</option>
                   {employees?.map(employee => (
                     <option key={employee.id} value={employee.id} style={{ backgroundColor: '#1a1f2e' }}>
                       {employee.name} - {employee.employee_code}
@@ -209,7 +209,7 @@ const AddSalary = () => {
                 </select>
               </div>
 
-              {/* الراتب الأساسي */}
+              {/* Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ */}
               <div style={{ marginBottom: '20px' }}>
                 <label style={{ 
                   display: 'block', 
@@ -217,7 +217,7 @@ const AddSalary = () => {
                   color: 'white',
                   fontWeight: '500'
                 }}>
-                  الراتب الأساسي *
+                  Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ *
                 </label>
                 <input
                   type="number"
@@ -225,7 +225,7 @@ const AddSalary = () => {
                   value={formData.base_salary}
                   onChange={handleInputChange}
                   min="0"
-                  placeholder="أدخل الراتب الأساسي"
+                  placeholder="Ø£Ø¯Ø®Ù„ Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ"
                   style={{
                     width: '100%',
                     padding: '12px 15px',
@@ -238,7 +238,7 @@ const AddSalary = () => {
                 />
               </div>
 
-              {/* تاريخ السريان */}
+              {/* ØªØ§Ø±ÙŠØ® Ø§Ù„Ø³Ø±ÙŠØ§Ù† */}
               <div style={{ marginBottom: '20px' }}>
                 <label style={{ 
                   display: 'block', 
@@ -246,7 +246,7 @@ const AddSalary = () => {
                   color: 'white',
                   fontWeight: '500'
                 }}>
-                  تاريخ السريان *
+                  ØªØ§Ø±ÙŠØ® Ø§Ù„Ø³Ø±ÙŠØ§Ù† *
                 </label>
                 <input
                   type="date"
@@ -266,9 +266,9 @@ const AddSalary = () => {
               </div>
             </div>
 
-            {/* العمود الأيمن */}
+            {/* Ø§Ù„Ø¹Ù…ÙˆØ¯ Ø§Ù„Ø£ÙŠÙ…Ù† */}
             <div style={{ flex: '1', minWidth: '300px' }}>
-              {/* البدلات */}
+              {/* Ø§Ù„Ø¨Ø¯Ù„Ø§Øª */}
               <div style={{ marginBottom: '20px' }}>
                 <label style={{ 
                   display: 'block', 
@@ -276,7 +276,7 @@ const AddSalary = () => {
                   color: 'white',
                   fontWeight: '500'
                 }}>
-                  البدلات
+                  Ø§Ù„Ø¨Ø¯Ù„Ø§Øª
                 </label>
                 
                 <div style={{ marginBottom: '15px' }}>
@@ -286,7 +286,7 @@ const AddSalary = () => {
                     color: '#ccc',
                     fontSize: '12px'
                   }}>
-                    بدل السكن
+                    Ø¨Ø¯Ù„ Ø§Ù„Ø³ÙƒÙ†
                   </label>
                   <input
                     type="number"
@@ -314,7 +314,7 @@ const AddSalary = () => {
                     color: '#ccc',
                     fontSize: '12px'
                   }}>
-                    بدل المواصلات
+                    Ø¨Ø¯Ù„ Ø§Ù„Ù…ÙˆØ§ØµÙ„Ø§Øª
                   </label>
                   <input
                     type="number"
@@ -336,7 +336,7 @@ const AddSalary = () => {
                 </div>
               </div>
 
-              {/* الخصومات */}
+              {/* Ø§Ù„Ø®ØµÙˆÙ…Ø§Øª */}
               <div style={{ marginBottom: '20px' }}>
                 <label style={{ 
                   display: 'block', 
@@ -344,7 +344,7 @@ const AddSalary = () => {
                   color: 'white',
                   fontWeight: '500'
                 }}>
-                  الخصومات
+                  Ø§Ù„Ø®ØµÙˆÙ…Ø§Øª
                 </label>
                 
                 <div>
@@ -354,7 +354,7 @@ const AddSalary = () => {
                     color: '#ccc',
                     fontSize: '12px'
                   }}>
-                    التأمين الاجتماعي
+                    Ø§Ù„ØªØ£Ù…ÙŠÙ† Ø§Ù„Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠ
                   </label>
                   <input
                     type="number"
@@ -378,7 +378,7 @@ const AddSalary = () => {
             </div>
           </div>
 
-          {/* أزرار الإجراء */}
+          {/* Ø£Ø²Ø±Ø§Ø± Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ */}
           <div className="action-btns">
             <button
               type="button"
@@ -394,7 +394,7 @@ const AddSalary = () => {
                 fontWeight: 'bold'
               }}
             >
-              إلغاء
+              Ø¥Ù„ØºØ§Ø¡
             </button>
             <button
               type="submit"
@@ -411,7 +411,7 @@ const AddSalary = () => {
                 opacity: isLoading ? 0.6 : 1
               }}
             >
-              {isLoading ? 'جاري الحفظ...' : 'حفظ الراتب'}
+              {isLoading ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø­ÙØ¸...' : 'Ø­ÙØ¸ Ø§Ù„Ø±Ø§ØªØ¨'}
             </button>
           </div>
         </form>

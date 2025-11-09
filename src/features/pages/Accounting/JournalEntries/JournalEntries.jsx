@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+﻿import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getJournalEntries, acceptJournalEntry, postJournalEntry, deleteJournalEntry, clearError, clearSuccess } from '../../../../redux/Slices/authSlice';
@@ -117,17 +117,19 @@ const JournalEntries = () => {
                   </td>
                 </tr>
               ) : (
-                (journalEntries || []).map((e, idx) => (
-                  <tr 
-                    key={e.id} 
-                    style={{ 
-                      borderBottom: '1px solid #333',
-                      backgroundColor: idx % 2 === 0 ? '#202938' : '#1a1f2e',
-                      transition: 'background-color 0.2s'
-                    }}
-                    onMouseEnter={(ev) => ev.target.closest('tr').style.backgroundColor = '#2a3441'}
-                    onMouseLeave={(ev) => ev.target.closest('tr').style.backgroundColor = idx % 2 === 0 ? '#202938' : '#1a1f2e'}
-                  >
+                (journalEntries || []).map((e, idx) => {
+                  const isPosted = e.status === 'posted';
+                  return (
+                    <tr
+                      key={e.id}
+                      style={{
+                        borderBottom: '1px solid #333',
+                        backgroundColor: idx % 2 === 0 ? '#202938' : '#1a1f2e',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseEnter={(ev) => ev.target.closest('tr').style.backgroundColor = '#2a3441'}
+                      onMouseLeave={(ev) => ev.target.closest('tr').style.backgroundColor = idx % 2 === 0 ? '#202938' : '#1a1f2e'}
+                    >
                     <td style={{ padding: '18px 16px', textAlign: 'center', color: 'white', fontSize: '14px' }}>
                       {(journalEntriesPagination?.current_page - 1) * (journalEntriesPagination?.per_page || 10) + idx + 1}
                     </td>
@@ -187,24 +189,34 @@ const JournalEntries = () => {
                         >
                           <FaEye />
                         </button>
-                        <button 
-                          title="تعديل" 
-                          onClick={() => navigate(`/journal-entries/edit/${e.id}`)} 
-                          style={{ 
-                            backgroundColor: '#AC2000', 
-                            color: 'white', 
-                            border: 'none', 
-                            padding: '10px 12px', 
-                            borderRadius: '8px', 
-                            cursor: 'pointer',
+                        <button
+                          title="تعديل"
+                          onClick={() => { if (!isPosted) navigate(`/journal-entries/edit/${e.id}`); }}
+                          style={{
+                            backgroundColor: isPosted ? '#555' : '#AC2000',
+                            color: 'white',
+                            border: 'none',
+                            padding: '10px 12px',
+                            borderRadius: '8px',
+                            cursor: isPosted ? 'not-allowed' : 'pointer',
                             fontSize: '14px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            transition: 'all 0.2s'
+                            transition: 'all 0.2s',
+                            opacity: isPosted ? 0.6 : 1
                           }}
-                          onMouseEnter={(ev) => { ev.target.style.backgroundColor = '#0bb564'; ev.target.style.transform = 'scale(1.05)'; }}
-                          onMouseLeave={(ev) => { ev.target.style.backgroundColor = '#AC2000'; ev.target.style.transform = 'scale(1)'; }}
+                          onMouseEnter={(ev) => {
+                            if (isPosted) return;
+                            ev.target.style.backgroundColor = '#0bb564';
+                            ev.target.style.transform = 'scale(1.05)';
+                          }}
+                          onMouseLeave={(ev) => {
+                            if (isPosted) return;
+                            ev.target.style.backgroundColor = '#AC2000';
+                            ev.target.style.transform = 'scale(1)';
+                          }}
+                          disabled={isPosted}
                         >
                           <FaEdit />
                         </button>
@@ -280,7 +292,8 @@ const JournalEntries = () => {
                       </div>
                     </td>
                   </tr>
-                ))
+                  );
+                })
               )}
             </tbody>
           </table>

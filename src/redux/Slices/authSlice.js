@@ -2153,6 +2153,338 @@ export const deleteJournalEntry = createAsyncThunk(
   }
 );
 
+// Receipt Vouchers
+export const getReceiptVouchers = createAsyncThunk(
+  "auth/getReceiptVouchers",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append("page", params.page);
+      if (params.per_page) queryParams.append("per_page", params.per_page);
+      if (params.search) queryParams.append("search", params.search);
+      if (params.status) queryParams.append("status", params.status);
+      const url = `${BASE_URL}/receipt-vouchers${queryParams.toString() ? `?${queryParams.toString()}` : ""}`;
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get receipt vouchers!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const getReceiptVoucherDetails = createAsyncThunk(
+  "auth/getReceiptVoucherDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.get(`${BASE_URL}/receipt-vouchers/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get receipt voucher details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const addReceiptVoucher = createAsyncThunk(
+  "auth/addReceiptVoucher",
+  async (voucherData, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+
+      const isFormData = voucherData instanceof FormData;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Accept-Language": currentLang,
+      };
+
+      if (!isFormData) {
+        headers["Content-Type"] = "application/json";
+        const payload = {
+          ...voucherData,
+          total_amount: voucherData.total_amount !== undefined ? Number(voucherData.total_amount) : undefined,
+          details:
+            typeof voucherData.details === "string"
+              ? voucherData.details
+              : JSON.stringify(voucherData.details || []),
+        };
+        const response = await axios.post(`${BASE_URL}/receipt-vouchers`, payload, {
+          headers,
+        });
+        return response.data;
+      }
+
+      const response = await axios.post(`${BASE_URL}/receipt-vouchers`, voucherData, {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      let message = "Failed to add receipt voucher!";
+      if (error.response?.data) {
+        const errorData = error.response.data;
+        if (typeof errorData === "string") {
+          message = errorData;
+        } else if (errorData.message) {
+          message = errorData.message;
+        } else if (typeof errorData === "object") {
+          message = JSON.stringify(errorData);
+        }
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const postReceiptVoucher = createAsyncThunk(
+  "auth/postReceiptVoucher",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.post(`${BASE_URL}/receipt-vouchers/${id}/post`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to post receipt voucher!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const deleteReceiptVoucher = createAsyncThunk(
+  "auth/deleteReceiptVoucher",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.delete(`${BASE_URL}/receipt-vouchers/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete receipt voucher!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Payment Vouchers
+export const getPaymentVouchers = createAsyncThunk(
+  "auth/getPaymentVouchers",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append("page", params.page);
+      if (params.per_page) queryParams.append("per_page", params.per_page);
+      if (params.search) queryParams.append("search", params.search);
+      if (params.status) queryParams.append("status", params.status);
+      const url = `${BASE_URL}/payment-vouchers${queryParams.toString() ? `?${queryParams.toString()}` : ""}`;
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get payment vouchers!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const getPaymentVoucherDetails = createAsyncThunk(
+  "auth/getPaymentVoucherDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.get(`${BASE_URL}/payment-vouchers/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get payment voucher details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const addPaymentVoucher = createAsyncThunk(
+  "auth/addPaymentVoucher",
+  async (voucherData, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+
+      const isFormData = voucherData instanceof FormData;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Accept-Language": currentLang,
+      };
+
+      if (!isFormData) {
+        headers["Content-Type"] = "application/json";
+        const payload = {
+          ...voucherData,
+          total_amount: voucherData.total_amount !== undefined ? Number(voucherData.total_amount) : undefined,
+          details:
+            typeof voucherData.details === "string"
+              ? voucherData.details
+              : JSON.stringify(voucherData.details || []),
+        };
+        const response = await axios.post(`${BASE_URL}/payment-vouchers`, payload, {
+          headers,
+        });
+        return response.data;
+      }
+
+      const response = await axios.post(`${BASE_URL}/payment-vouchers`, voucherData, {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      let message = "Failed to add payment voucher!";
+      if (error.response?.data) {
+        const errorData = error.response.data;
+        if (typeof errorData === "string") {
+          message = errorData;
+        } else if (errorData.message) {
+          message = errorData.message;
+        } else if (typeof errorData === "object") {
+          message = JSON.stringify(errorData);
+        }
+      }
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const postPaymentVoucher = createAsyncThunk(
+  "auth/postPaymentVoucher",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.post(`${BASE_URL}/payment-vouchers/${id}/post`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to post payment voucher!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const deletePaymentVoucher = createAsyncThunk(
+  "auth/deletePaymentVoucher",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const response = await axios.delete(`${BASE_URL}/payment-vouchers/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete payment voucher!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// Cost Centers (flat list)
+export const getCostCenters = createAsyncThunk(
+  "auth/getCostCenters",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append("page", params.page);
+      if (params.per_page) queryParams.append("per_page", params.per_page);
+      const url = `${BASE_URL}/cost-centers${queryParams.toString() ? `?${queryParams.toString()}` : ""}`;
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": currentLang,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get cost centers!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
 // Get Currencies
 export const getCurrencies = createAsyncThunk(
   "auth/getCurrencies",
@@ -2619,6 +2951,181 @@ export const deleteCustomer = createAsyncThunk(
   }
 );
 
+// Financial Periods
+export const getFinancialPeriods = createAsyncThunk(
+  "auth/getFinancialPeriods",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.append("page", params.page);
+      if (params.per_page) queryParams.append("per_page", params.per_page);
+      const url = `${BASE_URL}/financial-periods${queryParams.toString() ? `?${queryParams.toString()}` : ""}`;
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get financial periods!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const getFinancialPeriodDetails = createAsyncThunk(
+  "auth/getFinancialPeriodDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.get(`${BASE_URL}/financial-periods/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get financial period details!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const addFinancialPeriod = createAsyncThunk(
+  "auth/addFinancialPeriod",
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.post(`${BASE_URL}/financial-periods`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response?.data?.errors) {
+        const errors = error.response.data.errors;
+        const message = Object.values(errors).flat().join(", ");
+        return rejectWithValue(message || "Validation failed!");
+      }
+      const message = error.response?.data?.message || "Failed to add financial period!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const updateFinancialPeriod = createAsyncThunk(
+  "auth/updateFinancialPeriod",
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.put(`${BASE_URL}/financial-periods/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response?.data?.errors) {
+        const errors = error.response.data.errors;
+        const message = Object.values(errors).flat().join(", ");
+        return rejectWithValue(message || "Validation failed!");
+      }
+      const message = error.response?.data?.message || "Failed to update financial period!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const closeFinancialPeriod = createAsyncThunk(
+  "auth/closeFinancialPeriod",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.post(`${BASE_URL}/financial-periods/${id}/close`, {}, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to close financial period!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const deleteFinancialPeriod = createAsyncThunk(
+  "auth/deleteFinancialPeriod",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const response = await axios.delete(`${BASE_URL}/financial-periods/${id}`, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to delete financial period!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const getTrialBalance = createAsyncThunk(
+  "auth/getTrialBalance",
+  async (params = {}, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      const queryParams = new URLSearchParams();
+      if (params.start_date) queryParams.append("start_date", params.start_date);
+      if (params.end_date) queryParams.append("end_date", params.end_date);
+      if (params.include_zero_balance !== undefined && params.include_zero_balance !== null && params.include_zero_balance !== '') {
+        queryParams.append("include_zero_balance", params.include_zero_balance);
+      }
+      const url = `${BASE_URL}/accounting-reports/trial-balance${queryParams.toString() ? `?${queryParams.toString()}` : ""}`;
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return { data: response.data, params };
+    } catch (error) {
+      const message = error.response?.data?.message || "Failed to get trial balance!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const getAccountStatement = createAsyncThunk(
+  "auth/getAccountStatement",
+  async (params, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const currentLang = getCurrentLanguage();
+      if (!token) throw new Error("No authentication token found");
+      if (!params?.account_id) {
+        throw new Error("account_id is required");
+      }
+      const queryParams = new URLSearchParams();
+      queryParams.append("account_id", params.account_id);
+      if (params.start_date) queryParams.append("start_date", params.start_date);
+      if (params.end_date) queryParams.append("end_date", params.end_date);
+      if (params.page) queryParams.append("page", params.page);
+      const url = `${BASE_URL}/accounting-reports/account-statement?${queryParams.toString()}`;
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}`, "Accept-Language": currentLang },
+      });
+      return { data: response.data, params };
+    } catch (error) {
+      const message = error.response?.data?.message || error.message || "Failed to get account statement!";
+      return rejectWithValue(message);
+    }
+  }
+);
+
 // Get Banks
 export const getBanks = createAsyncThunk(
   "auth/getBanks",
@@ -2913,10 +3420,27 @@ const authSlice = createSlice({
     accountDetails: null,
     postingAccounts: [],
     costCentersTree: [],
+    costCenters: [],
+    costCentersPagination: null,
     costCenterDetails: null,
     journalEntries: [],
     journalEntriesPagination: null,
     journalEntryDetails: null,
+    receiptVouchers: [],
+    receiptVouchersPagination: null,
+    receiptVoucherDetails: null,
+    paymentVouchers: [],
+    paymentVouchersPagination: null,
+    paymentVoucherDetails: null,
+    financialPeriods: [],
+    financialPeriodsPagination: null,
+    financialPeriodDetails: null,
+    trialBalance: null,
+    trialBalanceFilters: null,
+    accountStatement: null,
+    accountStatementTotals: null,
+    accountStatementPagination: null,
+    accountStatementFilters: null,
     currencies: [],
     currenciesPagination: null,
     currencyDetails: null,
@@ -2973,11 +3497,30 @@ const authSlice = createSlice({
     clearCostCenterDetails: (state) => {
       state.costCenterDetails = null;
     },
+    clearReceiptVoucherDetails: (state) => {
+      state.receiptVoucherDetails = null;
+    },
+    clearPaymentVoucherDetails: (state) => {
+      state.paymentVoucherDetails = null;
+    },
     clearVendorDetails: (state) => {
       state.vendorDetails = null;
     },
     clearCustomerDetails: (state) => {
       state.customerDetails = null;
+    },
+    clearFinancialPeriodDetails: (state) => {
+      state.financialPeriodDetails = null;
+    },
+    clearTrialBalance: (state) => {
+      state.trialBalance = null;
+      state.trialBalanceFilters = null;
+    },
+    clearAccountStatement: (state) => {
+      state.accountStatement = null;
+      state.accountStatementTotals = null;
+      state.accountStatementPagination = null;
+      state.accountStatementFilters = null;
     },
     clearBankDetails: (state) => {
       state.bankDetails = null;
@@ -3948,6 +4491,20 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       // Cost Centers
+      .addCase(getCostCenters.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getCostCenters.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.costCenters = action.payload.data?.data || action.payload.data || [];
+        state.costCentersPagination = action.payload.data?.meta || action.payload.meta || null;
+        state.error = null;
+      })
+      .addCase(getCostCenters.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       .addCase(getCostCentersTree.pending, (state) => {
         state.isLoading = true; state.error = null;
       })
@@ -4068,6 +4625,140 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(deleteJournalEntry.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Receipt Vouchers
+      .addCase(getReceiptVouchers.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getReceiptVouchers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.receiptVouchers = action.payload.data?.data || action.payload.data || [];
+        state.receiptVouchersPagination = action.payload.data?.meta || action.payload.meta || null;
+        state.error = null;
+      })
+      .addCase(getReceiptVouchers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getReceiptVoucherDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getReceiptVoucherDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.receiptVoucherDetails = action.payload.data || action.payload;
+        state.error = null;
+      })
+      .addCase(getReceiptVoucherDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(addReceiptVoucher.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addReceiptVoucher.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة إيصال الاستلام بنجاح";
+        state.error = null;
+      })
+      .addCase(addReceiptVoucher.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(postReceiptVoucher.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(postReceiptVoucher.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم ترحيل إيصال الاستلام بنجاح";
+        state.error = null;
+      })
+      .addCase(postReceiptVoucher.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteReceiptVoucher.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteReceiptVoucher.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف إيصال الاستلام بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteReceiptVoucher.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Payment Vouchers
+      .addCase(getPaymentVouchers.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getPaymentVouchers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.paymentVouchers = action.payload.data?.data || action.payload.data || [];
+        state.paymentVouchersPagination = action.payload.data?.meta || action.payload.meta || null;
+        state.error = null;
+      })
+      .addCase(getPaymentVouchers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getPaymentVoucherDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getPaymentVoucherDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.paymentVoucherDetails = action.payload.data || action.payload;
+        state.error = null;
+      })
+      .addCase(getPaymentVoucherDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(addPaymentVoucher.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addPaymentVoucher.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم إضافة سند الصرف بنجاح";
+        state.error = null;
+      })
+      .addCase(addPaymentVoucher.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(postPaymentVoucher.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(postPaymentVoucher.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم ترحيل سند الصرف بنجاح";
+        state.error = null;
+      })
+      .addCase(postPaymentVoucher.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(deletePaymentVoucher.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deletePaymentVoucher.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.message || "تم حذف سند الصرف بنجاح";
+        state.error = null;
+      })
+      .addCase(deletePaymentVoucher.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
@@ -4414,6 +5105,132 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
+      // Financial Periods
+      .addCase(getFinancialPeriods.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getFinancialPeriods.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const payloadData = action.payload?.data;
+        const list = Array.isArray(payloadData?.data)
+          ? payloadData.data
+          : Array.isArray(payloadData)
+            ? payloadData
+            : [];
+        const meta = payloadData?.meta || action.payload?.meta || null;
+        state.financialPeriods = list;
+        state.financialPeriodsPagination = meta
+          ? {
+              current_page: meta.current_page || 1,
+              last_page: meta.last_page || 1,
+              per_page: meta.per_page || list.length || 10,
+              total: meta.total || list.length || 0,
+            }
+          : null;
+        state.error = null;
+      })
+      .addCase(getFinancialPeriods.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getFinancialPeriodDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getFinancialPeriodDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.financialPeriodDetails = action.payload?.data || action.payload || null;
+        state.error = null;
+      })
+      .addCase(getFinancialPeriodDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(addFinancialPeriod.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addFinancialPeriod.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload?.message || "تم إضافة الفترة المالية بنجاح";
+        state.error = null;
+      })
+      .addCase(addFinancialPeriod.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateFinancialPeriod.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateFinancialPeriod.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload?.message || "تم تحديث الفترة المالية بنجاح";
+        state.error = null;
+      })
+      .addCase(updateFinancialPeriod.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(closeFinancialPeriod.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(closeFinancialPeriod.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload?.message || "تم إقفال الفترة المالية بنجاح";
+        state.error = null;
+      })
+      .addCase(closeFinancialPeriod.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteFinancialPeriod.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteFinancialPeriod.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload?.message || "تم حذف الفترة المالية بنجاح";
+        state.error = null;
+      })
+      .addCase(deleteFinancialPeriod.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getTrialBalance.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getTrialBalance.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.trialBalance = action.payload?.data?.data || action.payload?.data || null;
+        state.trialBalanceFilters = action.payload?.params || null;
+        state.error = null;
+      })
+      .addCase(getTrialBalance.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getAccountStatement.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getAccountStatement.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const payload = action.payload?.data?.data || action.payload?.data || null;
+        state.accountStatement = payload?.movements?.data || payload?.movements || [];
+        state.accountStatementTotals = payload?.totals || null;
+        state.accountStatementPagination = payload?.movements || null;
+        state.accountStatementFilters = action.payload?.params || null;
+        state.success = action.payload?.data?.message || null;
+        state.error = null;
+      })
+      .addCase(getAccountStatement.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       // Get Banks
       .addCase(getBanks.pending, (state) => {
         state.isLoading = true;
@@ -4597,5 +5414,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearState, clearError, clearSuccess, clearReports, clearAccountDetails, clearJournalEntryDetails, clearExchangeRateDetails, clearCostCenterDetails, clearVendorDetails, clearCustomerDetails, clearBankDetails, clearSafeDetails, logout } = authSlice.actions;
+export const { clearState, clearError, clearSuccess, clearReports, clearAccountDetails, clearJournalEntryDetails, clearExchangeRateDetails, clearCostCenterDetails, clearReceiptVoucherDetails, clearPaymentVoucherDetails, clearVendorDetails, clearCustomerDetails, clearFinancialPeriodDetails, clearTrialBalance, clearAccountStatement, clearBankDetails, clearSafeDetails, logout } = authSlice.actions;
 export default authSlice.reducer;

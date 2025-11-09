@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPayslipDetails, clearError } from '../../../../redux/Slices/authSlice';
@@ -30,7 +30,7 @@ const PayslipDetails = () => {
   };
 
   const formatCurrency = (amount) => {
-    return parseFloat(amount).toLocaleString('ar-EG') + ' جنيه';
+    return parseFloat(amount).toLocaleString('ar-EG') + ' Ø¬Ù†ÙŠÙ‡';
   };
 
   if (isLoading) {
@@ -44,7 +44,7 @@ const PayslipDetails = () => {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <div>جاري التحميل...</div>
+        <div>Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</div>
       </div>
     );
   }
@@ -58,7 +58,7 @@ const PayslipDetails = () => {
         color: 'white',
         textAlign: 'center'
       }}>
-        <div>لا توجد بيانات</div>
+        <div>Ù„Ø§ ØªÙˆØ¬Ø¯ Ø¨ÙŠØ§Ù†Ø§Øª</div>
       </div>
     );
   }
@@ -70,7 +70,7 @@ const PayslipDetails = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      {/* العنوان */}
+      {/* Ø§Ù„Ø¹Ù†ÙˆØ§Ù† */}
       <div style={{ marginBottom: '30px' }}>
         <div style={{ 
           display: 'flex', 
@@ -93,7 +93,7 @@ const PayslipDetails = () => {
             }}
           >
             <FaArrowLeft />
-            العودة
+            Ø§Ù„Ø¹ÙˆØ¯Ø©
           </button>
           <h1 style={{ 
             fontSize: '24px', 
@@ -101,12 +101,12 @@ const PayslipDetails = () => {
             color: 'white',
             margin: 0
           }}>
-            تفاصيل كشف الراتب
+            ØªÙØ§ØµÙŠÙ„ ÙƒØ´Ù Ø§Ù„Ø±Ø§ØªØ¨
           </h1>
         </div>
       </div>
 
-      {/* تفاصيل الكشف */}
+      {/* ØªÙØ§ØµÙŠÙ„ Ø§Ù„ÙƒØ´Ù */}
       <div style={{
         backgroundColor: '#202938',
         borderRadius: '12px',
@@ -114,7 +114,7 @@ const PayslipDetails = () => {
         border: '1px solid #333'
       }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-          {/* فترة الراتب */}
+          {/* ÙØªØ±Ø© Ø§Ù„Ø±Ø§ØªØ¨ */}
           <div>
             <h3 style={{ 
               color: '#AC2000',
@@ -122,7 +122,7 @@ const PayslipDetails = () => {
               fontSize: '16px',
               fontWeight: 'bold'
             }}>
-              فترة الراتب
+              ÙØªØ±Ø© Ø§Ù„Ø±Ø§ØªØ¨
             </h3>
             <div style={{
               backgroundColor: '#1a1f2e',
@@ -136,12 +136,12 @@ const PayslipDetails = () => {
                 fontWeight: 'bold',
                 color: 'white'
               }}>
-                {payslipDetails.pay_period || 'غير متوفر'}
+                {payslipDetails.pay_period || 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}
               </div>
             </div>
           </div>
 
-          {/* تاريخ التوليد */}
+          {/* ØªØ§Ø±ÙŠØ® Ø§Ù„ØªÙˆÙ„ÙŠØ¯ */}
           <div>
             <h3 style={{ 
               color: '#AC2000',
@@ -149,7 +149,7 @@ const PayslipDetails = () => {
               fontSize: '16px',
               fontWeight: 'bold'
             }}>
-              تاريخ التوليد
+              ØªØ§Ø±ÙŠØ® Ø§Ù„ØªÙˆÙ„ÙŠØ¯
             </h3>
             <div style={{
               backgroundColor: '#1a1f2e',
@@ -163,12 +163,12 @@ const PayslipDetails = () => {
                 fontWeight: 'bold',
                 color: 'white'
               }}>
-                {payslipDetails.generated_at ? formatDate(payslipDetails.generated_at) : 'غير متوفر'}
+                {payslipDetails.generated_at ? formatDate(payslipDetails.generated_at) : 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}
               </div>
             </div>
           </div>
 
-          {/* الموظف */}
+          {/* Ø§Ù„Ù…ÙˆØ¸Ù */}
           <div>
             <h3 style={{ 
               color: '#AC2000',
@@ -176,7 +176,7 @@ const PayslipDetails = () => {
               fontSize: '16px',
               fontWeight: 'bold'
             }}>
-              الموظف
+              Ø§Ù„Ù…ÙˆØ¸Ù
             </h3>
             <div style={{
               backgroundColor: '#1a1f2e',
@@ -190,7 +190,7 @@ const PayslipDetails = () => {
                 fontWeight: 'bold',
                 color: 'white'
               }}>
-                {payslipDetails.employee?.name || 'غير متوفر'}
+                {payslipDetails.employee?.name || 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}
               </div>
               <div style={{ 
                 fontSize: '14px', 
@@ -202,7 +202,7 @@ const PayslipDetails = () => {
             </div>
           </div>
 
-          {/* إجمالي الراتب */}
+          {/* Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø±Ø§ØªØ¨ */}
           <div>
             <h3 style={{ 
               color: '#AC2000',
@@ -210,7 +210,7 @@ const PayslipDetails = () => {
               fontSize: '16px',
               fontWeight: 'bold'
             }}>
-              إجمالي الراتب
+              Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø±Ø§ØªØ¨
             </h3>
             <div style={{
               backgroundColor: '#1a1f2e',
@@ -224,12 +224,12 @@ const PayslipDetails = () => {
                 fontWeight: 'bold',
                 color: 'white'
               }}>
-                {payslipDetails.gross_salary ? formatCurrency(payslipDetails.gross_salary) : 'غير متوفر'}
+                {payslipDetails.gross_salary ? formatCurrency(payslipDetails.gross_salary) : 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}
               </div>
             </div>
           </div>
 
-          {/* صافي الراتب */}
+          {/* ØµØ§ÙÙŠ Ø§Ù„Ø±Ø§ØªØ¨ */}
           <div>
             <h3 style={{ 
               color: '#AC2000',
@@ -237,7 +237,7 @@ const PayslipDetails = () => {
               fontSize: '16px',
               fontWeight: 'bold'
             }}>
-              صافي الراتب
+              ØµØ§ÙÙŠ Ø§Ù„Ø±Ø§ØªØ¨
             </h3>
             <div style={{
               backgroundColor: '#1a1f2e',
@@ -251,13 +251,13 @@ const PayslipDetails = () => {
                 fontWeight: 'bold',
                 color: '#AC2000'
               }}>
-                {payslipDetails.net_salary ? formatCurrency(payslipDetails.net_salary) : 'غير متوفر'}
+                {payslipDetails.net_salary ? formatCurrency(payslipDetails.net_salary) : 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}
               </div>
             </div>
           </div>
         </div>
 
-        {/* تفاصيل الحساب */}
+        {/* ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø­Ø³Ø§Ø¨ */}
         {payslipDetails.breakdown && (
           <div style={{
             marginTop: '20px',
@@ -273,12 +273,12 @@ const PayslipDetails = () => {
               fontWeight: 'bold',
               textAlign: 'center'
             }}>
-              تفاصيل الحساب
+              ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø­Ø³Ø§Ø¨
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
               {payslipDetails.breakdown.base_salary && (
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>الراتب الأساسي</div>
+                  <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ</div>
                   <div style={{ color: 'white', fontSize: '16px', fontWeight: 'bold' }}>
                     {formatCurrency(payslipDetails.breakdown.base_salary)}
                   </div>
@@ -286,7 +286,7 @@ const PayslipDetails = () => {
               )}
               {payslipDetails.breakdown.allowances && (
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>إجمالي البدلات</div>
+                  <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø¨Ø¯Ù„Ø§Øª</div>
                   <div style={{ color: '#AC2000', fontSize: '16px', fontWeight: 'bold' }}>
                     {formatCurrency(
                       (payslipDetails.breakdown.allowances?.housing || 0) + 
@@ -297,7 +297,7 @@ const PayslipDetails = () => {
               )}
               {payslipDetails.breakdown.fixed_deductions && (
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>الخصومات الثابتة</div>
+                  <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>Ø§Ù„Ø®ØµÙˆÙ…Ø§Øª Ø§Ù„Ø«Ø§Ø¨ØªØ©</div>
                   <div style={{ color: '#dc3545', fontSize: '16px', fontWeight: 'bold' }}>
                     {formatCurrency(payslipDetails.breakdown.fixed_deductions?.social_insurance || 0)}
                   </div>
@@ -306,26 +306,26 @@ const PayslipDetails = () => {
               {payslipDetails.breakdown.calculation_details && (
                 <>
                   <div style={{ textAlign: 'center' }}>
-                    <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>إجمالي أيام العمل</div>
+                    <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø£ÙŠØ§Ù… Ø§Ù„Ø¹Ù…Ù„</div>
                     <div style={{ color: 'white', fontSize: '16px', fontWeight: 'bold' }}>
                       {payslipDetails.breakdown.calculation_details.total_work_days || 0}
                     </div>
                   </div>
                   <div style={{ textAlign: 'center' }}>
-                    <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>أيام الحضور</div>
+                    <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>Ø£ÙŠØ§Ù… Ø§Ù„Ø­Ø¶ÙˆØ±</div>
                     <div style={{ color: '#AC2000', fontSize: '16px', fontWeight: 'bold' }}>
                       {payslipDetails.breakdown.calculation_details.attended_days || 0}
                     </div>
                   </div>
                   <div style={{ textAlign: 'center' }}>
-                    <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>أيام الغياب</div>
+                    <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>Ø£ÙŠØ§Ù… Ø§Ù„ØºÙŠØ§Ø¨</div>
                     <div style={{ color: '#dc3545', fontSize: '16px', fontWeight: 'bold' }}>
                       {payslipDetails.breakdown.calculation_details.absent_days || 0}
                     </div>
                   </div>
                   {payslipDetails.breakdown.calculation_details.absence_deduction && (
                     <div style={{ textAlign: 'center' }}>
-                      <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>خصم الغياب</div>
+                      <div style={{ color: '#ccc', fontSize: '12px', marginBottom: '4px' }}>Ø®ØµÙ… Ø§Ù„ØºÙŠØ§Ø¨</div>
                       <div style={{ color: '#dc3545', fontSize: '16px', fontWeight: 'bold' }}>
                         {formatCurrency(payslipDetails.breakdown.calculation_details.absence_deduction)}
                       </div>
@@ -342,4 +342,5 @@ const PayslipDetails = () => {
 };
 
 export default PayslipDetails;
+
 

@@ -33,6 +33,7 @@
     "react-toastify": "^11.0.5",
     "recharts": "^3.2.0",
     "redux": "^5.0.1",
+    "sonner": "^2.0.7",
     "thunk": "^0.0.1",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"

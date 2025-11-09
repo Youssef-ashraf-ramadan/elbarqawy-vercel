@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDepartmentDetails, updateDepartment, clearError, clearSuccess } from '../../../../redux/Slices/authSlice';
@@ -77,7 +77,7 @@ const EditDepartment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name_en || !formData.name_ar || !formData.description_en || !formData.description_ar) {
-      toast.error('جميع الحقول مطلوبة', { rtl: true });
+      toast.error('Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ„ Ù…Ø·Ù„ÙˆØ¨Ø©', { rtl: true });
       return;
     }
     await dispatch(updateDepartment({ id, departmentData: formData }));
@@ -131,7 +131,7 @@ const EditDepartment = () => {
                 fontWeight: 'bold',
                 color: 'white'
               }}>
-                تعديل القسم
+                ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù‚Ø³Ù…
               </h1>
               <button
                 onClick={handleCancel}
@@ -150,7 +150,7 @@ const EditDepartment = () => {
                 }}
               >
                 <FaArrowLeft />
-                رجوع
+                Ø±Ø¬ÙˆØ¹
               </button>
             </div>
           </div>
@@ -158,7 +158,7 @@ const EditDepartment = () => {
           <div style={{ padding: '30px' }}>
             <form onSubmit={handleSubmit}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-                {/* الاسم بالعربية */}
+                {/* Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© */}
                 <div>
                   <label style={{ 
                     display: 'block',
@@ -167,14 +167,14 @@ const EditDepartment = () => {
                     color: 'white',
                     fontSize: '14px'
                   }}>
-                    الاسم بالعربية *
+                    Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© *
                   </label>
                   <input
                     type="text"
                     name="name_ar"
                     value={formData.name_ar}
                     onChange={handleChange}
-                    placeholder="أدخل اسم القسم بالعربية"
+                    placeholder="Ø£Ø¯Ø®Ù„ Ø§Ø³Ù… Ø§Ù„Ù‚Ø³Ù… Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©"
                     required
                     style={{
                       width: '100%',
@@ -188,7 +188,7 @@ const EditDepartment = () => {
                   />
                 </div>
 
-                {/* الاسم بالإنجليزية */}
+                {/* Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ© */}
                 <div>
                   <label style={{ 
                     display: 'block',
@@ -197,14 +197,14 @@ const EditDepartment = () => {
                     color: 'white',
                     fontSize: '14px'
                   }}>
-                    الاسم بالإنجليزية *
+                    Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ© *
                   </label>
                   <input
                     type="text"
                     name="name_en"
                     value={formData.name_en}
                     onChange={handleChange}
-                    placeholder="أدخل اسم القسم بالإنجليزية"
+                    placeholder="Ø£Ø¯Ø®Ù„ Ø§Ø³Ù… Ø§Ù„Ù‚Ø³Ù… Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ©"
                     required
                     style={{
                       width: '100%',
@@ -218,7 +218,7 @@ const EditDepartment = () => {
                   />
                 </div>
 
-                {/* الوصف بالعربية */}
+                {/* Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© */}
                 <div>
                   <label style={{ 
                     display: 'block',
@@ -227,13 +227,13 @@ const EditDepartment = () => {
                     color: 'white',
                     fontSize: '14px'
                   }}>
-                    الوصف بالعربية *
+                    Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© *
                   </label>
                   <textarea
                     name="description_ar"
                     value={formData.description_ar}
                     onChange={handleChange}
-                    placeholder="أدخل وصف القسم بالعربية"
+                    placeholder="Ø£Ø¯Ø®Ù„ ÙˆØµÙ Ø§Ù„Ù‚Ø³Ù… Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©"
                     rows="3"
                     required
                     style={{
@@ -249,7 +249,7 @@ const EditDepartment = () => {
                   />
                 </div>
 
-                {/* الوصف بالإنجليزية */}
+                {/* Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ© */}
                 <div>
                   <label style={{ 
                     display: 'block',
@@ -258,13 +258,13 @@ const EditDepartment = () => {
                     color: 'white',
                     fontSize: '14px'
                   }}>
-                    الوصف بالإنجليزية *
+                    Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ© *
                   </label>
                   <textarea
                     name="description_en"
                     value={formData.description_en}
                     onChange={handleChange}
-                    placeholder="أدخل وصف القسم بالإنجليزية"
+                    placeholder="Ø£Ø¯Ø®Ù„ ÙˆØµÙ Ø§Ù„Ù‚Ø³Ù… Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ©"
                     rows="3"
                     required
                     style={{
@@ -300,7 +300,7 @@ const EditDepartment = () => {
                     cursor: 'pointer'
                   }}
                 >
-                  إلغاء
+                  Ø¥Ù„ØºØ§Ø¡
                 </button>
                 <button
                   type="submit"
@@ -323,12 +323,12 @@ const EditDepartment = () => {
                   {isLoading ? (
                     <>
                       <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      جاري الحفظ...
+                      Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø­ÙØ¸...
                     </>
                   ) : (
                     <>
                       <FaSave />
-                      حفظ التغييرات
+                      Ø­ÙØ¸ Ø§Ù„ØªØºÙŠÙŠØ±Ø§Øª
                     </>
                   )}
                 </button>
@@ -342,3 +342,4 @@ const EditDepartment = () => {
 };
 
 export default EditDepartment;
+

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { generatePayslip, getEmployees, clearError, clearSuccess } from '../../../../redux/Slices/authSlice';
@@ -43,12 +43,12 @@ const GeneratePayslip = () => {
     e.preventDefault();
     
     if (!formData.employee_id) {
-      toast.error('يرجى اختيار الموظف', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ù…ÙˆØ¸Ù', { rtl: true });
       return;
     }
     
     if (!formData.year) {
-      toast.error('يرجى إدخال السنة', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ù„Ø³Ù†Ø©', { rtl: true });
       return;
     }
 
@@ -70,7 +70,7 @@ const GeneratePayslip = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      {/* العنوان */}
+      {/* Ø§Ù„Ø¹Ù†ÙˆØ§Ù† */}
       <div style={{ marginBottom: '30px' }}>
         <div style={{ 
           display: 'flex', 
@@ -93,7 +93,7 @@ const GeneratePayslip = () => {
             }}
           >
             <FaArrowLeft />
-            العودة
+            Ø§Ù„Ø¹ÙˆØ¯Ø©
           </button>
           <h1 style={{ 
             fontSize: '24px', 
@@ -101,12 +101,12 @@ const GeneratePayslip = () => {
             color: 'white',
             margin: 0
           }}>
-            توليد كشف راتب
+            ØªÙˆÙ„ÙŠØ¯ ÙƒØ´Ù Ø±Ø§ØªØ¨
           </h1>
         </div>
       </div>
 
-      {/* النموذج */}
+      {/* Ø§Ù„Ù†Ù…ÙˆØ°Ø¬ */}
       <div style={{
         backgroundColor: '#202938',
         borderRadius: '12px',
@@ -116,7 +116,7 @@ const GeneratePayslip = () => {
         margin: '0 auto'
       }}>
         <form onSubmit={handleSubmit}>
-          {/* الموظف */}
+          {/* Ø§Ù„Ù…ÙˆØ¸Ù */}
           <div style={{ marginBottom: '20px' }}>
             <label style={{ 
               display: 'block', 
@@ -124,7 +124,7 @@ const GeneratePayslip = () => {
               color: 'white',
               fontWeight: '500'
             }}>
-              الموظف *
+              Ø§Ù„Ù…ÙˆØ¸Ù *
             </label>
             <select
               name="employee_id"
@@ -140,7 +140,7 @@ const GeneratePayslip = () => {
                 fontSize: '14px'
               }}
             >
-              <option value="" style={{ backgroundColor: '#1a1f2e' }}>اختر الموظف</option>
+              <option value="" style={{ backgroundColor: '#1a1f2e' }}>Ø§Ø®ØªØ± Ø§Ù„Ù…ÙˆØ¸Ù</option>
               {employees?.map(employee => (
                 <option key={employee.id} value={employee.id} style={{ backgroundColor: '#1a1f2e' }}>
                   {employee.name} - {employee.employee_code}
@@ -149,7 +149,7 @@ const GeneratePayslip = () => {
             </select>
           </div>
 
-          {/* السنة */}
+          {/* Ø§Ù„Ø³Ù†Ø© */}
           <div style={{ marginBottom: '20px' }}>
             <label style={{ 
               display: 'block', 
@@ -157,7 +157,7 @@ const GeneratePayslip = () => {
               color: 'white',
               fontWeight: '500'
             }}>
-              السنة *
+              Ø§Ù„Ø³Ù†Ø© *
             </label>
             <input
               type="month"
@@ -185,7 +185,7 @@ const GeneratePayslip = () => {
           </div>
 
 
-          {/* أزرار الإجراء */}
+          {/* Ø£Ø²Ø±Ø§Ø± Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ */}
           <div style={{ display: 'flex', gap: '15px', justifyContent: 'flex-end' }}>
             <button
               type="button"
@@ -201,7 +201,7 @@ const GeneratePayslip = () => {
                 fontWeight: 'bold'
               }}
             >
-              إلغاء
+              Ø¥Ù„ØºØ§Ø¡
             </button>
             <button
               type="submit"
@@ -218,7 +218,7 @@ const GeneratePayslip = () => {
                 opacity: isLoading ? 0.6 : 1
               }}
             >
-              {isLoading ? 'جاري التوليد...' : 'توليد كشف الراتب'}
+              {isLoading ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªÙˆÙ„ÙŠØ¯...' : 'ØªÙˆÙ„ÙŠØ¯ ÙƒØ´Ù Ø§Ù„Ø±Ø§ØªØ¨'}
             </button>
           </div>
         </form>
@@ -228,4 +228,5 @@ const GeneratePayslip = () => {
 };
 
 export default GeneratePayslip;
+
 

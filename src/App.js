@@ -62,6 +62,8 @@ import Vendors from './features/pages/Accounting/Vendors/Vendors';
 import AddVendor from './features/pages/Accounting/Vendors/AddVendor';
 import EditVendor from './features/pages/Accounting/Vendors/EditVendor';
 import VendorDetails from './features/pages/Accounting/Vendors/VendorDetails';
+import TrialBalance from './features/pages/Accounting/Reports/TrialBalance';
+import AccountStatement from './features/pages/Accounting/Reports/AccountStatement';
 import Customers from './features/pages/Accounting/Customers/Customers';
 import AddCustomer from './features/pages/Accounting/Customers/AddCustomer';
 import EditCustomer from './features/pages/Accounting/Customers/EditCustomer';
@@ -75,6 +77,16 @@ import AddSafe from './features/pages/Accounting/Safes/AddSafe';
 import EditSafe from './features/pages/Accounting/Safes/EditSafe';
 import SafeDetails from './features/pages/Accounting/Safes/SafeDetails';
 import AccountLinks from './features/pages/Accounting/AccountLinks/AccountLinks';
+import FinancialPeriods from './features/pages/Accounting/FinancialPeriods/FinancialPeriods';
+import AddFinancialPeriod from './features/pages/Accounting/FinancialPeriods/AddFinancialPeriod';
+import EditFinancialPeriod from './features/pages/Accounting/FinancialPeriods/EditFinancialPeriod';
+import FinancialPeriodDetails from './features/pages/Accounting/FinancialPeriods/FinancialPeriodDetails';
+import ReceiptVouchers from './features/pages/Accounting/ReceiptVouchers/ReceiptVouchers';
+import AddReceiptVoucher from './features/pages/Accounting/ReceiptVouchers/AddReceiptVoucher';
+import ReceiptVoucherDetails from './features/pages/Accounting/ReceiptVouchers/ReceiptVoucherDetails';
+import PaymentVouchers from './features/pages/Accounting/PaymentVouchers/PaymentVouchers';
+import AddPaymentVoucher from './features/pages/Accounting/PaymentVouchers/AddPaymentVoucher';
+import PaymentVoucherDetails from './features/pages/Accounting/PaymentVouchers/PaymentVoucherDetails';
 
 import './App.css';
 
@@ -138,6 +150,16 @@ function App() {
               <Route path="journal-entries/add" element={<AddJournalEntry />} />
               <Route path="journal-entries/edit/:id" element={<EditJournalEntry />} />
               <Route path="journal-entries/view/:id" element={<JournalEntryDetails />} />
+              <Route path="receipt-vouchers" element={<ReceiptVouchers />} />
+              <Route path="receipt-vouchers/add" element={<AddReceiptVoucher />} />
+              <Route path="receipt-vouchers/view/:id" element={<ReceiptVoucherDetails />} />
+              <Route path="payment-vouchers" element={<PaymentVouchers />} />
+              <Route path="payment-vouchers/add" element={<AddPaymentVoucher />} />
+              <Route path="payment-vouchers/view/:id" element={<PaymentVoucherDetails />} />
+              <Route path="financial-periods" element={<FinancialPeriods />} />
+              <Route path="financial-periods/add" element={<AddFinancialPeriod />} />
+              <Route path="financial-periods/edit/:id" element={<EditFinancialPeriod />} />
+              <Route path="financial-periods/view/:id" element={<FinancialPeriodDetails />} />
               <Route path="currencies" element={<Currencies />} />
               <Route path="currencies/add" element={<AddCurrency />} />
               <Route path="currencies/edit/:id" element={<EditCurrency />} />
@@ -162,6 +184,8 @@ function App() {
               <Route path="safes/edit/:id" element={<EditSafe />} />
               <Route path="safes/view/:id" element={<SafeDetails />} />
               <Route path="account-links" element={<AccountLinks />} />
+              <Route path="trial-balance" element={<TrialBalance />} />
+              <Route path="account-statement" element={<AccountStatement />} />
 
               <Route path="shifts" element={<Shifts />} />
               <Route path="shifts/add" element={<AddShift />} />

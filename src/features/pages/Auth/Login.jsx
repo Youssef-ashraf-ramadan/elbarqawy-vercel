@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { motion } from 'framer-motion';
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaArrowLeft } from 'react-icons/fa';
@@ -8,7 +8,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 
-// إضافة CSS للـ placeholder
+// إضافة CSS للعنصر placeholder
 const style = document.createElement('style');
 style.innerHTML = `
   .login-input::placeholder {
@@ -43,7 +43,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const { isLoading, error, user } = useSelector((state) => state.auth);
 
-    // إذا كان المستخدم مسجل مسبقاً (من sessionStorage) نحوله مباشرة عند فتح الصفحة
+    // إذا كان المستخدم مسجلًا مسبقًا (من sessionStorage) نحوله مباشرة عند فتح الصفحة
     useEffect(() => {
         try {
             const storedUser = sessionStorage.getItem('useralbaraqawy');
@@ -120,7 +120,7 @@ const LoginPage = () => {
                             height: '100vh'
                         }}
                     />
-                    {/* Overlay داكن */}
+                    {/* تدرج داكن فوق الصورة */}
                     <div style={{
                         position: 'absolute',
                         top: 0,
@@ -160,9 +160,9 @@ const LoginPage = () => {
                             fontSize: '1.2rem', 
                             lineHeight: '1.6',
                             maxWidth: '400px',
-                            fontFamily: 'Arial, sans-serif'
+                            fontFamily: 'Axt-Damour, Montserrat-Arabic, sans-serif'
                         }}>
-                            مكتب هندسي متخصص في التصميمات المعمارية والإنشائية، نقدم حلول مبتكرة لتنفيذ المشاريع بجودة عالية ووفق أعلى المعايير.
+                            مكتب هندسي متخصص في التصميمات المعمارية والإنشائية، نقدم حلولًا مبتكرة لتنفيذ المشاريع بجودة عالية ووفق أعلى المعايير.
                         </p>
                     </div>
                 </motion.div>
@@ -222,10 +222,10 @@ const LoginPage = () => {
                             style={{ 
                             color: 'white', 
                             fontSize: '25px',
-                            fontFamily: 'Montserrat-Arabic, sans-serif',
+                            fontFamily: 'Axt-Damour, Montserrat-Arabic, sans-serif',
                                 fontWeight: '500'
                             }}>
-                        سجل دخول الى حسابك
+                        سجّل الدخول إلى حسابك
                     </motion.h2>
 
 
@@ -239,7 +239,7 @@ const LoginPage = () => {
                             <label htmlFor="email" className="form-label fw-medium d-block text-end" style={{ 
                                 color: 'white', 
                                 marginBottom: '0.5rem',
-                                fontFamily: 'Montserrat-Arabic, sans-serif',
+                                fontFamily: 'Axt-Damour, Montserrat-Arabic, sans-serif',
                                 fontWeight: '500'
                             }}>
                                 البريد الإلكتروني
@@ -272,7 +272,7 @@ const LoginPage = () => {
                             <label htmlFor="password" className="form-label fw-medium d-block text-end" style={{ 
                                 color: 'white', 
                                 marginBottom: '0.5rem',
-                                fontFamily: 'Montserrat-Arabic, sans-serif',
+                                fontFamily: 'Axt-Damour, Montserrat-Arabic, sans-serif',
                                 fontWeight: '500'
                             }}>
                                     كلمة المرور
@@ -327,13 +327,13 @@ const LoginPage = () => {
                                 fontSize: '1.2rem',
                                 marginTop: '1rem',
                                 fontWeight: 'bold',
-                                fontFamily: 'Montserrat-Arabic, sans-serif'
+                                fontFamily: 'Axt-Damour, Montserrat-Arabic, sans-serif'
                                 }}
                                 disabled={isLoading}>
                                 {isLoading ? <LoadingSpinner /> : 'تسجيل الدخول'}
                             </motion.button>
                         <div className="text-center mt-3">
-                            <span style={{ color: 'white', fontFamily: 'Montserrat-Arabic, sans-serif' }}>لا تملك حسابًا؟ </span>
+                            <span style={{ color: 'white', fontFamily: 'Axt-Damour, Montserrat-Arabic, sans-serif' }}>لا تملك حسابًا؟ </span>
                             <Link to="/register" style={{ color: '#AC2000', textDecoration: 'none', fontWeight: '600' }}>إنشاء حساب</Link>
                         </div>
                         </form>

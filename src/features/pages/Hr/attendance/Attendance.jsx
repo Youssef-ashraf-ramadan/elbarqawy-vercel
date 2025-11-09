@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAttendance, checkIn, checkOut, getEmployees, clearError, clearSuccess } from '../../../../redux/Slices/authSlice';
 import { FaSearch, FaEdit, FaTrash, FaEye, FaSignInAlt, FaSignOutAlt, FaPlus } from 'react-icons/fa';
@@ -47,29 +47,29 @@ const Attendance = () => {
 
   const handleCheckIn = async () => {
     if (!checkInData.employee_id) {
-      toast.error('يرجى اختيار الموظف', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ù…ÙˆØ¸Ù', { rtl: true });
       return;
     }
     try {
       await dispatch(checkIn(checkInData)).unwrap();
-      // تحديث البيانات بعد النجاح
+      // ØªØ­Ø¯ÙŠØ« Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø¨Ø¹Ø¯ Ø§Ù„Ù†Ø¬Ø§Ø­
       dispatch(getAttendance({ page: currentPage }));
     } catch (error) {
-      // سيتم التعامل مع الخطأ في useEffect
+      // Ø³ÙŠØªÙ… Ø§Ù„ØªØ¹Ø§Ù…Ù„ Ù…Ø¹ Ø§Ù„Ø®Ø·Ø£ ÙÙŠ useEffect
     }
   };
 
   const handleCheckOut = async () => {
     if (!checkOutData.employee_id) {
-      toast.error('يرجى اختيار الموظف', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ù…ÙˆØ¸Ù', { rtl: true });
       return;
     }
     try {
       await dispatch(checkOut(checkOutData)).unwrap();
-      // تحديث البيانات بعد النجاح
+      // ØªØ­Ø¯ÙŠØ« Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø¨Ø¹Ø¯ Ø§Ù„Ù†Ø¬Ø§Ø­
       dispatch(getAttendance({ page: currentPage }));
     } catch (error) {
-      // سيتم التعامل مع الخطأ في useEffect
+      // Ø³ÙŠØªÙ… Ø§Ù„ØªØ¹Ø§Ù…Ù„ Ù…Ø¹ Ø§Ù„Ø®Ø·Ø£ ÙÙŠ useEffect
     }
   };
 
@@ -99,13 +99,13 @@ const Attendance = () => {
   const getStatusText = (status) => {
     switch (status) {
       case 'present':
-        return 'حاضر';
+        return 'Ø­Ø§Ø¶Ø±';
       case 'absent':
-        return 'غائب';
+        return 'ØºØ§Ø¦Ø¨';
       case 'late':
-        return 'متأخر';
+        return 'Ù…ØªØ£Ø®Ø±';
       default:
-        return 'غير محدد';
+        return 'ØºÙŠØ± Ù…Ø­Ø¯Ø¯';
     }
   };
 
@@ -116,7 +116,7 @@ const Attendance = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      {/* العنوان والبحث */}
+      {/* Ø§Ù„Ø¹Ù†ÙˆØ§Ù† ÙˆØ§Ù„Ø¨Ø­Ø« */}
       <div style={{ 
         display: 'flex', 
         justifyContent: 'space-between', 
@@ -131,10 +131,10 @@ const Attendance = () => {
           color: 'white',
           margin: 0
         }}>
-          الحضور والانصراف
+          Ø§Ù„Ø­Ø¶ÙˆØ± ÙˆØ§Ù„Ø§Ù†ØµØ±Ø§Ù
         </h1>
 
-        {/* أزرار تسجيل الدخول والخروج */}
+        {/* Ø£Ø²Ø±Ø§Ø± ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ ÙˆØ§Ù„Ø®Ø±ÙˆØ¬ */}
         <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
           <button
             onClick={() => setShowCheckInModal(true)}
@@ -153,7 +153,7 @@ const Attendance = () => {
             }}
           >
             <FaSignInAlt />
-            تسجيل حضور
+            ØªØ³Ø¬ÙŠÙ„ Ø­Ø¶ÙˆØ±
           </button>
           
           <button
@@ -173,12 +173,12 @@ const Attendance = () => {
             }}
           >
             <FaSignOutAlt />
-            تسجيل انصراف
+            ØªØ³Ø¬ÙŠÙ„ Ø§Ù†ØµØ±Ø§Ù
           </button>
         </div>
       </div>
 
-      {/* شريط البحث */}
+      {/* Ø´Ø±ÙŠØ· Ø§Ù„Ø¨Ø­Ø« */}
       <div style={{ marginBottom: '20px' }}>
         <div style={{ position: 'relative', width: '100%' }}>
             <FaSearch style={{
@@ -191,7 +191,7 @@ const Attendance = () => {
             }} />
             <input
               type="text"
-            placeholder="بحث عن الموظف..."
+            placeholder="Ø¨Ø­Ø« Ø¹Ù† Ø§Ù„Ù…ÙˆØ¸Ù..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{
@@ -207,7 +207,7 @@ const Attendance = () => {
         </div>
       </div>
 
-      {/* جدول الحضور والانصراف */}
+      {/* Ø¬Ø¯ÙˆÙ„ Ø§Ù„Ø­Ø¶ÙˆØ± ÙˆØ§Ù„Ø§Ù†ØµØ±Ø§Ù */}
       <div style={{
         backgroundColor: '#202938',
         borderRadius: '12px',
@@ -224,7 +224,7 @@ const Attendance = () => {
             padding: '40px',
             color: 'white'
           }}>
-            <div>جاري التحميل...</div>
+            <div>Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</div>
           </div>
         ) : filteredData && filteredData.length > 0 ? (
         <div style={{ overflowX: 'auto' }}>
@@ -253,7 +253,7 @@ const Attendance = () => {
                     fontSize: '16px',
                   borderBottom: '1px solid #333'
                 }}>
-                    الموظف
+                    Ø§Ù„Ù…ÙˆØ¸Ù
                 </th>
                 <th style={{ 
                   padding: '15px', 
@@ -263,7 +263,7 @@ const Attendance = () => {
                     fontSize: '16px',
                   borderBottom: '1px solid #333'
                 }}>
-                    تاريخ العمل
+                    ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¹Ù…Ù„
                 </th>
                 <th style={{ 
                   padding: '15px', 
@@ -273,7 +273,7 @@ const Attendance = () => {
                     fontSize: '16px',
                   borderBottom: '1px solid #333'
                 }}>
-                    وقت الدخول
+                    ÙˆÙ‚Øª Ø§Ù„Ø¯Ø®ÙˆÙ„
                 </th>
                 <th style={{ 
                   padding: '15px', 
@@ -283,7 +283,7 @@ const Attendance = () => {
                     fontSize: '16px',
                   borderBottom: '1px solid #333'
                 }}>
-                    وقت الخروج
+                    ÙˆÙ‚Øª Ø§Ù„Ø®Ø±ÙˆØ¬
                 </th>
                 <th style={{ 
                   padding: '15px', 
@@ -293,7 +293,7 @@ const Attendance = () => {
                     fontSize: '16px',
                   borderBottom: '1px solid #333'
                 }}>
-                    الملاحظات
+                    Ø§Ù„Ù…Ù„Ø§Ø­Ø¸Ø§Øª
                 </th>
                 <th style={{ 
                   padding: '15px', 
@@ -303,7 +303,7 @@ const Attendance = () => {
                     fontSize: '16px',
                   borderBottom: '1px solid #333'
                 }}>
-                  الحالة
+                  Ø§Ù„Ø­Ø§Ù„Ø©
                 </th>
               </tr>
             </thead>
@@ -378,7 +378,7 @@ const Attendance = () => {
                                     backdropFilter: 'blur(10px)'
                                   }}
                                 >
-                                  {/* أيقونة */}
+                                  {/* Ø£ÙŠÙ‚ÙˆÙ†Ø© */}
                                   <div 
                                     className="note-icon"
                                     style={{
@@ -399,10 +399,10 @@ const Attendance = () => {
                                       transition: 'transform 0.3s ease'
                                     }}
                                   >
-                                    {isCheckout ? '↩' : '✓'}
+                                    {isCheckout ? 'â†©' : 'âœ“'}
                                   </div>
                                   
-                                  {/* نوع الملاحظة */}
+                                  {/* Ù†ÙˆØ¹ Ø§Ù„Ù…Ù„Ø§Ø­Ø¸Ø© */}
                                   <div style={{
                                     color: isCheckout ? '#dc3545' : '#AC2000',
                                     fontWeight: 'bold',
@@ -411,10 +411,10 @@ const Attendance = () => {
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.5px'
                                   }}>
-                                    {isCheckout ? 'ملاحظة انصراف:' : 'ملاحظة حضور:'}
+                                    {isCheckout ? 'Ù…Ù„Ø§Ø­Ø¸Ø© Ø§Ù†ØµØ±Ø§Ù:' : 'Ù…Ù„Ø§Ø­Ø¸Ø© Ø­Ø¶ÙˆØ±:'}
                                   </div>
                                   
-                                  {/* نص الملاحظة */}
+                                  {/* Ù†Øµ Ø§Ù„Ù…Ù„Ø§Ø­Ø¸Ø© */}
                                   <div style={{
                                     color: 'white',
                                     lineHeight: '1.4',
@@ -424,7 +424,7 @@ const Attendance = () => {
                                     {noteText}
                                   </div>
                                   
-                                  {/* خط زمني */}
+                                  {/* Ø®Ø· Ø²Ù…Ù†ÙŠ */}
                                   <div 
                                     className="note-timeline"
                                     style={{
@@ -461,9 +461,9 @@ const Attendance = () => {
                               justifyContent: 'center',
                               fontSize: '18px'
                             }}>
-                              📝
+                              ðŸ“
                             </div>
-                            لا توجد ملاحظات
+                            Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù„Ø§Ø­Ø¸Ø§Øª
                           </div>
                         )}
                       </div>
@@ -496,11 +496,11 @@ const Attendance = () => {
             padding: '40px',
             color: '#666'
           }}>
-            لا توجد سجلات حضور وانصراف
+            Ù„Ø§ ØªÙˆØ¬Ø¯ Ø³Ø¬Ù„Ø§Øª Ø­Ø¶ÙˆØ± ÙˆØ§Ù†ØµØ±Ø§Ù
           </div>
         )}
 
-        {/* الباجينيشن */}
+        {/* Ø§Ù„Ø¨Ø§Ø¬ÙŠÙ†ÙŠØ´Ù† */}
         {attendancePagination && attendancePagination.last_page > 1 && (
           <div style={{
             padding: '20px',
@@ -511,7 +511,7 @@ const Attendance = () => {
             borderTop: '1px solid #333',
             flexWrap: 'wrap'
           }}>
-            {/* زر السابق */}
+            {/* Ø²Ø± Ø§Ù„Ø³Ø§Ø¨Ù‚ */}
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
@@ -526,10 +526,10 @@ const Attendance = () => {
                 fontSize: '14px'
               }}
             >
-              السابق
+              Ø§Ù„Ø³Ø§Ø¨Ù‚
             </button>
 
-            {/* أرقام الصفحات */}
+            {/* Ø£Ø±Ù‚Ø§Ù… Ø§Ù„ØµÙØ­Ø§Øª */}
             {Array.from({ length: attendancePagination.last_page }, (_, i) => i + 1).map(page => {
               if (page === 1 || page === attendancePagination.last_page || 
                   (page >= currentPage - 1 && page <= currentPage + 1)) {
@@ -562,7 +562,7 @@ const Attendance = () => {
               return null;
             })}
 
-            {/* زر التالي */}
+            {/* Ø²Ø± Ø§Ù„ØªØ§Ù„ÙŠ */}
                       <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === attendancePagination.last_page}
@@ -577,13 +577,13 @@ const Attendance = () => {
                 fontSize: '14px'
               }}
             >
-              التالي
+              Ø§Ù„ØªØ§Ù„ÙŠ
             </button>
           </div>
         )}
       </div>
 
-      {/* Modal تسجيل حضور */}
+      {/* Modal ØªØ³Ø¬ÙŠÙ„ Ø­Ø¶ÙˆØ± */}
       {showCheckInModal && (
         <div style={{
           position: 'fixed',
@@ -605,7 +605,7 @@ const Attendance = () => {
             maxWidth: '500px',
             width: '90%'
           }}>
-            <h3 style={{ color: 'white', marginBottom: '20px', fontSize: '18px' }}>تسجيل حضور</h3>
+            <h3 style={{ color: 'white', marginBottom: '20px', fontSize: '18px' }}>ØªØ³Ø¬ÙŠÙ„ Ø­Ø¶ÙˆØ±</h3>
             
             <div style={{ marginBottom: '20px' }}>
               <label style={{ 
@@ -614,7 +614,7 @@ const Attendance = () => {
                 color: 'white',
                 fontWeight: '500'
               }}>
-                الموظف *
+                Ø§Ù„Ù…ÙˆØ¸Ù *
               </label>
               <select
                 value={checkInData.employee_id}
@@ -629,7 +629,7 @@ const Attendance = () => {
                           fontSize: '14px'
                         }}
               >
-                <option value="" style={{ backgroundColor: '#1a1f2e' }}>اختر الموظف</option>
+                <option value="" style={{ backgroundColor: '#1a1f2e' }}>Ø§Ø®ØªØ± Ø§Ù„Ù…ÙˆØ¸Ù</option>
                 {employees?.map(employee => (
                   <option key={employee.id} value={employee.id} style={{ backgroundColor: '#1a1f2e' }}>
                     {employee.name} - {employee.employee_code}
@@ -645,12 +645,12 @@ const Attendance = () => {
                 color: 'white',
                 fontWeight: '500'
               }}>
-                ملاحظات الحضور
+                Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ø§Ù„Ø­Ø¶ÙˆØ±
               </label>
               <textarea
                 value={checkInData.check_in_notes}
                 onChange={(e) => setCheckInData({...checkInData, check_in_notes: e.target.value})}
-                placeholder="ملاحظات حول الحضور..."
+                placeholder="Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ø­ÙˆÙ„ Ø§Ù„Ø­Ø¶ÙˆØ±..."
                 rows="3"
                 style={{
                   width: '100%',
@@ -678,7 +678,7 @@ const Attendance = () => {
                           fontSize: '14px'
                         }}
                       >
-                إلغاء
+                Ø¥Ù„ØºØ§Ø¡
                       </button>
                       <button
                 onClick={handleCheckIn}
@@ -694,14 +694,14 @@ const Attendance = () => {
                   opacity: isLoading ? 0.6 : 1
                         }}
                       >
-                {isLoading ? 'جاري التسجيل...' : 'تسجيل حضور'}
+                {isLoading ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ³Ø¬ÙŠÙ„...' : 'ØªØ³Ø¬ÙŠÙ„ Ø­Ø¶ÙˆØ±'}
                       </button>
                     </div>
           </div>
         </div>
       )}
 
-      {/* Modal تسجيل انصراف */}
+      {/* Modal ØªØ³Ø¬ÙŠÙ„ Ø§Ù†ØµØ±Ø§Ù */}
       {showCheckOutModal && (
         <div style={{
           position: 'fixed',
@@ -723,7 +723,7 @@ const Attendance = () => {
             maxWidth: '500px',
             width: '90%'
           }}>
-            <h3 style={{ color: 'white', marginBottom: '20px', fontSize: '18px' }}>تسجيل انصراف</h3>
+            <h3 style={{ color: 'white', marginBottom: '20px', fontSize: '18px' }}>ØªØ³Ø¬ÙŠÙ„ Ø§Ù†ØµØ±Ø§Ù</h3>
             
             <div style={{ marginBottom: '20px' }}>
               <label style={{ 
@@ -732,7 +732,7 @@ const Attendance = () => {
             color: 'white',
                 fontWeight: '500'
               }}>
-                الموظف *
+                Ø§Ù„Ù…ÙˆØ¸Ù *
               </label>
               <select
                 value={checkOutData.employee_id}
@@ -747,7 +747,7 @@ const Attendance = () => {
             fontSize: '14px'
                 }}
               >
-                <option value="" style={{ backgroundColor: '#1a1f2e' }}>اختر الموظف</option>
+                <option value="" style={{ backgroundColor: '#1a1f2e' }}>Ø§Ø®ØªØ± Ø§Ù„Ù…ÙˆØ¸Ù</option>
                 {employees?.map(employee => (
                   <option key={employee.id} value={employee.id} style={{ backgroundColor: '#1a1f2e' }}>
                     {employee.name} - {employee.employee_code}
@@ -763,12 +763,12 @@ const Attendance = () => {
                 color: 'white',
                 fontWeight: '500'
               }}>
-                ملاحظات الانصراف
+                Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ø§Ù„Ø§Ù†ØµØ±Ø§Ù
               </label>
               <textarea
                 value={checkOutData.check_out_notes}
                 onChange={(e) => setCheckOutData({...checkOutData, check_out_notes: e.target.value})}
-                placeholder="ملاحظات حول الانصراف..."
+                placeholder="Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ø­ÙˆÙ„ Ø§Ù„Ø§Ù†ØµØ±Ø§Ù..."
                 rows="3"
                 style={{
                   width: '100%',
@@ -796,7 +796,7 @@ const Attendance = () => {
             fontSize: '14px'
                 }}
               >
-                إلغاء
+                Ø¥Ù„ØºØ§Ø¡
           </button>
               <button
                 onClick={handleCheckOut}
@@ -812,7 +812,7 @@ const Attendance = () => {
                   opacity: isLoading ? 0.6 : 1
                 }}
               >
-                {isLoading ? 'جاري التسجيل...' : 'تسجيل انصراف'}
+                {isLoading ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ³Ø¬ÙŠÙ„...' : 'ØªØ³Ø¬ÙŠÙ„ Ø§Ù†ØµØ±Ø§Ù'}
           </button>
         </div>
       </div>
@@ -823,3 +823,4 @@ const Attendance = () => {
 };
 
 export default Attendance;
+

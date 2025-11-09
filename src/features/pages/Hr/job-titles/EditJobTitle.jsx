@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getJobTitleDetails, updateJobTitle, clearError, clearSuccess } from '../../../../redux/Slices/authSlice';
@@ -61,7 +61,7 @@ const EditJobTitle = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name_en || !formData.name_ar || !formData.description_en || !formData.description_ar) {
-      toast.error('جميع الحقول مطلوبة', { rtl: true });
+      toast.error('Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ„ Ù…Ø·Ù„ÙˆØ¨Ø©', { rtl: true });
       return;
     }
     await dispatch(updateJobTitle({ id, jobTitleData: formData }));
@@ -115,7 +115,7 @@ const EditJobTitle = () => {
                 fontWeight: 'bold',
                 color: 'white'
               }}>
-                تعديل المسمى الوظيفي
+                ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ø³Ù…Ù‰ Ø§Ù„ÙˆØ¸ÙŠÙÙŠ
               </h1>
               <button
                 onClick={handleCancel}
@@ -134,7 +134,7 @@ const EditJobTitle = () => {
                 }}
               >
                 <FaArrowLeft />
-                رجوع
+                Ø±Ø¬ÙˆØ¹
               </button>
             </div>
           </div>
@@ -149,14 +149,14 @@ const EditJobTitle = () => {
                   color: 'white',
                   fontSize: '14px'
                 }}>
-                  الاسم بالعربية *
+                  Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© *
                 </label>
                 <input
                   type="text"
                   name="name_ar"
                   value={formData.name_ar}
                   onChange={handleChange}
-                  placeholder="أدخل الاسم بالعربية"
+                  placeholder="Ø£Ø¯Ø®Ù„ Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©"
                   required
                   style={{
                     width: '100%',
@@ -178,14 +178,14 @@ const EditJobTitle = () => {
                   color: 'white',
                   fontSize: '14px'
                 }}>
-                  الاسم بالإنجليزية *
+                  Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ© *
                 </label>
                 <input
                   type="text"
                   name="name_en"
                   value={formData.name_en}
                   onChange={handleChange}
-                  placeholder="أدخل الاسم بالإنجليزية"
+                  placeholder="Ø£Ø¯Ø®Ù„ Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ©"
                   required
                   style={{
                     width: '100%',
@@ -207,13 +207,13 @@ const EditJobTitle = () => {
                   color: 'white',
                   fontSize: '14px'
                 }}>
-                  الوصف بالعربية *
+                  Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© *
                 </label>
                 <textarea
                   name="description_ar"
                   value={formData.description_ar}
                   onChange={handleChange}
-                  placeholder="أدخل الوصف بالعربية"
+                  placeholder="Ø£Ø¯Ø®Ù„ Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©"
                   rows="3"
                   required
                   style={{
@@ -237,13 +237,13 @@ const EditJobTitle = () => {
                   color: 'white',
                   fontSize: '14px'
                 }}>
-                  الوصف بالإنجليزية *
+                  Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ© *
                 </label>
                 <textarea
                   name="description_en"
                   value={formData.description_en}
                   onChange={handleChange}
-                  placeholder="أدخل الوصف بالإنجليزية"
+                  placeholder="Ø£Ø¯Ø®Ù„ Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ©"
                   rows="3"
                   required
                   style={{
@@ -278,7 +278,7 @@ const EditJobTitle = () => {
                     cursor: 'pointer'
                   }}
                 >
-                  إلغاء
+                  Ø¥Ù„ØºØ§Ø¡
                 </button>
                 <button
                   type="submit"
@@ -301,12 +301,12 @@ const EditJobTitle = () => {
                   {isLoading ? (
                     <>
                       <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      جاري الحفظ...
+                      Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø­ÙØ¸...
                     </>
                   ) : (
                     <>
                       <FaSave />
-                      حفظ التغييرات
+                      Ø­ÙØ¸ Ø§Ù„ØªØºÙŠÙŠØ±Ø§Øª
                     </>
                   )}
                 </button>
@@ -320,3 +320,4 @@ const EditJobTitle = () => {
 };
 
 export default EditJobTitle;
+

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSalaries, clearError, clearSuccess } from '../../../../redux/Slices/authSlice';
@@ -39,7 +39,7 @@ const Salaries = () => {
   };
 
   const getStatusColor = (status) => {
-    return status === 'مدفوع' ? '#AC2000' : '#dc3545';
+    return status === 'Ù…Ø¯ÙÙˆØ¹' ? '#AC2000' : '#dc3545';
   };
 
   return (
@@ -49,7 +49,7 @@ const Salaries = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      {/* العنوان والبحث */}
+      {/* Ø§Ù„Ø¹Ù†ÙˆØ§Ù† ÙˆØ§Ù„Ø¨Ø­Ø« */}
       <div style={{ marginBottom: '30px' }}>
         <h1 style={{ 
           fontSize: '24px', 
@@ -57,10 +57,10 @@ const Salaries = () => {
           marginBottom: '20px',
           color: 'white'
         }}>
-          المرتبات
+          Ø§Ù„Ù…Ø±ØªØ¨Ø§Øª
         </h1>
 
-        {/* شريط البحث */}
+        {/* Ø´Ø±ÙŠØ· Ø§Ù„Ø¨Ø­Ø« */}
         <div style={{ 
           display: 'flex', 
           gap: '20px', 
@@ -79,7 +79,7 @@ const Salaries = () => {
             }} />
             <input
               type="text"
-              placeholder="بحث سريع عن موظف"
+              placeholder="Ø¨Ø­Ø« Ø³Ø±ÙŠØ¹ Ø¹Ù† Ù…ÙˆØ¸Ù"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{
@@ -111,12 +111,12 @@ const Salaries = () => {
             }}
           >
             <FaPlus />
-            اضافة راتب جديد
+            Ø§Ø¶Ø§ÙØ© Ø±Ø§ØªØ¨ Ø¬Ø¯ÙŠØ¯
           </button>
         </div>
       </div>
 
-      {/* جدول المرتبات */}
+      {/* Ø¬Ø¯ÙˆÙ„ Ø§Ù„Ù…Ø±ØªØ¨Ø§Øª */}
       <div style={{
         backgroundColor: '#202938',
         borderRadius: '12px',
@@ -134,7 +134,7 @@ const Salaries = () => {
             fontWeight: 'bold',
             color: 'white'
           }}>
-            مرتبات الموظفين
+            Ù…Ø±ØªØ¨Ø§Øª Ø§Ù„Ù…ÙˆØ¸ÙÙŠÙ†
           </h3>
         </div>
 
@@ -146,7 +146,7 @@ const Salaries = () => {
             padding: '40px',
             color: 'white'
           }}>
-            <div>جاري التحميل...</div>
+            <div>Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</div>
           </div>
         ) : filteredData && filteredData.length > 0 ? (
           <div style={{ overflowX: 'auto' }}>
@@ -175,7 +175,7 @@ const Salaries = () => {
                     fontSize: '16px',
                     borderBottom: '1px solid #333'
                   }}>
-                    الموظف
+                    Ø§Ù„Ù…ÙˆØ¸Ù
                   </th>
                   <th style={{ 
                     padding: '15px', 
@@ -185,7 +185,7 @@ const Salaries = () => {
                     fontSize: '16px',
                     borderBottom: '1px solid #333'
                   }}>
-                    الراتب الأساسي
+                    Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ
                   </th>
                   <th style={{ 
                     padding: '15px', 
@@ -195,7 +195,7 @@ const Salaries = () => {
                     fontSize: '16px',
                     borderBottom: '1px solid #333'
                   }}>
-                    البدلات
+                    Ø§Ù„Ø¨Ø¯Ù„Ø§Øª
                   </th>
                   <th style={{ 
                     padding: '15px', 
@@ -205,7 +205,7 @@ const Salaries = () => {
                     fontSize: '16px',
                     borderBottom: '1px solid #333'
                   }}>
-                    الخصومات
+                    Ø§Ù„Ø®ØµÙˆÙ…Ø§Øª
                   </th>
                   <th style={{ 
                     padding: '15px', 
@@ -215,7 +215,7 @@ const Salaries = () => {
                     fontSize: '16px',
                     borderBottom: '1px solid #333'
                   }}>
-                    تاريخ السريان
+                    ØªØ§Ø±ÙŠØ® Ø§Ù„Ø³Ø±ÙŠØ§Ù†
                   </th>
                   <th style={{ 
                     padding: '15px', 
@@ -225,7 +225,7 @@ const Salaries = () => {
                     fontSize: '16px',
                     borderBottom: '1px solid #333'
                   }}>
-                    الإجراء
+                    Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡
                   </th>
                 </tr>
               </thead>
@@ -258,7 +258,7 @@ const Salaries = () => {
                       textAlign: 'center',
                       color: 'white'
                     }}>
-                      {parseFloat(salary.base_salary).toLocaleString('ar-EG')} جنيه
+                      {parseFloat(salary.base_salary).toLocaleString('ar-EG')} Ø¬Ù†ÙŠÙ‡
                     </td>
                     <td style={{ 
                       padding: '15px', 
@@ -267,10 +267,10 @@ const Salaries = () => {
                     }}>
                       <div style={{ fontSize: '12px' }}>
                         {salary.allowances?.housing && (
-                          <div>سكن: {salary.allowances.housing.toLocaleString('ar-EG')} جنيه</div>
+                          <div>Ø³ÙƒÙ†: {salary.allowances.housing.toLocaleString('ar-EG')} Ø¬Ù†ÙŠÙ‡</div>
                         )}
                         {salary.allowances?.transportation && (
-                          <div>مواصلات: {salary.allowances.transportation.toLocaleString('ar-EG')} جنيه</div>
+                          <div>Ù…ÙˆØ§ØµÙ„Ø§Øª: {salary.allowances.transportation.toLocaleString('ar-EG')} Ø¬Ù†ÙŠÙ‡</div>
                         )}
                       </div>
                     </td>
@@ -281,7 +281,7 @@ const Salaries = () => {
                     }}>
                       <div style={{ fontSize: '12px' }}>
                         {salary.deductions?.social_insurance && (
-                          <div>تأمين اجتماعي: {salary.deductions.social_insurance.toLocaleString('ar-EG')} جنيه</div>
+                          <div>ØªØ£Ù…ÙŠÙ† Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠ: {salary.deductions.social_insurance.toLocaleString('ar-EG')} Ø¬Ù†ÙŠÙ‡</div>
                         )}
                       </div>
                     </td>
@@ -305,7 +305,7 @@ const Salaries = () => {
                             cursor: 'pointer',
                             fontSize: '14px'
                           }}
-                          title="عرض التفاصيل"
+                          title="Ø¹Ø±Ø¶ Ø§Ù„ØªÙØ§ØµÙŠÙ„"
                         >
                           <FaEye />
                         </button>
@@ -322,11 +322,11 @@ const Salaries = () => {
             padding: '40px',
             color: '#666'
           }}>
-            لا توجد رواتب
+            Ù„Ø§ ØªÙˆØ¬Ø¯ Ø±ÙˆØ§ØªØ¨
           </div>
         )}
 
-        {/* الباجينيشن */}
+        {/* Ø§Ù„Ø¨Ø§Ø¬ÙŠÙ†ÙŠØ´Ù† */}
         {salariesPagination && salariesPagination.last_page > 1 && (
           <div style={{
             padding: '20px',
@@ -337,7 +337,7 @@ const Salaries = () => {
             borderTop: '1px solid #333',
             flexWrap: 'wrap'
           }}>
-            {/* زر السابق */}
+            {/* Ø²Ø± Ø§Ù„Ø³Ø§Ø¨Ù‚ */}
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
@@ -352,10 +352,10 @@ const Salaries = () => {
                 fontSize: '14px'
               }}
             >
-              السابق
+              Ø§Ù„Ø³Ø§Ø¨Ù‚
             </button>
 
-            {/* أرقام الصفحات */}
+            {/* Ø£Ø±Ù‚Ø§Ù… Ø§Ù„ØµÙØ­Ø§Øª */}
             {Array.from({ length: salariesPagination.last_page }, (_, i) => i + 1).map(page => {
               if (page === 1 || page === salariesPagination.last_page || 
                   (page >= currentPage - 1 && page <= currentPage + 1)) {
@@ -388,7 +388,7 @@ const Salaries = () => {
               return null;
             })}
 
-            {/* زر التالي */}
+            {/* Ø²Ø± Ø§Ù„ØªØ§Ù„ÙŠ */}
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === salariesPagination.last_page}
@@ -403,7 +403,7 @@ const Salaries = () => {
                 fontSize: '14px'
               }}
             >
-              التالي
+              Ø§Ù„ØªØ§Ù„ÙŠ
             </button>
           </div>
         )}
@@ -413,3 +413,4 @@ const Salaries = () => {
 };
 
 export default Salaries;
+

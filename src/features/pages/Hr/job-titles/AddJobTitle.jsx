@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPosition, clearError, clearSuccess } from '../../../../redux/Slices/authSlice';
@@ -27,7 +27,7 @@ const AddJobTitle = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name_en || !formData.name_ar || !formData.description_en || !formData.description_ar) {
-      toast.error('جميع الحقول مطلوبة', { rtl: true });
+      toast.error('Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ„ Ù…Ø·Ù„ÙˆØ¨Ø©', { rtl: true });
       return;
     }
     await dispatch(addPosition(formData));
@@ -62,7 +62,7 @@ const AddJobTitle = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      {/* العنوان */}
+      {/* Ø§Ù„Ø¹Ù†ÙˆØ§Ù† */}
       <div style={{ marginBottom: '30px' }}>
         <button
           onClick={() => navigate('/job-titles')}
@@ -79,7 +79,7 @@ const AddJobTitle = () => {
           }}
         >
           <FaArrowLeft />
-          الرجوع
+          Ø§Ù„Ø±Ø¬ÙˆØ¹
         </button>
         
         <h1 style={{ 
@@ -88,11 +88,11 @@ const AddJobTitle = () => {
           color: 'white',
           margin: 0
         }}>
-          إضافة مسمى وظيفي جديد
+          Ø¥Ø¶Ø§ÙØ© Ù…Ø³Ù…Ù‰ ÙˆØ¸ÙŠÙÙŠ Ø¬Ø¯ÙŠØ¯
         </h1>
       </div>
 
-      {/* النموذج */}
+      {/* Ø§Ù„Ù†Ù…ÙˆØ°Ø¬ */}
       <div style={{
         backgroundColor: '#202938',
         borderRadius: '12px',
@@ -101,7 +101,7 @@ const AddJobTitle = () => {
       }}>
         <form onSubmit={handleSubmit}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-            {/* الاسم بالعربية */}
+            {/* Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© */}
             <div>
               <label style={{ 
                 display: 'block', 
@@ -109,14 +109,14 @@ const AddJobTitle = () => {
                 color: 'white',
                 fontWeight: '500'
               }}>
-                الاسم بالعربية
+                Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©
               </label>
               <input
                 type="text"
                 name="name_ar"
                 value={formData.name_ar}
                 onChange={handleInputChange}
-                placeholder="اسم المسمى الوظيفي"
+                placeholder="Ø§Ø³Ù… Ø§Ù„Ù…Ø³Ù…Ù‰ Ø§Ù„ÙˆØ¸ÙŠÙÙŠ"
                 required
                 style={{
                   width: '100%',
@@ -130,7 +130,7 @@ const AddJobTitle = () => {
               />
             </div>
 
-            {/* الاسم بالإنجليزية */}
+            {/* Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ© */}
             <div>
               <label style={{ 
                 display: 'block', 
@@ -138,7 +138,7 @@ const AddJobTitle = () => {
                 color: 'white',
                 fontWeight: '500'
               }}>
-                الاسم بالإنجليزية
+                Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ©
               </label>
               <input
                 type="text"
@@ -159,7 +159,7 @@ const AddJobTitle = () => {
               />
             </div>
 
-            {/* الوصف بالعربية */}
+            {/* Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© */}
             <div>
               <label style={{ 
                 display: 'block', 
@@ -167,13 +167,13 @@ const AddJobTitle = () => {
                 color: 'white',
                 fontWeight: '500'
               }}>
-                الوصف بالعربية
+                Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©
               </label>
               <textarea
                 name="description_ar"
                 value={formData.description_ar}
                 onChange={handleInputChange}
-                placeholder="وصف المسمى الوظيفي"
+                placeholder="ÙˆØµÙ Ø§Ù„Ù…Ø³Ù…Ù‰ Ø§Ù„ÙˆØ¸ÙŠÙÙŠ"
                 required
                 rows={3}
                 style={{
@@ -189,7 +189,7 @@ const AddJobTitle = () => {
               />
             </div>
 
-            {/* الوصف بالإنجليزية */}
+            {/* Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ© */}
             <div>
               <label style={{ 
                 display: 'block', 
@@ -197,7 +197,7 @@ const AddJobTitle = () => {
                 color: 'white',
                 fontWeight: '500'
               }}>
-                الوصف بالإنجليزية
+                Ø§Ù„ÙˆØµÙ Ø¨Ø§Ù„Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠØ©
               </label>
               <textarea
                 name="description_en"
@@ -220,7 +220,7 @@ const AddJobTitle = () => {
             </div>
           </div>
 
-          {/* أزرار الإجراء */}
+          {/* Ø£Ø²Ø±Ø§Ø± Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ */}
           <div style={{ 
             display: 'flex', 
             gap: '15px', 
@@ -245,7 +245,7 @@ const AddJobTitle = () => {
               }}
             >
               <FaPlus />
-              {isLoading ? 'جاري الإضافة...' : 'إضافة'}
+              {isLoading ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø¥Ø¶Ø§ÙØ©...' : 'Ø¥Ø¶Ø§ÙØ©'}
             </button>
             
             <button
@@ -262,7 +262,7 @@ const AddJobTitle = () => {
                 cursor: 'pointer'
               }}
             >
-              الغاء
+              Ø§Ù„ØºØ§Ø¡
             </button>
           </div>
         </form>
@@ -272,3 +272,4 @@ const AddJobTitle = () => {
 };
 
 export default AddJobTitle;
+

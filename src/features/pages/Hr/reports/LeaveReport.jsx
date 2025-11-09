@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLeaveReports, clearError, clearReports } from '../../../../redux/Slices/authSlice';
 import { FaCalendarAlt, FaFileExcel } from 'react-icons/fa';
@@ -27,7 +27,7 @@ const LeaveReport = () => {
 
   const handleGenerateReport = async () => {
     if (!leaveDates.start_date || !leaveDates.end_date) {
-      toast.error('يرجى اختيار تاريخ البداية والنهاية', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø¯Ø§ÙŠØ© ÙˆØ§Ù„Ù†Ù‡Ø§ÙŠØ©', { rtl: true });
       return;
     }
     await dispatch(getLeaveReports(leaveDates));
@@ -35,25 +35,25 @@ const LeaveReport = () => {
 
   const handleExportToExcel = () => {
     if (!leaveReports || !leaveReports.data || leaveReports.data.length === 0) {
-      toast.error('لا توجد بيانات للتصدير', { rtl: true });
+      toast.error('Ù„Ø§ ØªÙˆØ¬Ø¯ Ø¨ÙŠØ§Ù†Ø§Øª Ù„Ù„ØªØµØ¯ÙŠØ±', { rtl: true });
       return;
     }
 
     const data = leaveReports.data.map((item, index) => ({
-      'المسلسل': index + 1,
-      'الموظف': item.employee_name || 'غير متوفر',
-      'القسم': item.department || 'غير متوفر',
-      'نوع الإجازة': item.leave_type || 'غير متوفر',
-      'تاريخ البداية': item.start_date || 'غير متوفر',
-      'تاريخ النهاية': item.end_date || 'غير متوفر',
-      'الحالة': item.status === 'approved' ? 'موافق عليه' : item.status === 'rejected' ? 'مرفوض' : item.status === 'pending' ? 'قيد الانتظار' : item.status || 'غير معروف'
+      'Ø§Ù„Ù…Ø³Ù„Ø³Ù„': index + 1,
+      'Ø§Ù„Ù…ÙˆØ¸Ù': item.employee_name || 'ØºÙŠØ± Ù…ØªÙˆÙØ±',
+      'Ø§Ù„Ù‚Ø³Ù…': item.department || 'ØºÙŠØ± Ù…ØªÙˆÙØ±',
+      'Ù†ÙˆØ¹ Ø§Ù„Ø¥Ø¬Ø§Ø²Ø©': item.leave_type || 'ØºÙŠØ± Ù…ØªÙˆÙØ±',
+      'ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø¯Ø§ÙŠØ©': item.start_date || 'ØºÙŠØ± Ù…ØªÙˆÙØ±',
+      'ØªØ§Ø±ÙŠØ® Ø§Ù„Ù†Ù‡Ø§ÙŠØ©': item.end_date || 'ØºÙŠØ± Ù…ØªÙˆÙØ±',
+      'Ø§Ù„Ø­Ø§Ù„Ø©': item.status === 'approved' ? 'Ù…ÙˆØ§ÙÙ‚ Ø¹Ù„ÙŠÙ‡' : item.status === 'rejected' ? 'Ù…Ø±ÙÙˆØ¶' : item.status === 'pending' ? 'Ù‚ÙŠØ¯ Ø§Ù„Ø§Ù†ØªØ¸Ø§Ø±' : item.status || 'ØºÙŠØ± Ù…Ø¹Ø±ÙˆÙ'
     }));
 
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'طلبات الإجازة');
-    XLSX.writeFile(wb, `تقرير_طلبات_الاجازة_${leaveDates.start_date}_${leaveDates.end_date}.xlsx`);
-    toast.success('تم تصدير الملف بنجاح', { rtl: true });
+    XLSX.utils.book_append_sheet(wb, ws, 'Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø¥Ø¬Ø§Ø²Ø©');
+    XLSX.writeFile(wb, `ØªÙ‚Ø±ÙŠØ±_Ø·Ù„Ø¨Ø§Øª_Ø§Ù„Ø§Ø¬Ø§Ø²Ø©_${leaveDates.start_date}_${leaveDates.end_date}.xlsx`);
+    toast.success('ØªÙ… ØªØµØ¯ÙŠØ± Ø§Ù„Ù…Ù„Ù Ø¨Ù†Ø¬Ø§Ø­', { rtl: true });
   };
 
   return (
@@ -63,7 +63,7 @@ const LeaveReport = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      {/* العنوان */}
+      {/* Ø§Ù„Ø¹Ù†ÙˆØ§Ù† */}
       <div style={{ marginBottom: '30px' }}>
         <h1 style={{ 
           fontSize: '24px', 
@@ -71,11 +71,11 @@ const LeaveReport = () => {
           color: 'white',
           marginBottom: '20px'
         }}>
-          تقرير طلبات الإجازة
+          ØªÙ‚Ø±ÙŠØ± Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø¥Ø¬Ø§Ø²Ø©
         </h1>
       </div>
 
-      {/* اختيار التاريخ */}
+      {/* Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„ØªØ§Ø±ÙŠØ® */}
       <div style={{
         backgroundColor: '#202938',
         borderRadius: '12px',
@@ -92,7 +92,7 @@ const LeaveReport = () => {
               fontSize: '14px',
               fontWeight: '500'
             }}>
-              تاريخ البداية
+              ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø¯Ø§ÙŠØ©
             </label>
             <input
               type="date"
@@ -117,7 +117,7 @@ const LeaveReport = () => {
               fontSize: '14px',
               fontWeight: '500'
             }}>
-              تاريخ النهاية
+              ØªØ§Ø±ÙŠØ® Ø§Ù„Ù†Ù‡Ø§ÙŠØ©
             </label>
             <input
               type="date"
@@ -155,7 +155,7 @@ const LeaveReport = () => {
             }}
           >
             <FaCalendarAlt />
-            {isLoading ? 'جاري التوليد...' : 'عرض التقرير'}
+            {isLoading ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªÙˆÙ„ÙŠØ¯...' : 'Ø¹Ø±Ø¶ Ø§Ù„ØªÙ‚Ø±ÙŠØ±'}
           </button>
           {leaveReports && leaveReports.data && leaveReports.data.length > 0 && (
             <button
@@ -175,13 +175,13 @@ const LeaveReport = () => {
               }}
             >
               <FaFileExcel />
-              تصدير Excel
+              ØªØµØ¯ÙŠØ± Excel
             </button>
           )}
         </div>
       </div>
 
-      {/* عرض النتائج */}
+      {/* Ø¹Ø±Ø¶ Ø§Ù„Ù†ØªØ§Ø¦Ø¬ */}
       {leaveReports && leaveReports.data && leaveReports.data.length > 0 ? (
         <div style={{
           backgroundColor: '#202938',
@@ -194,26 +194,26 @@ const LeaveReport = () => {
               <thead>
                 <tr style={{ borderBottom: '2px solid #ec4899' }}>
                   <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '60px' }}>#</th>
-                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '150px' }}>الموظف</th>
-                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '200px' }}>القسم</th>
-                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '150px' }}>نوع الإجازة</th>
-                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '140px' }}>تاريخ البداية</th>
-                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '140px' }}>تاريخ النهاية</th>
-                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '140px' }}>الحالة</th>
+                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '150px' }}>Ø§Ù„Ù…ÙˆØ¸Ù</th>
+                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '200px' }}>Ø§Ù„Ù‚Ø³Ù…</th>
+                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '150px' }}>Ù†ÙˆØ¹ Ø§Ù„Ø¥Ø¬Ø§Ø²Ø©</th>
+                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '140px' }}>ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø¯Ø§ÙŠØ©</th>
+                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '140px' }}>ØªØ§Ø±ÙŠØ® Ø§Ù„Ù†Ù‡Ø§ÙŠØ©</th>
+                  <th style={{ padding: '16px 20px', textAlign: 'center', color: 'white', fontWeight: 'bold', minWidth: '140px' }}>Ø§Ù„Ø­Ø§Ù„Ø©</th>
                 </tr>
               </thead>
               <tbody>
                 {leaveReports.data.map((item, index) => (
                   <tr key={item.leave_request_id || index} style={{ borderBottom: '1px solid #333' }}>
                     <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>{index + 1}</td>
-                    <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>{item.employee_name || 'غير متوفر'}</td>
-                    <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white', whiteSpace: 'normal', lineHeight: '1.5' }}>{item.department || 'غير متوفر'}</td>
-                    <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>{item.leave_type || 'غير متوفر'}</td>
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>{item.employee_name || 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}</td>
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white', whiteSpace: 'normal', lineHeight: '1.5' }}>{item.department || 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}</td>
+                    <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>{item.leave_type || 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}</td>
                     <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>
-                      {item.start_date ? new Date(item.start_date).toLocaleDateString('ar-EG') : 'غير متوفر'}
+                      {item.start_date ? new Date(item.start_date).toLocaleDateString('ar-EG') : 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}
                     </td>
                     <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>
-                      {item.end_date ? new Date(item.end_date).toLocaleDateString('ar-EG') : 'غير متوفر'}
+                      {item.end_date ? new Date(item.end_date).toLocaleDateString('ar-EG') : 'ØºÙŠØ± Ù…ØªÙˆÙØ±'}
                     </td>
                     <td style={{ padding: '16px 20px', textAlign: 'center', color: 'white' }}>
                       <span style={{
@@ -226,7 +226,7 @@ const LeaveReport = () => {
                         display: 'inline-block',
                         whiteSpace: 'nowrap'
                       }}>
-                        {item.status === 'approved' ? 'موافق عليه' : item.status === 'rejected' ? 'مرفوض' : item.status === 'pending' ? 'قيد الانتظار' : item.status || 'غير معروف'}
+                        {item.status === 'approved' ? 'Ù…ÙˆØ§ÙÙ‚ Ø¹Ù„ÙŠÙ‡' : item.status === 'rejected' ? 'Ù…Ø±ÙÙˆØ¶' : item.status === 'pending' ? 'Ù‚ÙŠØ¯ Ø§Ù„Ø§Ù†ØªØ¸Ø§Ø±' : item.status || 'ØºÙŠØ± Ù…Ø¹Ø±ÙˆÙ'}
                       </span>
                     </td>
                   </tr>
@@ -248,7 +248,7 @@ const LeaveReport = () => {
             color: '#888',
             fontWeight: '500'
           }}>
-            لا توجد بيانات
+            Ù„Ø§ ØªÙˆØ¬Ø¯ Ø¨ÙŠØ§Ù†Ø§Øª
           </div>
         </div>
       ) : null}
@@ -257,4 +257,5 @@ const LeaveReport = () => {
 };
 
 export default LeaveReport;
+
 

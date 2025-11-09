@@ -1,10 +1,43 @@
-import React, { useEffect, useState, useRef } from 'react';
+﻿import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FaPaperclip, FaTimes, FaTrash } from 'react-icons/fa';
 import { getJournalEntryDetails, updateJournalEntry, getPostingAccounts, clearError, clearSuccess, clearJournalEntryDetails } from '../../../../redux/Slices/authSlice';
 import { toast } from 'react-toastify';
+import i18n from '../../../../i18n/i18n';
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
+const getSessionToken = () => {
+  const storedUser = sessionStorage.getItem('useralbaraqawy');
+  if (!storedUser) return null;
+  try {
+    const parsed = JSON.parse(storedUser);
+    if (parsed.token) return parsed.token;
+    if (parsed.data?.token) return parsed.data.token;
+    if (parsed.result?.token) return parsed.result.token;
+    if (parsed.user?.token) return parsed.user.token;
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+const normalizeIdValue = (value) => {
+  if (value == null) return null;
+  if (typeof value === 'number') return value;
+  const str = String(value).trim();
+  if (!str) return null;
+  const parts = str.split('/');
+  const lastPart = parts[parts.length - 1];
+  if (!lastPart) return null;
+  const digitsMatch = lastPart.match(/\d+/);
+  if (digitsMatch) {
+    return digitsMatch[0];
+  }
+  return lastPart;
+};
 
 const EditJournalEntry = () => {
   const dispatch = useDispatch();
@@ -20,12 +53,21 @@ const EditJournalEntry = () => {
   const [existingAttachments, setExistingAttachments] = useState([]);
   const [windowWidth, setWindowWidth] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1200));
   const [deletingAttachmentId, setDeletingAttachmentId] = useState(null);
+  const [attachmentPendingDeletion, setAttachmentPendingDeletion] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(getPostingAccounts());
     dispatch(getJournalEntryDetails(id));
     return () => { dispatch(clearJournalEntryDetails()); };
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (journalEntryDetails && journalEntryDetails.status === 'posted') {
+      toast.error('لا يمكن تعديل القيد المرحل', { rtl: true });
+      navigate(`/journal-entries/view/${id}`);
+    }
+  }, [journalEntryDetails, navigate, id]);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(typeof window !== 'undefined' ? window.innerWidth : 1200);
@@ -40,7 +82,7 @@ const EditJournalEntry = () => {
   }, []);
 
   useEffect(() => {
-    if (journalEntryDetails) {
+    if (journalEntryDetails && journalEntryDetails.status !== 'posted') {
       setForm({
         entry_date: journalEntryDetails.entry_date || '',
         description: journalEntryDetails.description || '',
@@ -125,28 +167,66 @@ const EditJournalEntry = () => {
     };
   }, [attachments]);
 
-  const handleDeleteExistingAttachment = async (attachmentId) => {
-    if (!attachmentId) return;
-    const confirmDelete = window.confirm('هل أنت متأكد من حذف هذا المرفق؟');
-    if (!confirmDelete) return;
+  const resolveAttachmentId = (attachment) => {
+    if (!attachment) return null;
+    const immediateId = normalizeIdValue(attachment.id ?? attachment.attachment_id ?? attachment?.id);
+    if (immediateId != null) {
+      return immediateId;
+    }
+    const nestedPrompt = normalizeIdValue(attachment?.pivot?.attachment_id ?? attachment?.pivot?.id);
+    if (nestedPrompt != null) {
+      return nestedPrompt;
+    }
+    const rawId = normalizeIdValue(attachment?.pivot?.attachment?.id ?? attachment?.attachment?.id ?? attachment?.file_url ?? attachment?.url ?? attachment?.path);
+    return rawId;
+  };
 
-    const token = localStorage.getItem('token');
+  const openDeleteAttachmentModal = (attachment) => {
+    const id = resolveAttachmentId(attachment);
+    if (!id) {
+      toast.error('لا يمكن تحديد المرفق المطلوب حذفه', { rtl: true });
+      return;
+    }
+    const name = attachment?.file_name || attachment?.name || attachment?.original_name || attachment?.filename || `مرفق-${id}`;
+    setAttachmentPendingDeletion({ id, name });
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteAttachmentModal = (force = false) => {
+    if (deletingAttachmentId && !force) return; // prevent closing during delete unless forced
+    setIsDeleteModalOpen(false);
+    setAttachmentPendingDeletion(null);
+  };
+
+  const handleDeleteExistingAttachment = async () => {
+    if (!attachmentPendingDeletion) return;
+    if (!BASE_URL) {
+      toast.error('لم يتم ضبط مسار الخادم', { rtl: true });
+      return;
+    }
+
+    const attachmentId = attachmentPendingDeletion.id;
+    const token = getSessionToken();
     if (!token) {
-      toast.error('غير مصرح لك بحذف المرفق');
+      toast.error('غير مصرح لك بحذف المرفق', { rtl: true });
       return;
     }
 
     try {
       setDeletingAttachmentId(attachmentId);
-      const currentLang = localStorage.getItem('i18nextLng') || 'ar';
-      await axios.delete(`${process.env.REACT_APP_BASE_URL}/attachments/${attachmentId}`, {
+      const currentLang = i18n.language || 'ar';
+      await axios.delete(`${BASE_URL}/attachments/${attachmentId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Accept-Language': currentLang
         }
       });
-      setExistingAttachments((prev) => prev.filter((attachment) => String(attachment.id) !== String(attachmentId)));
+      setExistingAttachments((prev) => prev.filter((attachment) => {
+        const resolvedId = resolveAttachmentId(attachment);
+        return String(resolvedId) !== String(attachmentId);
+      }));
       toast.success('تم حذف المرفق بنجاح', { rtl: true });
+      closeDeleteAttachmentModal(true);
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'فشل حذف المرفق';
       toast.error(errorMessage, { rtl: true });
@@ -496,12 +576,13 @@ const EditJournalEntry = () => {
               }}
             >
               {existingAttachments.map((attachment) => {
-                const name = attachment?.file_name || attachment?.name || attachment?.original_name || attachment?.filename || `مرفق-${attachment?.id ?? ''}`;
+                const fallbackName = attachment?.file_name || attachment?.name || attachment?.original_name || attachment?.filename;
                 const url = attachment?.file_url || attachment?.url || attachment?.media_url || attachment?.path || attachment?.full_url || attachment?.link || '';
-                const id = attachment?.id;
+                const id = resolveAttachmentId(attachment);
+                const attachmentName = fallbackName || `مرفق-${id ?? ''}`;
                 return (
                   <div
-                    key={`existing-${id || name}`}
+                    key={`existing-${id || attachmentName}`}
                     style={{
                       position: 'relative',
                       backgroundColor: '#1a1f2e',
@@ -517,8 +598,8 @@ const EditJournalEntry = () => {
                   >
                     <button
                       type="button"
-                      onClick={() => handleDeleteExistingAttachment(id)}
-                      disabled={deletingAttachmentId === id}
+                        onClick={() => openDeleteAttachmentModal({ ...attachment, name: attachmentName })}
+                        disabled={deletingAttachmentId && String(deletingAttachmentId) === String(id)}
                       style={{
                         position: 'absolute',
                         top: '6px',
@@ -560,7 +641,7 @@ const EditJournalEntry = () => {
                       }}
                     >
                       <FaPaperclip style={{ fontSize: '24px', color: '#AC2000' }} />
-                      <span style={{ fontSize: '12px', textAlign: 'center', wordBreak: 'break-word' }}>{name}</span>
+                      <span style={{ fontSize: '12px', textAlign: 'center', wordBreak: 'break-word' }}>{attachmentName}</span>
                       {attachment?.size && (
                         <span style={{ fontSize: '10px', color: '#999' }}>
                           {(Number(attachment.size) / 1024).toFixed(2)} KB
@@ -675,6 +756,83 @@ const EditJournalEntry = () => {
             </div>
           )}
         </div>
+
+        {isDeleteModalOpen && attachmentPendingDeletion && (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 2000
+            }}
+            onClick={(e) => {
+              if (!deletingAttachmentId && e.target === e.currentTarget) {
+                closeDeleteAttachmentModal();
+              }
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: '#202938',
+                border: '1px solid #333',
+                borderRadius: '12px',
+                padding: '24px',
+                width: '90%',
+                maxWidth: '420px',
+                color: 'white',
+                textAlign: 'center'
+              }}
+            >
+              <h3 style={{ marginBottom: '12px', fontSize: '18px' }}>تأكيد حذف المرفق</h3>
+              <p style={{ marginBottom: '20px', lineHeight: 1.6, wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
+                هل أنت متأكد من حذف المرفق
+                {' '}
+                <span style={{ color: '#AC2000', fontWeight: 'bold' }}>{attachmentPendingDeletion.name}</span>
+                ؟ لا يمكن التراجع عن هذه العملية.
+              </p>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '12px' }}>
+                <button
+                  type="button"
+                  onClick={handleDeleteExistingAttachment}
+                  disabled={Boolean(deletingAttachmentId)}
+                  style={{
+                    backgroundColor: '#dc3545',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    padding: '10px 18px',
+                    cursor: deletingAttachmentId ? 'not-allowed' : 'pointer',
+                    opacity: deletingAttachmentId ? 0.7 : 1,
+                    fontWeight: 'bold'
+                  }}
+                >
+                  {deletingAttachmentId ? 'جاري الحذف...' : 'حذف'}
+                </button>
+                <button
+                  type="button"
+                  onClick={closeDeleteAttachmentModal}
+                  disabled={Boolean(deletingAttachmentId)}
+                  style={{
+                    backgroundColor: '#666',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    padding: '10px 18px',
+                    cursor: deletingAttachmentId ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  إلغاء
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div style={{ marginTop: '24px', display: 'flex', gap: '12px', justifyContent: 'center' }}>
           <button type="button" onClick={() => navigate('/journal-entries')} style={{ background: '#666', color: 'white', border: 'none', borderRadius: 8, padding: '10px 16px', cursor: 'pointer' }}>إلغاء</button>

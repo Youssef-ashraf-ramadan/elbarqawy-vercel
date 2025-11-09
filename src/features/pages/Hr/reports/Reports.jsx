@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLeaveReports, getAttendanceReports, getPayrollReports, clearError } from '../../../../redux/Slices/authSlice';
 import { FaSearch, FaCalendarAlt, FaClipboardList, FaFileInvoice } from 'react-icons/fa';
@@ -22,7 +22,7 @@ const Reports = () => {
 
   const handleLeaveReport = async () => {
     if (!leaveDates.start_date || !leaveDates.end_date) {
-      toast.error('يرجى اختيار تاريخ البداية والنهاية', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø¯Ø§ÙŠØ© ÙˆØ§Ù„Ù†Ù‡Ø§ÙŠØ©', { rtl: true });
       return;
     }
     await dispatch(getLeaveReports(leaveDates));
@@ -31,7 +31,7 @@ const Reports = () => {
 
   const handleAttendanceReport = async () => {
     if (!attendanceDate) {
-      toast.error('يرجى اختيار السنة والشهر', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ø³Ù†Ø© ÙˆØ§Ù„Ø´Ù‡Ø±', { rtl: true });
       return;
     }
     const [year, month] = attendanceDate.split('-');
@@ -41,7 +41,7 @@ const Reports = () => {
 
   const handlePayrollReport = async () => {
     if (!payrollDate) {
-      toast.error('يرجى اختيار السنة والشهر', { rtl: true });
+      toast.error('ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ø³Ù†Ø© ÙˆØ§Ù„Ø´Ù‡Ø±', { rtl: true });
       return;
     }
     const [year, month] = payrollDate.split('-');
@@ -56,7 +56,7 @@ const Reports = () => {
       minHeight: 'calc(100vh - 80px)',
       color: 'white'
     }}>
-      {/* العنوان */}
+      {/* Ø§Ù„Ø¹Ù†ÙˆØ§Ù† */}
       <div style={{ marginBottom: '30px' }}>
         <h1 style={{ 
           fontSize: '24px', 
@@ -64,13 +64,13 @@ const Reports = () => {
           color: 'white',
           marginBottom: '20px'
         }}>
-          التقارير
+          Ø§Ù„ØªÙ‚Ø§Ø±ÙŠØ±
         </h1>
       </div>
 
-      {/* التقارير */}
+      {/* Ø§Ù„ØªÙ‚Ø§Ø±ÙŠØ± */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-        {/* تقرير طلبات الإجازة */}
+        {/* ØªÙ‚Ø±ÙŠØ± Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø¥Ø¬Ø§Ø²Ø© */}
         <div style={{
           backgroundColor: '#202938',
           borderRadius: '12px',
@@ -103,11 +103,11 @@ const Reports = () => {
                 color: 'white',
                 margin: 0
               }}>
-                تقرير طلبات الإجازة
+                ØªÙ‚Ø±ÙŠØ± Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø¥Ø¬Ø§Ø²Ø©
               </h2>
             </div>
             <p style={{ color: '#ccc', fontSize: '14px', margin: 0 }}>
-              تقرير شامل عن طلبات الإجازات في فترة محددة
+              ØªÙ‚Ø±ÙŠØ± Ø´Ø§Ù…Ù„ Ø¹Ù† Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø¥Ø¬Ø§Ø²Ø§Øª ÙÙŠ ÙØªØ±Ø© Ù…Ø­Ø¯Ø¯Ø©
             </p>
           </div>
 
@@ -119,7 +119,7 @@ const Reports = () => {
               fontSize: '14px',
               fontWeight: '500'
             }}>
-              تاريخ البداية
+              ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø¯Ø§ÙŠØ©
             </label>
             <input
               type="date"
@@ -143,7 +143,7 @@ const Reports = () => {
               fontSize: '14px',
               fontWeight: '500'
             }}>
-              تاريخ النهاية
+              ØªØ§Ø±ÙŠØ® Ø§Ù„Ù†Ù‡Ø§ÙŠØ©
             </label>
             <input
               type="date"
@@ -177,11 +177,11 @@ const Reports = () => {
               opacity: isLoading ? 0.6 : 1
             }}
           >
-            {isLoading ? 'جاري التوليد...' : 'عرض التقرير'}
+            {isLoading ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªÙˆÙ„ÙŠØ¯...' : 'Ø¹Ø±Ø¶ Ø§Ù„ØªÙ‚Ø±ÙŠØ±'}
           </button>
         </div>
 
-        {/* تقرير الحضور والانصراف */}
+        {/* ØªÙ‚Ø±ÙŠØ± Ø§Ù„Ø­Ø¶ÙˆØ± ÙˆØ§Ù„Ø§Ù†ØµØ±Ø§Ù */}
         <div style={{
           backgroundColor: '#202938',
           borderRadius: '12px',
@@ -214,11 +214,11 @@ const Reports = () => {
                 color: 'white',
                 margin: 0
               }}>
-                تقرير الحضور والانصراف
+                ØªÙ‚Ø±ÙŠØ± Ø§Ù„Ø­Ø¶ÙˆØ± ÙˆØ§Ù„Ø§Ù†ØµØ±Ø§Ù
               </h2>
             </div>
             <p style={{ color: '#ccc', fontSize: '14px', margin: 0 }}>
-              تقرير تفصيلي عن الحضور والغياب لشهر محدد
+              ØªÙ‚Ø±ÙŠØ± ØªÙØµÙŠÙ„ÙŠ Ø¹Ù† Ø§Ù„Ø­Ø¶ÙˆØ± ÙˆØ§Ù„ØºÙŠØ§Ø¨ Ù„Ø´Ù‡Ø± Ù…Ø­Ø¯Ø¯
             </p>
           </div>
 
@@ -230,7 +230,7 @@ const Reports = () => {
               fontSize: '14px',
               fontWeight: '500'
             }}>
-              السنة والشهر
+              Ø§Ù„Ø³Ù†Ø© ÙˆØ§Ù„Ø´Ù‡Ø±
             </label>
             <input
               type="month"
@@ -265,11 +265,11 @@ const Reports = () => {
               opacity: isLoading ? 0.6 : 1
             }}
           >
-            {isLoading ? 'جاري التوليد...' : 'عرض التقرير'}
+            {isLoading ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªÙˆÙ„ÙŠØ¯...' : 'Ø¹Ø±Ø¶ Ø§Ù„ØªÙ‚Ø±ÙŠØ±'}
           </button>
         </div>
 
-        {/* تقرير كشف الراتب */}
+        {/* ØªÙ‚Ø±ÙŠØ± ÙƒØ´Ù Ø§Ù„Ø±Ø§ØªØ¨ */}
         <div style={{
           backgroundColor: '#202938',
           borderRadius: '12px',
@@ -302,11 +302,11 @@ const Reports = () => {
                 color: 'white',
                 margin: 0
               }}>
-                تقرير كشف الراتب
+                ØªÙ‚Ø±ÙŠØ± ÙƒØ´Ù Ø§Ù„Ø±Ø§ØªØ¨
               </h2>
             </div>
             <p style={{ color: '#ccc', fontSize: '14px', margin: 0 }}>
-              تقرير شامل عن كشوف الرواتب لشهر محدد
+              ØªÙ‚Ø±ÙŠØ± Ø´Ø§Ù…Ù„ Ø¹Ù† ÙƒØ´ÙˆÙ Ø§Ù„Ø±ÙˆØ§ØªØ¨ Ù„Ø´Ù‡Ø± Ù…Ø­Ø¯Ø¯
             </p>
           </div>
 
@@ -318,7 +318,7 @@ const Reports = () => {
               fontSize: '14px',
               fontWeight: '500'
             }}>
-              السنة والشهر
+              Ø§Ù„Ø³Ù†Ø© ÙˆØ§Ù„Ø´Ù‡Ø±
             </label>
             <input
               type="month"
@@ -353,12 +353,12 @@ const Reports = () => {
               opacity: isLoading ? 0.6 : 1
             }}
           >
-            {isLoading ? 'جاري التوليد...' : 'عرض التقرير'}
+            {isLoading ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªÙˆÙ„ÙŠØ¯...' : 'Ø¹Ø±Ø¶ Ø§Ù„ØªÙ‚Ø±ÙŠØ±'}
           </button>
         </div>
       </div>
 
-      {/* عرض النتائج */}
+      {/* Ø¹Ø±Ø¶ Ø§Ù„Ù†ØªØ§Ø¦Ø¬ */}
       {selectedReport && (
         <div style={{
           marginTop: '30px',
@@ -373,7 +373,7 @@ const Reports = () => {
             color: 'white',
             marginBottom: '20px'
           }}>
-            نتائج التقرير
+            Ù†ØªØ§Ø¦Ø¬ Ø§Ù„ØªÙ‚Ø±ÙŠØ±
           </h3>
           
           {selectedReport === 'leave' && leaveReports && (
@@ -429,13 +429,13 @@ const Reports = () => {
                   <thead>
                     <tr style={{ borderBottom: '2px solid #AC2000' }}>
                       <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>#</th>
-                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>الموظف</th>
-                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>القسم</th>
-                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>الراتب الأساسي</th>
-                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>البدلات</th>
-                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>الخصومات</th>
-                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>صافي الراتب</th>
-                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>الحالة</th>
+                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>Ø§Ù„Ù…ÙˆØ¸Ù</th>
+                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>Ø§Ù„Ù‚Ø³Ù…</th>
+                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ</th>
+                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>Ø§Ù„Ø¨Ø¯Ù„Ø§Øª</th>
+                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>Ø§Ù„Ø®ØµÙˆÙ…Ø§Øª</th>
+                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>ØµØ§ÙÙŠ Ø§Ù„Ø±Ø§ØªØ¨</th>
+                      <th style={{ padding: '12px', textAlign: 'center', color: 'white', fontWeight: 'bold' }}>Ø§Ù„Ø­Ø§Ù„Ø©</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -445,16 +445,16 @@ const Reports = () => {
                         <td style={{ padding: '12px', textAlign: 'center', color: 'white' }}>{item.employee_name}</td>
                         <td style={{ padding: '12px', textAlign: 'center', color: 'white' }}>{item.department}</td>
                         <td style={{ padding: '12px', textAlign: 'center', color: 'white' }}>
-                          {parseFloat(item.base_salary).toLocaleString('ar-EG')} جنيه
+                          {parseFloat(item.base_salary).toLocaleString('ar-EG')} Ø¬Ù†ÙŠÙ‡
                         </td>
                         <td style={{ padding: '12px', textAlign: 'center', color: '#AC2000' }}>
-                          {parseFloat(item.total_allowances).toLocaleString('ar-EG')} جنيه
+                          {parseFloat(item.total_allowances).toLocaleString('ar-EG')} Ø¬Ù†ÙŠÙ‡
                         </td>
                         <td style={{ padding: '12px', textAlign: 'center', color: '#dc3545' }}>
-                          {parseFloat(item.total_deductions).toLocaleString('ar-EG')} جنيه
+                          {parseFloat(item.total_deductions).toLocaleString('ar-EG')} Ø¬Ù†ÙŠÙ‡
                         </td>
                         <td style={{ padding: '12px', textAlign: 'center', color: '#AC2000', fontWeight: 'bold' }}>
-                          {parseFloat(item.net_salary).toLocaleString('ar-EG')} جنيه
+                          {parseFloat(item.net_salary).toLocaleString('ar-EG')} Ø¬Ù†ÙŠÙ‡
                         </td>
                         <td style={{ padding: '12px', textAlign: 'center', color: 'white' }}>
                           <span style={{
@@ -465,7 +465,7 @@ const Reports = () => {
                             fontSize: '12px',
                             fontWeight: 'bold'
                           }}>
-                            {item.status === 'generated' ? 'تم التوليد' : item.status || 'غير معروف'}
+                            {item.status === 'generated' ? 'ØªÙ… Ø§Ù„ØªÙˆÙ„ÙŠØ¯' : item.status || 'ØºÙŠØ± Ù…Ø¹Ø±ÙˆÙ'}
                           </span>
                         </td>
                       </tr>
@@ -482,4 +482,5 @@ const Reports = () => {
 };
 
 export default Reports;
+
 

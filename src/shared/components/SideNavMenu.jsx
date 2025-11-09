@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { FaHome, FaShieldAlt, FaUsers, FaBook, FaGraduationCap, FaSchool, FaLanguage, FaBuilding, FaLayerGroup, FaDoorOpen, FaChartLine, FaUserGraduate, FaBox, FaChalkboardTeacher, FaLock, FaUserTie, FaClock, FaMoneyBillWave, FaCalendarAlt, FaCogs, FaChartBar, FaKey, FaCog, FaChevronDown, FaCalculator, FaCashRegister, FaWarehouse, FaTruck, FaPhone, FaCalendarCheck, FaHandHoldingUsd, FaGift, FaMinus, FaLightbulb, FaFileInvoice, FaClipboard, FaProjectDiagram, FaBookOpen, FaExchangeAlt, FaStore, FaLink, FaUniversity, FaBoxOpen } from "react-icons/fa";
+import { FaHome, FaShieldAlt, FaUsers, FaBook, FaGraduationCap, FaSchool, FaLanguage, FaBuilding, FaLayerGroup, FaDoorOpen, FaChartLine, FaUserGraduate, FaBox, FaChalkboardTeacher, FaLock, FaUserTie, FaClock, FaMoneyBillWave, FaCalendarAlt, FaCogs, FaChartBar, FaKey, FaCog, FaChevronDown, FaCalculator, FaCashRegister, FaWarehouse, FaTruck, FaPhone, FaCalendarCheck, FaHandHoldingUsd, FaGift, FaMinus, FaLightbulb, FaFileInvoice, FaClipboard, FaProjectDiagram, FaBookOpen, FaExchangeAlt, FaStore, FaLink, FaUniversity, FaBoxOpen, FaBalanceScale, FaListAlt } from "react-icons/fa";
 import './SideNavMenu.css';
 
 const SideNavMenu = ({ handleLinkClick }) => {
@@ -681,6 +681,30 @@ const SideNavMenu = ({ handleLinkClick }) => {
           <span style={{ marginRight: "0.25rem", color: "white" }}>القيود اليومية</span>
         </Link>
       </li>
+      <li className={location.pathname.startsWith("/receipt-vouchers") ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaHandHoldingUsd style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/receipt-vouchers" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>إيصال استلام نقدية</span>
+        </Link>
+      </li>
+      <li className={location.pathname.startsWith("/payment-vouchers") ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaCashRegister style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/payment-vouchers" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>سندات الصرف</span>
+        </Link>
+      </li>
+      <li className={location.pathname.startsWith('/financial-periods') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaCalendarAlt style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/financial-periods" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>الفترات المالية</span>
+        </Link>
+      </li>
 
       {/* مراكز التكلفة */}
       <li className={location.pathname.startsWith('/cost-centers') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
@@ -759,6 +783,24 @@ const SideNavMenu = ({ handleLinkClick }) => {
         </div>
         <Link to="/account-links" onClick={handleLinkClick}>
           <span style={{ marginRight: "0.25rem", color: "white" }}>ربط الحسابات</span>
+        </Link>
+      </li>
+      {/* ميزان المراجعة */}
+      <li className={location.pathname.startsWith('/trial-balance') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaBalanceScale style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/trial-balance" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>ميزان المراجعة</span>
+        </Link>
+      </li>
+      {/* كشف الحساب */}
+      <li className={location.pathname.startsWith('/account-statement') ? 'active' : ''} style={{ marginBottom: "0.25rem", position: 'relative', display: 'flex', zIndex: -1 }}>
+        <div className="icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "25px", height: "25px" }}>
+          <FaListAlt style={{ fontSize: "20px", color: "white" }} />
+        </div>
+        <Link to="/account-statement" onClick={handleLinkClick}>
+          <span style={{ marginRight: "0.25rem", color: "white" }}>كشف الحساب</span>
         </Link>
       </li>
     </ul>
